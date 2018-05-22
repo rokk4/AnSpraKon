@@ -22,6 +22,10 @@ This is another example method of processor.
     :return: the processed img
     """
     grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # convert to grayscale
+
+    if img.any() == None:
+     raise Exception("could not load image !")
+
     rotated = cv2.rotate(grey,cv2.ROTATE_180) # rotate by 180 degree
     print(rotated.shape)
 
@@ -33,7 +37,6 @@ This is another example method of processor.
 
 
     processed_image = thresh1
-    cv2.imshow('processd', processed_image)
-    cv2.waitKey(10)
+
 
     return processed_image
