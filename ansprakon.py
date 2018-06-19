@@ -20,6 +20,9 @@ volume = 0
 rate = 0  # speed of the reading
 pitch = 0
 cam = cv2.VideoCapture(video_src)
+
+test_mode = False
+
 def grab_image(src=0):
     """
 Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture Device.
@@ -27,7 +30,12 @@ Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture 
     :return: The frame which was read as cv2 MAT format.
     """
   # create Caputure-Object
-    retval, img = cam.read()
+    global test_mode
+
+    if not test_mode:
+        retval, img = cam.read()
+    elif test_mode:
+        img = cv2.imread("./testaa.png")
 
     return img
 
