@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac6de713-a8bd-4c6b-9f28-e216e054b276" name="Default" comment="" />
+    <list default="true" id="ac6de713-a8bd-4c6b-9f28-e216e054b276" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/feat_detector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image_preprocessor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/result_processor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roi_cutter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ansprakon-v2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ansprakon-v2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansprakon.py" beforeDir="false" afterPath="$PROJECT_DIR$/ansprakon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/picospeaker.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/processor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssocr.py" beforeDir="false" afterPath="$PROJECT_DIR$/ssocr.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,28 +22,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/ansprakon_v2$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1529359710162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ansprakon_v2$recognize_digits.coverage" NAME="recognize_digits Coverage Results" MODIFIED="1525264895800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ansprakon_v2$ansprakon.coverage" NAME="ansprakon Coverage Results" MODIFIED="1526981031650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ansprakon_v2$test.coverage" NAME="test Coverage Results" MODIFIED="1528166703864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../ansprakon-v2-dev/text-detection-opencv" />
+    <SUITE FILE_PATH="coverage/ansprakon_v2$clirate.coverage" NAME="clirate Coverage Results" MODIFIED="1529351021547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../ansprakon-v2-dev" />
+    <SUITE FILE_PATH="coverage/ansprakon_v2$ansprakon.coverage" NAME="ansprakon Coverage Results" MODIFIED="1529359748721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ansprakon.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ansprakon.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ansprakon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
-              <folding>
-                <element signature="e#15#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="processor.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/processor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="27" selection-start-line="27" selection-end-line="28" />
+            <state relative-caret-position="-162">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
               <folding>
                 <element signature="e#15#25#0" expanded="true" />
               </folding>
@@ -39,11 +42,68 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="picospeaker.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/picospeaker.py">
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="140" selection-start-line="140" selection-end-line="142" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ansprakon-v24.pstat" pinned="false" current-in-tab="false">
+        <entry file="mock:///home/r0x/.PyCharm2018.1/system/snapshots/ansprakon-v24.pstat">
+          <provider selected="true" editor-type-id="profiler-session-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="testaa.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testaa.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file leaf-file-name="testbild.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testbild.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file leaf-file-name="roi_cutter.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/roi_cutter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="22" column="29" lean-forward="true" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feat_detector.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/feat_detector.py">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="1" selection-start-column="1" selection-end-column="1" />
+              <caret column="31" selection-start-column="31" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="image_preprocessor.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1351">
+              <caret line="153" column="64" selection-start-line="153" selection-start-column="64" selection-end-line="153" selection-end-column="64" />
+              <folding>
+                <element signature="e#15#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="result_processor.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/result_processor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -51,17 +111,11 @@
       <file leaf-file-name="ssocr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ssocr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="subprocess.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python3.6/subprocess.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25380">
-              <caret line="1410" selection-start-line="1410" selection-end-line="1410" />
+            <state relative-caret-position="591">
+              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+              <folding>
+                <element signature="e#15#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,6 +129,28 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>pico_</find>
+      <find>pts</find>
+      <find>c</find>
+      <find>hull</find>
+      <find>gpio_channel</find>
+      <find>picospeaker</find>
+      <find>cut_roi</find>
+      <find>process</find>
+      <find>process_ocr_results_device_</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>approx</replace>
+      <replace>hull</replace>
+      <replace>c</replace>
+      <replace>GPIO_CHANNEL</replace>
+      <replace>nanoTTS</replace>
+      <replace>roi_cutter</replace>
+      <replace>process_results</replace>
+    </replaceStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -83,9 +159,20 @@
       <list>
         <option value="$PROJECT_DIR$/picospeaker.py" />
         <option value="$PROJECT_DIR$/recognize_digits.py" />
-        <option value="$PROJECT_DIR$/ssocr.py" />
+        <option value="$PROJECT_DIR$/../ansprakon-v2-dev/text-detection-opencv/test.py" />
+        <option value="$USER_HOME$/calibrate.py" />
+        <option value="$PROJECT_DIR$/cut_roi.py" />
         <option value="$PROJECT_DIR$/processor.py" />
+        <option value="$PROJECT_DIR$/ocr_process.py" />
+        <option value="$PROJECT_DIR$/feat_detector.py" />
+        <option value="$PROJECT_DIR$/ocr_processor.py" />
+        <option value="$PROJECT_DIR$/roi_cutter.py" />
+        <option value="$PROJECT_DIR$/../ansprakon-v2-dev/clirate.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/result_processor.py" />
         <option value="$PROJECT_DIR$/ansprakon.py" />
+        <option value="$PROJECT_DIR$/image_preprocessor.py" />
+        <option value="$PROJECT_DIR$/ssocr.py" />
       </list>
     </option>
   </component>
@@ -99,9 +186,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="-3" />
-    <option name="width" value="960" />
-    <option name="height" value="1083" />
+    <option name="y" value="-22" />
+    <option name="width" value="1920" />
+    <option name="height" value="1102" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -109,6 +196,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -116,18 +204,29 @@
               <item name="ansprakon-v2" type="b2602c69:ProjectViewProjectNode" />
               <item name="ansprakon-v2" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ansprakon-v2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ansprakon-v2-dev" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ansprakon-v2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ansprakon-v2-dev" type="462c0819:PsiDirectoryNode" />
+              <item name="text-detection-opencv" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="coverage" />
+  </component>
+  <component name="PyCoverageOptionsProvider">
+    <option name="myUseBundledCoveragePy" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -209,6 +308,25 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="clirate" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ansprakon_v2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ansprakon-v2-dev" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ansprakon-v2-dev/clirate.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="recognize_digits" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ansprakon-v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -223,6 +341,44 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/recognize_digits.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ansprakon-v2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ansprakon_v2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ansprakon-v2-dev/text-detection-opencv" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ansprakon-v2-dev/text-detection-opencv/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -330,10 +486,16 @@
     <list>
       <item itemvalue="Python.ansprakon" />
       <item itemvalue="Python.recognize_digits" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.clirate" />
+      <item itemvalue="Python.test (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.ansprakon" />
+        <item itemvalue="Python.test (1)" />
+        <item itemvalue="Python.clirate" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.recognize_digits" />
       </list>
     </recent_temporary>
@@ -352,54 +514,33 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-3" width="960" height="1083" extended-state="0" />
+    <frame x="0" y="-22" width="1920" height="1102" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.9235955" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32991803" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.421875" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.50104165" side_tool="true" visible="true" weight="0.32964823" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.32964823" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3286432" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24583334" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="SciView" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39959225" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="12" weight="0.26934674" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39959016" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32925585" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="8" weight="0.32925585" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286432" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="3" visible="true" weight="0.30111903" />
-      <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="0" visible="true" weight="0.32960325" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="4" />
-      <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.39979655" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -409,24 +550,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="11" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ssocr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.6/subprocess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25380">
@@ -439,12 +566,12 @@
         <state relative-caret-position="1548">
           <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
@@ -454,95 +581,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ssocr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python3.6/subprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25380">
-          <caret line="1410" selection-start-line="1410" selection-end-line="1410" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ansprakon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1548">
-          <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
-          <folding>
-            <element signature="e#15#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ssocr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python3.6/subprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25380">
-          <caret line="1410" selection-start-line="1410" selection-end-line="1410" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ansprakon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1548">
-          <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
-          <folding>
-            <element signature="e#15#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/picospeaker.py" />
     <entry file="file://$PROJECT_DIR$/ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -562,12 +601,12 @@
         <state relative-caret-position="1764">
           <caret line="101" column="43" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
@@ -577,13 +616,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/picospeaker.py" />
     <entry file="file://$PROJECT_DIR$/ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -603,12 +636,12 @@
         <state relative-caret-position="864">
           <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="4" selection-start-column="4" selection-end-column="4" />
@@ -618,13 +651,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/picospeaker.py" />
     <entry file="file://$PROJECT_DIR$/ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -637,12 +664,12 @@
         <state relative-caret-position="864">
           <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
@@ -652,13 +679,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/picospeaker.py" />
     <entry file="file://$PROJECT_DIR$/ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
@@ -670,12 +691,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
@@ -696,7 +717,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -708,7 +729,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
@@ -722,12 +743,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" selection-start-line="26" selection-end-line="26" />
@@ -749,12 +770,12 @@
         <state relative-caret-position="306">
           <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
@@ -775,7 +796,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -785,47 +806,120 @@
         <state relative-caret-position="18">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/svox-pico-bin-armv6/picospeaker.py" />
+    <entry file="file://$PROJECT_DIR$/picospeaker.py" />
+    <entry file="file://$PROJECT_DIR$/../ansprakon-v2-dev/recognize_digits.py" />
+    <entry file="file://$PROJECT_DIR$/../ansprakon-v2-dev/text-detection-opencv/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ansprakon-v2-dev/text-detection-opencv/classify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="48" selection-start-line="3" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.6/site-packages/RPi/GPIO/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/lib/python3.6/subprocess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25380">
-          <caret line="1410" selection-start-line="1410" selection-end-line="1410" />
+        <state relative-caret-position="18">
+          <caret line="1274" selection-start-line="1274" selection-end-line="1274" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py">
+    <entry file="file://$USER_HOME$/calibrate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ansprakon-v2-dev/clirate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/feat_detector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
+          <caret column="31" selection-start-column="31" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/svox-pico-bin-armv6/picospeaker.py" />
-    <entry file="file://$PROJECT_DIR$/ansprakon.py">
+    <entry file="file://$PROJECT_DIR$/testaa.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roi_cutter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
+        <state relative-caret-position="396">
+          <caret line="22" column="29" lean-forward="true" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testbild.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="140" selection-start-line="140" selection-end-line="142" selection-end-column="21" />
           <folding>
-            <element signature="e#15#32#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1351">
+          <caret line="153" column="64" selection-start-line="153" selection-start-column="64" selection-end-line="153" selection-end-column="64" />
+          <folding>
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        <state relative-caret-position="591">
+          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+          <folding>
+            <element signature="e#15#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.py">
+    <entry file="file://$PROJECT_DIR$/result_processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="27" selection-start-line="27" selection-end-line="28" />
+        <state relative-caret-position="342">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ansprakon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
           <folding>
             <element signature="e#15#25#0" expanded="true" />
           </folding>

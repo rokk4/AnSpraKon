@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ansprakon-v2.iml" filepath="$PROJECT_DIR$/.idea/ansprakon-v2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ansprakon-v2-dev/.idea/ansprakon_v2.iml" filepath="$PROJECT_DIR$/../ansprakon-v2-dev/.idea/ansprakon_v2.iml" />
     </modules>
   </component>
 </project>
