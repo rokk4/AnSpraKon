@@ -6,12 +6,15 @@ import roi_cutter
 import result_processor
 import feat_detector
 import opencv_webcam_multithread
+import cv2
 
+# testmode
+test_mode = True
 # check if running on an RPi by trying to import the RPi.GPIO libary. If this fails, we are usually not on an RPi.
 # ID of the device to read.
 device_id = 1
 
-video_src = 0  # index of the video source
+video_src = 1  # index of the video source
 
 # NanoTTS Options
 lang = "de-DE"
@@ -26,10 +29,14 @@ cam = opencv_webcam_multithread.WebcamVideoStream(src=video_src)
 def grab_image():
     """
 Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture Device.
-    :param src:  Kernel Address of the Videosource: default 0 should be fine e.g: /dev/video0
     :return: The frame which was read as cv2 MAT format.
     """
-    img = cam.read()
+    global img
+    try:
+        img = cam.read()
+    except cv2.error as e:
+        print(e)
+        grab_image()
 
     return img
 
@@ -53,32 +60,42 @@ Cut out Rois
 
 
 def detect_feat(rois):
+    """
+
+    :param rois:
+    :return:
+    """
     return getattr(feat_detector, "feat_detect_device_" + str(device_id))(rois)
 
 
 def run_ssocr(rois):
     """
 Sets the ssocr flags matching to the given device id
-    :param img: processed image
+    :param rois:
     """
     return getattr(ssocr, "ssocr_device_" + str(device_id))(rois)
 
 
 def process_result(ocr_results):
+    """
+
+    :param ocr_results:
+    :return:
+    """
     return getattr(result_processor, "process_results_device_" + str(device_id))(ocr_results)
 
 
-def speak_ocr_results(text="Ansprakon bereit."):
+def speak_ocr_results(speak_text="Ansprakon bereit."):
     """
 Calls nanoTTS in an subprocess. nanoTTS parses text to pico.
 -l de-DE flag sets the language to german.
 Volume & Speed & Pitch control with flags is possible, see man nanoTTS
-    :param text: this is the String from the ocr
+    :param speak_text: this is the String from the ocr
     """
     global speak
     if speak:
         try:
-            subprocess.call(["nanotts-git", "-v", lang, text], stdout=subprocess.PIPE)
+            subprocess.call(["nanotts-git", "-v", lang, speak_text], stdout=subprocess.PIPE)
         except subprocess.CalledProcessError as e:
             print("Error code {} while speaking, output: {}".format(e.returncode, e.output))
     else:
@@ -101,7 +118,6 @@ Read ssocr call into "new_text" and determine if the same text was read as in th
 Also speak the last text again  if "speak_again = True" was set.
     """
     global text, speak, new_text, cache
-
     new_text = process_result(
         run_ssocr(
             detect_feat(
@@ -110,18 +126,26 @@ Also speak the last text again  if "speak_again = True" was set.
                         grab_image())))))
 
     flat_list = [item for sublist in new_text for item in sublist]
+    # for text in flat_list:
+    #     speak_ocr_results(text)
 
     print(flat_list)
 
 
 # Say "Ansprakon bereit" 1x time, to get audio feedback that the pi booted and AnSpraKon is running.
-# speak_ocr_results()
+speak_ocr_results()
+
+
 def main():
-    #read_counter = 0
+    """
+
+    """
+    # read_counter = 0
     while True:
         ocr_and_speak()
-       # read_counter += 1
-        #print(read_counter)
+
+    # read_counter += 1
+    # print(read_counter)
 
 
 if __name__ == "__main__":

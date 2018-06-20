@@ -2,21 +2,37 @@ import re
 
 
 def process_results_device_0(rois_processed):
+    """
+
+    :param rois_processed:
+    :return:
+    """
     return rois_processed
 
 
 def process_results_device_1(rois_processed):
+    """
+
+    :param rois_processed:
+    :return:
+    """
     temp_result_pattern = re.compile("\d\d?\.\d")
     regex_result = temp_result_pattern.search(rois_processed[0][0].rstrip())
-    if regex_result != None:
+    if regex_result is not None:
         rois_processed[0][0] = temp_result_pattern.search(rois_processed[0][0]).group(0) + "°C"
     else:
-        print("Shit read, dropped")
+        print("Dropping bad result.")
         del rois_processed[0][0]
 
     return rois_processed
 
+
 def process_results_device_2(rois_processed):
+    """
+
+    :param rois_processed:
+    :return:
+    """
     rois_processed[0][0] = "Programm " + rois_processed[0][0]
     rois_processed[0][1] = "Laufzeit " + rois_processed[0][1]
 
