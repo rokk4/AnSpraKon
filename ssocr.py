@@ -59,9 +59,9 @@ BASETech Room temperatur sensor
     """
     temperatur = [
         "-d", "-1",
-        "-i", "10",
+        "-i", "5",
         "-n", "18"
-        "-r", "4"
+        "-r", "8"
 
     ]
 

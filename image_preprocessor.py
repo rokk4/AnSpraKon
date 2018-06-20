@@ -2,6 +2,7 @@
 import cv2
 import numpy as np
 
+
 def rotate_bound(image, angle):
     # grab the dimensions of the image and then determine the
     # center
@@ -26,14 +27,14 @@ def rotate_bound(image, angle):
     # perform the actual rotation and return the image
     return cv2.warpAffine(image, M, (nW, nH))
 
+
 def four_point_transform(image, tl, tr, br, bl):
-    rect = np.zeros((4, 2), dtype = "float32")
+    rect = np.zeros((4, 2), dtype="float32")
     rect[0] = tl
     rect[1] = tr
     rect[2] = br
     rect[3] = bl
     (tl, tr, br, bl) = rect
-
 
     # compute the width of the new image, which will be the
     # maximum distance between bottom-right and bottom-left
@@ -92,12 +93,10 @@ This is another example method of processor.
     :return: the processed img
     """
 
-
-
-    frame = img[120:430, 20:600]
+    frame = img[120:430, 20:600].copy()
     frame = cv2.rotate(frame, cv2.ROTATE_180)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    bi_filter = cv2.bilateralFilter(gray, 11, 17, 17)
+
     sigma = 0.33
     v = np.median(gray)
 
@@ -125,43 +124,40 @@ This is another example method of processor.
         x, y, w, h = cv2.boundingRect(c)
         if w > 230 and h > 150:
             # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
-            screenCnt = c
-            peri = cv2.arcLength(c, True)
-            approx = cv2.approxPolyDP(c, 0.001 * peri, True)
-            rect = cv2.minAreaRect(screenCnt)
+            #screenCnt = c
+            #peri = cv2.arcLength(c, True)
+            #approx = cv2.approxPolyDP(c, 0.001 * peri, True)
+            #rect = cv2.minAreaRect(screenCnt)
             # rect2 = cv2.minAreaRect(approx)
-            box = cv2.boxPoints(rect)
+            #box = cv2.boxPoints(rect)
             hull = cv2.convexHull(c)
-            x, y, w, h = cv2.boundingRect(hull)
-            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 255), 1)
+            #x, y, w, h = cv2.boundingRect(hull)
+            # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 255), 1)
             # print(box)
             # qprint(len(hull))
-            box = np.int0(box)
-            #cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
-            #cv2.drawContours(frame, [screenCnt], 0, (255, 0, 0), 5)
-            #cv2.drawContours(frame, [c], 0, (0, 255, 0), 5)
-            #cv2.drawContours(frame, [hull], 0, (0, 255, 255), 2)
+            #box = np.int0(box)
+            # cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
+            # cv2.drawContours(frame, [screenCnt], 0, (255, 0, 0), 5)
+            # cv2.drawContours(frame, [c], 0, (0, 255, 0), 5)
+            # cv2.drawContours(frame, [hull], 0, (0, 255, 255), 2)
 
             extLeft = tuple(hull[hull[:, :, 0].argmin()][0])
             extRight = tuple(hull[hull[:, :, 0].argmax()][0])
             extTop = tuple(hull[hull[:, :, 1].argmin()][0])
             extBot = tuple(hull[hull[:, :, 1].argmax()][0])
 
-            #print(extBot, extTop, extRight, extLeft)
+            # print(extBot, extTop, extRight, extLeft)
             # tl, tr, br, bl
             tl = (extLeft[0], extTop[1] + 20)
             tr = (extRight[0], extTop[1])
             br = (extRight[0], extBot[1] - 20)
             bl = (extLeft[0] + 20, extBot[1])
-          #  global warped
-            warped = four_point_transform(bi_filter, tl, tr, br, bl)
-            ret,thresh1 = cv2.threshold(warped,127,255,cv2.THRESH_BINARY)
-            while True:
-                cv2.imshow('warped', thresh1)
-                if cv2.waitKey(1):
-                    break
-            return warped
-            #return warped
-            #print(tl, tr, br, bl)
+            #  global warped
+            #bi_filter = cv2.bilateralFilter(gray, 11, 17, 17)
+            warped = four_point_transform(gray, tl, tr, br, bl)
+            ret, thresh1 = cv2.threshold(warped, 70, 255, cv2.THRESH_BINARY)
+            #bi_filter2 = cv2.bilateralFilter(thresh1,9,75,75)
 
-
+            return thresh1
+            # return warped
+            # print(tl, tr, br, bl)

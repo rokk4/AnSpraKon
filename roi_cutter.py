@@ -1,3 +1,5 @@
+import cv2
+
 def roi_device_0(img):
     ocr_rois = [img]
     feat_detect_rois = []
@@ -5,7 +7,16 @@ def roi_device_0(img):
 
 
 def roi_device_1(img):
-    ocr_rois = [img]
+    temperature = img
+    # try:
+    #     cv2.imshow('warped', temperature)
+    #     cv2.waitKey(1)
+    # except cv2.error as e:
+    #     print(e)
+
+
+
+    ocr_rois = [temperature]
     return [ocr_rois, []]
 
 
