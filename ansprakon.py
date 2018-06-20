@@ -21,7 +21,6 @@ rate = 0  # speed of the reading
 pitch = 0
 cam = cv2.VideoCapture(video_src)
 
-test_mode = False
 
 def grab_image(src=0):
     """
@@ -29,13 +28,9 @@ Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture 
     :param src:  Kernel Address of the Videosource: default 0 should be fine e.g: /dev/video0
     :return: The frame which was read as cv2 MAT format.
     """
-  # create Caputure-Object
-    global test_mode
+    # create Caputure-Object
 
-    if not test_mode:
-        retval, img = cam.read()
-    elif test_mode:
-        img = cv2.imread("./testaa.png")
+    retval, img = cam.read()
 
     return img
 
@@ -46,11 +41,7 @@ Procceses an Image with the methods defined for the device in image_preprocessor
     :param img: image to process as cv2 MAT format
     :return: processed image
     """
-    if device_id == 0:
-        processed_image = image_preprocessor.image_device_0(img)
-    elif device_id == 1:
-        processed_image = image_preprocessor.image_device_1(img)
-    return processed_image
+    return eval("image_preprocessor.image_device_" + str(device_id) + "(img)")
 
 
 def cut_roi(img):
@@ -59,17 +50,11 @@ Cut out Rois
     :param img:
     :return: list of list [[ocr_rois],[feat_rois]]
     """
-    if device_id == 0:
-        return roi_cutter.roi_device_0(img)
-    elif device_id == 1:
-        return roi_cutter.roi_device_1(img)
+    return eval("roi_cutter.roi_device_" + str(device_id) + "(img)")
 
-def detect_feat(rois_cut):
-    if device_id == 0:
-        return feat_detector.feat_detect_device_0(rois_cut)
 
-    if device_id == 1:
-        return feat_detector.feat_detect_device_1(rois_cut)
+def detect_feat(rois):
+    return eval("feat_detector.feat_detect_device_" + str(device_id) + "(rois)")
 
 
 def ssocr_call(rois):
@@ -77,20 +62,14 @@ def ssocr_call(rois):
 Sets the ssocr flags matching to the given device id
     :param img: processed image
     """
-    if device_id == 0:
-        return ssocr.ssocr_device_0(rois)
-    elif device_id == 1:
-        return ssocr.ssocr_device_1(rois)
+    return eval("ssocr.ssocr_device_" + str(device_id) + "(rois)")
 
 
 def process_result(ocr_results):
-    if device_id == 0:
-        return result_processor.process_results_device_0(ocr_results)
-    if device_id == 1:
-        return result_processor.process_results_device_1(ocr_results)
+    return eval("result_processor.process_results_device_" + str(device_id) + "(ocr_results)")
 
 
-def speak_ocr_results(processed_ocr_results="Ansprakon bereit."):
+def speak_ocr_results(text="Ansprakon bereit."):
     """
 Calls nanoTTS in an subprocess. nanoTTS parses text to pico.
 -l de-DE flag sets the language to german.
@@ -100,7 +79,7 @@ Volume & Speed & Pitch control with flags is possible, see man nanoTTS
     global speak
     if speak:
         try:
-            subprocess.call(["nanotts-git", "-v", lang, processed_ocr_results], stdout=subprocess.PIPE)
+            subprocess.call(["nanotts-git", "-v", lang, text], stdout=subprocess.PIPE)
         except subprocess.CalledProcessError as e:
             print("Error code {} while speaking, output: {}".format(e.returncode, e.output))
     else:
@@ -108,13 +87,8 @@ Volume & Speed & Pitch control with flags is possible, see man nanoTTS
         pass
 
 
-
-
-
-
-
 # boolean to hold the speaking again flag
-speak = False
+speak = True
 # variable to store last ocr string
 text = ""
 # variable to store new string
@@ -138,23 +112,10 @@ Also speak the last text again  if "speak_again = True" was set.
                             video_src))))))
     flat_list = [item for sublist in new_text for item in sublist]
 
-
-
-
     print(flat_list)
-
-
-
-
-
-
-
 
 
 # Say "Ansprakon bereit" 1x time, to get audio feedback that the pi booted and AnSpraKon is running.
 # speak_ocr_results()
-start = False
 while True:
-    if speak:
-        speak = True
     ocr_and_speak()

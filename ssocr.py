@@ -6,14 +6,16 @@ import cv2
 # Execute ssocr , encode cv2-MAT to .png and pipe it to STDIN, then receive the result from STDOUT.
 def call_ssocr(ssocr_args, img):
     try:
+        return_val = ""
         ssocr_args.insert(0, "ssocr")  # add "ssocr" as the first argument of the list.
         ssocr_args.append("-")  # append "-" as last argument of the list, it makes ssocr expect the image from STDIN
-        img_as_png = cv2.imencode(".png", img)[1].tostring()  # encode image as .png and convert to byte-string.
-        p = subprocess.Popen(ssocr_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = p.communicate(img_as_png)  # send img as .png to ssocr and receive result in "out".
+        if img is not None:
+            img_as_png = cv2.imencode(".png", img)[1].tostring()  # encode image as .png and convert to byte-string.
+            p = subprocess.Popen(ssocr_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, err = p.communicate(img_as_png)  # send img as .png to ssocr and receive result in "out".
         #print(err) # print stderr for debugging
         # print(ssocr_args)
-        return_val = out.decode("utf-8")
+            return_val = out.decode("utf-8")
         return return_val
     except subprocess.CalledProcessError as e:
         print("Error code {} during ssocr call, output: {}".format(e.returncode, e.output))
@@ -36,10 +38,11 @@ SSOCR device speciefic function, to define the ssocr arguments
     """
 
     example_ocr = [
+        "-D",
         "-d", "-1",
-        "-i", "8",
-        "-n", "15",
-        "-r", "20",
+        "-i", "5",
+        "-n", "20",
+        "-r", "4",
     ]  # write the ssocr arguments in this array
 
     ssocr_args_list = [example_ocr]
@@ -57,8 +60,9 @@ BASETech Room temperatur sensor
     temperatur = [
         "-d", "-1",
         "-i", "10",
-        "-n", "22",
-        "-r", "4",
+        "-n", "18"
+        "-r", "4"
+
     ]
 
     ssocr_args_list = [temperatur]

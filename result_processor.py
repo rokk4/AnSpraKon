@@ -1,9 +1,19 @@
+import re
+
+
 def process_results_device_0(rois_processed):
     return rois_processed
 
 
 def process_results_device_1(rois_processed):
-    rois_processed[0][0] = rois_processed[0][0].rstrip() + "°C"
+    temp_result_pattern = re.compile("^\d\d?\.\d$")
+    if temp_result_pattern.match(rois_processed[0][0].rstrip()):
+        rois_processed[0][0] = rois_processed[0][0].rstrip() + "°C"
+    else:
+        print("Shit read, dropped")
+        print(rois_processed[0][0])
+        del rois_processed[0][0]
+
     return rois_processed
 
 def process_results_device_2(rois_processed):

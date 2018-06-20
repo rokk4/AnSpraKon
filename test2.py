@@ -1,8 +1,7 @@
-# coding=utf-8
-import cv2
 import numpy as np
+import cv2
 
-def rotate_bound(image, angle):
+def rotate(image, angle):
     # grab the dimensions of the image and then determine the
     # center
     (h, w) = image.shape[:2]
@@ -68,34 +67,14 @@ def four_point_transform(image, tl, tr, br, bl):
     return warped
 
 
-# Device ID 0
-def image_device_0(img):
-    """
-This is an example method of processor.
-    :param img: the image to process
-    :return: the proccesd img
-    """
-    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray_image, (5, 5), 0)
-    blur2 = cv2.medianBlur(blur, 5)
-    ret, th1 = cv2.threshold(blur2, 123, 255, cv2.THRESH_BINARY_INV)
-    rotated_180 = cv2.rotate(th1, cv2.ROTATE_180)
-    img = rotated_180[30:405, 0:520]
-    return img
+cap = cv2.VideoCapture(0)
 
-
-# Device ID 1
-def image_device_1(img):
-    """
-This is another example method of processor.
-    :param img: the image to process
-    :return: the processed img
-    """
-
-
-
-    frame = img[120:430, 20:600]
-    frame = cv2.rotate(frame, cv2.ROTATE_180)
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read(
+    print(ret)
+    frame = frame[120:430, 20:600]
+    frame = cv2.rotate(frame,cv2.ROTATE_180)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     bi_filter = cv2.bilateralFilter(gray, 11, 17, 17)
     sigma = 0.33
@@ -105,15 +84,17 @@ This is another example method of processor.
     lower = int(max(0, (1.0 - sigma) * v))
     upper = int(min(255, (1.0 + sigma) * v))
     edged = cv2.Canny(gray, lower, upper)
-    # edged2 = cv2.Canny(gray, lower, upper)
+    #edged2 = cv2.Canny(gray, lower, upper)
 
-    # minLineLength = 200
-    # maxLineGap = 1
-    # lines1 = cv2.HoughLinesP(edged2,1,np.pi/180,200,minLineLength,maxLineGap)
-    # qlines2 = cv2.HoughLines(edged1,1,np.pi/180,200)
+    #minLineLength = 200
+    #maxLineGap = 1
+    #lines1 = cv2.HoughLinesP(edged2,1,np.pi/180,200,minLineLength,maxLineGap)
+    #qlines2 = cv2.HoughLines(edged1,1,np.pi/180,200)
 
-    #    for x1,y1,x2,y2 in lines1[0]:
-    #       cv2.line(frame,(x1,y1),(x2,y2),(0,255,0),2)
+#    for x1,y1,x2,y2 in lines1[0]:
+ #       cv2.line(frame,(x1,y1),(x2,y2),(0,255,0),2)
+
+
 
     edged2, contours, hierarchy = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -123,45 +104,44 @@ This is another example method of processor.
 
     for c in contours:
         x, y, w, h = cv2.boundingRect(c)
-        if w > 230 and h > 150:
-            # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+        if w > 200 and h > 100:
+            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
             screenCnt = c
             peri = cv2.arcLength(c, True)
-            approx = cv2.approxPolyDP(c, 0.001 * peri, True)
+            approx = cv2.approxPolyDP(c, 0.02 * peri, True)
             rect = cv2.minAreaRect(screenCnt)
             # rect2 = cv2.minAreaRect(approx)
             box = cv2.boxPoints(rect)
             hull = cv2.convexHull(c)
-            x, y, w, h = cv2.boundingRect(hull)
-            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 255), 1)
+            # x, y, w, h = cv2.boundingRect(hull)
+            # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 255), 1)
             # print(box)
             # qprint(len(hull))
             box = np.int0(box)
-            #cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
-            #cv2.drawContours(frame, [screenCnt], 0, (255, 0, 0), 5)
-            #cv2.drawContours(frame, [c], 0, (0, 255, 0), 5)
+            # cv2.drawContours(frame, [box], 0, (0, 0, 255), 2)
+            # cv2.drawContours(frame, [screenCnt], 0, (255, 0, 0), 5)
+            # cv2.drawContours(frame, [approx], 0, (0, 255, 0), 5)
             #cv2.drawContours(frame, [hull], 0, (0, 255, 255), 2)
 
-            extLeft = tuple(hull[hull[:, :, 0].argmin()][0])
-            extRight = tuple(hull[hull[:, :, 0].argmax()][0])
-            extTop = tuple(hull[hull[:, :, 1].argmin()][0])
-            extBot = tuple(hull[hull[:, :, 1].argmax()][0])
+            extLeft = tuple(c[c[:, :, 0].argmin()][0])
+            extRight = tuple(c[c[:, :, 0].argmax()][0])
+            extTop = tuple(c[c[:, :, 1].argmin()][0])
+            extBot = tuple(c[c[:, :, 1].argmax()][0])
 
-            #print(extBot, extTop, extRight, extLeft)
+            print(extBot,extTop,extRight,extLeft)
             # tl, tr, br, bl
-            tl = (extLeft[0], extTop[1] + 20)
-            tr = (extRight[0], extTop[1])
-            br = (extRight[0], extBot[1] - 20)
-            bl = (extLeft[0] + 20, extBot[1])
-          #  global warped
-            warped = four_point_transform(bi_filter, tl, tr, br, bl)
-            ret,thresh1 = cv2.threshold(warped,127,255,cv2.THRESH_BINARY)
-            while True:
-                cv2.imshow('warped', thresh1)
-                if cv2.waitKey(1):
-                    break
-            return warped
-            #return warped
-            #print(tl, tr, br, bl)
+            tl = (extLeft[0] + 80, extTop[1])
+            tr = (extRight[0] - 90, extTop[1])
+            br = (extRight[0] - 85, extBot[1] - 10)
+            bl = (extLeft[0] + 92, extBot[1] - 10)
+            global warped
+            warped = four_point_transform(frame, tl, tr, br, bl)
+
+            print(tl, tr,br,bl)
+            cv2.imshow('warped', warped)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
 
+cap.release()
+cv2.destroyAllWindows()
