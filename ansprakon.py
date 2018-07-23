@@ -12,9 +12,9 @@ import cv2
 test_mode = True
 # check if running on an RPi by trying to import the RPi.GPIO libary. If this fails, we are usually not on an RPi.
 # ID of the device to read.
-device_id = 1
+device_id = 5
 
-video_src = 1  # index of the video source
+video_src = 0  # index of the video source
 
 # NanoTTS Options
 lang = "de-DE"
@@ -37,7 +37,6 @@ Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture 
     except cv2.error as e:
         print(e)
         grab_image()
-
     return img
 
 
@@ -52,7 +51,7 @@ Procceses an Image with the methods defined for the device in image_preprocessor
 
 def cut_roi(img):
     """
-Cut out Rois
+Cuts out Rois and returns ocr-rois and feat-rois as
     :param img:
     :return: list of list [[ocr_rois],[feat_rois]]
     """
@@ -61,7 +60,7 @@ Cut out Rois
 
 def detect_feat(rois):
     """
-
+Detect feat in the
     :param rois:
     :return:
     """
@@ -107,9 +106,6 @@ Volume & Speed & Pitch control with flags is possible, see man nanoTTS
 speak = True
 # variable to store last ocr string
 text = ""
-# variable to store new string
-new_text = ""
-cache = []
 
 
 def ocr_and_speak():
@@ -117,23 +113,28 @@ def ocr_and_speak():
 Read ssocr call into "new_text" and determine if the same text was read as in the last iteration.
 Also speak the last text again  if "speak_again = True" was set.
     """
-    global text, speak, new_text, cache
+    global new_text
     new_text = process_result(
         run_ssocr(
             detect_feat(
                 cut_roi(
                     preprocess_image(
-                        grab_image())))))
+                        grab_image()
+                    )
+                )
+            )
+        )
+    )
 
     flat_list = [item for sublist in new_text for item in sublist]
     # for text in flat_list:
     #     speak_ocr_results(text)
 
-    print(flat_list)
+    #print(flat_list)
 
 
 # Say "Ansprakon bereit" 1x time, to get audio feedback that the pi booted and AnSpraKon is running.
-speak_ocr_results()
+# speak_ocr_results()
 
 
 def main():

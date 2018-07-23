@@ -40,14 +40,3 @@ class WebcamVideoStream:
     def __exit__(self, exc_type, exc_value, traceback):
         self.stream.release()
 
-
-if __name__ == "__main__":
-    vs = WebcamVideoStream().start()
-    while True:
-        frame = vs.read()
-        cv2.imshow('webcam', frame)
-        if cv2.waitKey(1) == 27:
-            break
-
-    vs.stop()
-    cv2.destroyAllWindows()

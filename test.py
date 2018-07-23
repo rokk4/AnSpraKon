@@ -67,7 +67,7 @@ def four_point_transform(image, tl, tr, br, bl):
     return warped
 
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 while True:
     # Capture frame-by-frame
