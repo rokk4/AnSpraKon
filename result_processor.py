@@ -28,8 +28,6 @@ BASETECH Thermometer
     return rois_processed
 
 
-
-
 def process_results_device_2(rois_processed):
     """
 ADE humanscale
@@ -39,13 +37,14 @@ ADE humanscale
     weight_result_pattern = re.compile("\d\d?\d?\.\d")
     regex_result = weight_result_pattern.search(rois_processed[0][0].rstrip())
     if regex_result is not None:
-        rois_processed[0][0] = weight_result_pattern.search(rois_processed[0][0]).group(0) + " " +"Kilogramm"
+        rois_processed[0][0] = weight_result_pattern.search(rois_processed[0][0]).group(0) + " " + "Kilogramm"
     else:
         print("Dropping bad result.")
         print(rois_processed[0][0])
         del rois_processed[0][0]
 
     return rois_processed
+
 
 def process_results_device_3(rois_processed):
     """
@@ -56,7 +55,7 @@ Beurer humanscale
     weight_result_pattern = re.compile("\d\d?\d?\.\d")
     regex_result = weight_result_pattern.search(rois_processed[0][0].rstrip())
     if regex_result is not None:
-        rois_processed[0][0] = weight_result_pattern.search(rois_processed[0][0]).group(0) + " " +"Kilogramm"
+        rois_processed[0][0] = weight_result_pattern.search(rois_processed[0][0]).group(0) + " " + "Kilogramm"
     else:
         print("Dropping bad result.")
         print(rois_processed[0][0])
@@ -71,16 +70,41 @@ NONAME indoor/outdoor thermometer
     :param rois_processed:
     :return:
     """
-    weight_result_pattern = re.compile("\d\d?\d?\.\d")
-    regex_result = weight_result_pattern.search(rois_processed[0][0].rstrip())
-    if regex_result is not None:
-        rois_processed[0][0] = weight_result_pattern.search(rois_processed[0][0]).group(0) + " " +"Kilogramm"
+    temp_result_pattern = re.compile("\d?\d?\.?\d")
+
+    indoor_temp_result = temp_result_pattern.search(rois_processed[0][0].rstrip())
+    outdoor_temp_result = temp_result_pattern.search(rois_processed[0][1].rstrip())
+
+    if indoor_temp_result is not None and outdoor_temp_result is not None:
+        regex_indoor_temp_result = temp_result_pattern.search(rois_processed[0][0]).group(0)
+        regex_outdoor_temp_result = temp_result_pattern.search(rois_processed[0][1]).group(0)
+        print(regex_indoor_temp_result)
+        print(regex_outdoor_temp_result)
+
+        # rois_processed[0][0] = regex_indoor_temp_result[:-1] + "." + regex_indoor_temp_result[-1:] + "°C"
+        # rois_processed[0][1] = regex_outdoor_temp_result[:-1] + "." + regex_outdoor_temp_result[-1:] + "°C"
+        rois_processed[0][0] = regex_indoor_temp_result + " °C"
+        rois_processed[0][1] = regex_outdoor_temp_result + " °C"
     else:
         print("Dropping bad result.")
         print(rois_processed[0][0])
-        del rois_processed[0][0]
+        print(rois_processed[0][1])
 
+    if rois_processed[1][0] and rois_processed[1][1] and not rois_processed[1][2] and not rois_processed[1][3]:
+        rois_processed[0][0] += " Innentemperatur"
+        rois_processed[0][1] += " Außentemperatur"
+
+    if rois_processed[1][0] and not rois_processed[1][1] and rois_processed[1][2] and rois_processed[1][3]:
+        rois_processed[0][0] += " Maximal Innentemperatur"
+        rois_processed[0][1] += " Minimal Innentemperatur"
+
+    if not rois_processed[1][0] and rois_processed[1][1] and rois_processed[1][2] and rois_processed[1][3]:
+        rois_processed[0][0] += " Maximal Außentemperatur"
+        rois_processed[0][1] += " Minimal Außentemperatur"
+
+    print(rois_processed[0])
     return rois_processed
+
 
 def process_results_device_5(rois_processed):
     """
@@ -88,12 +112,10 @@ GREEN alarmclock
     :param rois_processed:
     :return:
     """
-    for str in rois_processed[0]:
-        print(filter(str.isdigit, str)[0])
+    # for ocr_results in rois_processed[0]:
+    #     print(filter(ocr_results.isdigit, ocr_results)[0])
 
     return rois_processed
-
-
 
 
 def process_results_device_10(rois_processed):

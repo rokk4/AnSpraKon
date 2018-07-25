@@ -1,3 +1,6 @@
+import cv2
+
+
 def feat_detect_device_0(rois):
     """
     Dummy Device
@@ -28,6 +31,7 @@ ADE humanscale
     """
     return rois
 
+
 def feat_detect_device_3(rois):
     """
 beurer humanscale
@@ -36,17 +40,33 @@ beurer humanscale
     """
     return rois
 
+
 def feat_detect_device_4(rois):
     """
 NONAME indoor/outdoor thermometer
     :param rois:
     :return:
     """
+
+    for i in range(len(rois[1])):
+        rois[1][i] = True if cv2.mean(rois[1][i])[0] <= 250 else False
+
+    print(rois[1])
     return rois
+
 
 def feat_detect_device_5(rois):
     """
 GREEN alarm/radio
+    :param rois:
+    :return:
+    """
+    return rois
+
+
+def feat_detect_device_6(rois):
+    """
+NONAME thermo-hygro
     :param rois:
     :return:
     """

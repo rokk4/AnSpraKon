@@ -33,11 +33,12 @@ BASETech Room temperatur sensor
         "-d", "-1",
         "-i", "5",
         "-n", "20"
-        "-r", "5"
+              "-r", "5"
 
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
+
 
 def ssocr_device_2(rois):
     """
@@ -49,11 +50,12 @@ ADE-Germany Humanscale
         "-D",
         "-d", "-1",
         "-i", "10"
-        "-n", "70",
+              "-n", "70",
         "-r", "4"
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
+
 
 def ssocr_device_3(rois):
     """
@@ -65,27 +67,29 @@ Beurer Humanscale
         "-D",
         "-d", "-1",
         "-i", "5"
-        "-n", "120",
+              "-n", "120",
         "-r", "8"
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
 
+
 def ssocr_device_4(rois):
     """
-Beurer Humanscale
+NONAME indoor/outdoor thermometer
     :param rois:
     :return: call of call_ssocr with the ssocr arguments matching the device
     """
     device_ssocr_args = [
         "-D",
         "-d", "-1",
-        "-i", "5"
-        "-n", "120",
-        "-r", "8"
+        "-i", "1",
+        "-n", "2"
+
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
+
 
 def ssocr_device_5(rois):
     """
@@ -96,10 +100,26 @@ GREEN alarm radio
     device_ssocr_args = [
         "-D",
         "-d", "-1",
-        "-i", "3"
+        "-i", "3",
         "-n", "50",
         "-r", "3"
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
 
+
+def ssocr_device_6(rois):
+    """
+NONAME thermo-hygor
+    :param rois:
+    :return: call of call_ssocr with the ssocr arguments matching the device
+    """
+    device_ssocr_args = [
+        "-D",
+        "-d", "-1",
+        "-i", "2",
+        "-n", "3"
+
+    ]
+
+    return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]

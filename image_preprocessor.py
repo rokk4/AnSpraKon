@@ -1,7 +1,7 @@
 # coding=utf-8
 import cv2
 import numpy as np
-import preprocess_tools
+# import preprocess_tools
 
 
 # Device ID 0
@@ -9,7 +9,7 @@ def image_device_0(img):
     """
 This is an example method of processor.
     :param img: the image to process
-    :return: the proccesd img
+    :return: the processed img
     """
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray_image, (5, 5), 0)
@@ -28,8 +28,7 @@ The BASE-TECH Thermometer
     :return: the preprocessed img
     """
     # crop, rotate and convert to Greyscale
-    frame = img.copy()
-    frame = cv2.rotate(img[52:314, 144:534], cv2.ROTATE_180)
+    frame = cv2.rotate(img[52:314, 144:534].copy, cv2.ROTATE_180)
     gray = cv2.cvtColor(frame.copy(), cv2.COLOR_BGR2GRAY)
 
     # compute median
@@ -80,7 +79,7 @@ The BASE-TECH Thermometer
     mask = np.zeros((h + 2, w + 2), np.uint8)
 
     # Floodfill from point (0, 0)
-    cv2.floodFill(im_floodfill, mask, (0, 0), 255);
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
     #
     # # Invert floodfilled image
     # im_floodfill_inv = cv2.bitwise_not(im_floodfill)
@@ -115,7 +114,7 @@ ADE-Germany Human Scale
     mask = np.zeros((h + 2, w + 2), np.uint8)
 
     # Floodfill from point (0, 0)
-    cv2.floodFill(im_floodfill, mask, (0, 0), 255);
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
 
     return im_floodfill[85:400, 61:527].copy()
 
@@ -138,12 +137,12 @@ ADE-Germany Human Scale
     mask = np.zeros((h + 2, w + 2), np.uint8)
 
     # Floodfill from point (0, 0)
-    cv2.floodFill(im_floodfill, mask, (0, 0), 255);
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
     cv2.imshow("flood", im_floodfill)
     pts1 = np.float32([[80, 165], [610, 173], [20, 420], [580, 440]])
     pts2 = np.float32([[0, 0], [640, 0], [0, 480], [640, 480]])
-    M = cv2.getPerspectiveTransform(pts1, pts2)
-    dst = cv2.warpPerspective(im_floodfill, M, (640, 480))
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    dst = cv2.warpPerspective(im_floodfill, m, (640, 480))
     cv2.imshow("trans", dst)
     cv2.waitKey(1)
 
@@ -157,8 +156,8 @@ NONAME indoor/outdoor thermometer
     """
 
     frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresh1 = cv2.threshold(frame, 100, 255, cv2.THRESH_BINARY)
-    flip_180 = cv2.rotate(thresh1.copy(), cv2.ROTATE_180)
+    ret, thresh1 = cv2.threshold(frame, 65, 255, cv2.THRESH_BINARY)
+    flip_180 = cv2.rotate(thresh1, cv2.ROTATE_180)
     im_floodfill = flip_180.copy()
 
     # Mask used to flood filling.
@@ -167,11 +166,12 @@ NONAME indoor/outdoor thermometer
     mask = np.zeros((h + 2, w + 2), np.uint8)
 
     # Floodfill from point (0, 0)
-    cv2.floodFill(im_floodfill, mask, (0, 0), 255);
-    cv2.imshow("flood", im_floodfill)
-    cv2.waitKey(1)
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
 
-    return im_floodfill.copy()
+    # cv2.imshow("flood", im_floodfill)
+    # cv2.waitKey(1)
+
+    return im_floodfill
 
 
 def image_device_5(img):
@@ -184,11 +184,39 @@ GREEN radio alarm
     blur2 = cv2.medianBlur(blur, 5)
     bi_filter = cv2.bilateralFilter(blur2, 11, 17, 17)
     ret, thresh1 = cv2.threshold(bi_filter, 120, 255, cv2.THRESH_BINARY_INV)
-    blur3 =  cv2.medianBlur(thresh1, 5)
+    blur3 = cv2.medianBlur(thresh1, 5)
     # Display the resulting frame
-    cv2.imshow('frame',blur3)
+    cv2.imshow('frame', blur3)
     cv2.waitKey(1)
 
-
-
     return blur3.copy()
+
+
+# Device ID 0
+def image_device_6(img):
+    """
+NONAME thermo-hygro
+    :param img: the image to process
+    :return: the proccesd img
+    """
+
+    flip_180 = cv2.rotate(img.copy(), cv2.ROTATE_180)
+    gray = cv2.cvtColor(flip_180[124:447, 49:495].copy(), cv2.COLOR_BGR2GRAY)
+    bi_filter = cv2.bilateralFilter(gray.copy(), 11, 17, 17)
+    ret, thresh1 = cv2.threshold(bi_filter.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+
+    im_floodfill = thresh1.copy()
+
+    # Mask used to flood filling.
+    # Notice the size needs to be 2 pixels than the image.
+    h, w = thresh1.shape[:2]
+    mask = np.zeros((h + 2, w + 2), np.uint8)
+
+    # Floodfill from point (0, 0)
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+
+    kernel = np.ones((1, 2), np.uint8)
+    closing = cv2.morphologyEx(im_floodfill, cv2.MORPH_ERODE, kernel)
+    closing2 = cv2.morphologyEx(closing, cv2.MORPH_CLOSE, kernel)
+
+    return closing2

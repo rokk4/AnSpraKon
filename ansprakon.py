@@ -10,9 +10,9 @@ import cv2
 
 # testmode
 test_mode = True
-# check if running on an RPi by trying to import the RPi.GPIO libary. If this fails, we are usually not on an RPi.
+# check if running on an RPi by trying to import the RPi.GPIO library. If this fails, we are usually not on an RPi.
 # ID of the device to read.
-device_id = 5
+device_id = 6
 
 video_src = 0  # index of the video source
 
@@ -31,7 +31,7 @@ def grab_image():
 Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture Device.
     :return: The frame which was read as cv2 MAT format.
     """
-    global img
+    img = None
     try:
         img = cam.read()
     except cv2.error as e:
@@ -42,7 +42,7 @@ Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture 
 
 def preprocess_image(img):
     """
-Procceses an Image with the methods defined for the device in image_preprocessor.py
+Processes an Image with the methods defined for the device in image_preprocessor.py
     :param img: image to process as cv2 MAT format
     :return: processed image
     """
@@ -126,11 +126,11 @@ Also speak the last text again  if "speak_again = True" was set.
         )
     )
 
-    flat_list = [item for sublist in new_text for item in sublist]
+    # flat_list = [item for sublist in new_text for item in sublist]
     # for text in flat_list:
     #     speak_ocr_results(text)
 
-    #print(flat_list)
+    # print(flat_list)
 
 
 # Say "Ansprakon bereit" 1x time, to get audio feedback that the pi booted and AnSpraKon is running.
