@@ -51,7 +51,7 @@ NONAME indoor/outdoor thermometer
     for i in range(len(rois[1])):
         rois[1][i] = True if cv2.mean(rois[1][i])[0] <= 250 else False
 
-    print(rois[1])
+    # print(rois[1])
     return rois
 
 
@@ -70,4 +70,17 @@ NONAME thermo-hygro
     :param rois:
     :return:
     """
+    for i in range(len(rois[1])):
+        rois[1][i] = True if cv2.mean(rois[1][i])[0] <= 250 else False
+
+    # print(rois[1])
+    return rois
+
+def feat_detect_device_7(rois):
+    """
+GREEN alarm/radio
+    :param rois:
+    :return:
+    """
+
     return rois

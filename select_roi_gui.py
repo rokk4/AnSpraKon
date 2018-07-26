@@ -3,7 +3,7 @@ import cv2
 
 if __name__ == '__main__':
     # Read image
-    im = cv2.imread("noname_thermo-hygro_test.png")
+    im = cv2.imread("casio_calculator_warped_borderedtest.png")
 
     # Select ROI
     # noinspection PyArgumentList

@@ -118,6 +118,39 @@ GREEN alarmclock
     return rois_processed
 
 
+def process_results_device_6(rois_processed):
+    """
+GREEN alarmclock
+    :param rois_processed:
+    :return:
+    """
+
+    rois_processed[0][0] = "Temperatur " + rois_processed[0][0].rstrip() + "." + rois_processed[0][1].rstrip() + " °C"
+    rois_processed[0][1] = "Luftfeuchtigkeit " + rois_processed[0][2].rstrip() + " %"
+    del rois_processed[0][2]
+
+    rois_processed[1][0] = "Trocken" if rois_processed[1][0] else None
+    rois_processed[1][1] = "Feucht" if rois_processed[1][1] else None
+    rois_processed[1][2] = "Minimal" if rois_processed[1][2] else None
+    rois_processed[1][3] = "Maximal" if rois_processed[1][3] else None
+    rois_processed[1][4] = "Minimal" if rois_processed[1][4] else None
+    rois_processed[1][5] = "Maximal" if rois_processed[1][5] else None
+
+    print(rois_processed)
+
+    return rois_processed
+
+
+def process_results_device_7(rois_processed):
+    """
+CASIO calculator MS-20UC
+    :param rois_processed:
+    :return:
+    """
+    print(rois_processed)
+    return rois_processed
+
+
 def process_results_device_10(rois_processed):
     """
 
@@ -127,10 +160,10 @@ def process_results_device_10(rois_processed):
     rois_processed[0][0] = "Programm " + rois_processed[0][0]
     rois_processed[0][1] = "Laufzeit " + rois_processed[0][1]
 
-    rois_processed[1][0] = "Salz leer." if rois_processed[1][0] else ""
-    rois_processed[1][1] = "Läuft." if rois_processed[1][1] else ""
-    rois_processed[1][2] = "Pause." if rois_processed[1][2] else ""
-    rois_processed[1][3] = "Schnell." if rois_processed[1][3] else ""
-    rois_processed[1][4] = "Traywash." if rois_processed[1][4] else ""
+    rois_processed[1][0] = "Salz leer." if rois_processed[1][0] else None
+    rois_processed[1][1] = "Läuft." if rois_processed[1][1] else None
+    rois_processed[1][2] = "Pause." if rois_processed[1][2] else None
+    rois_processed[1][3] = "Schnell." if rois_processed[1][3] else None
+    rois_processed[1][4] = "Traywash." if rois_processed[1][4] else None
 
     return rois_processed

@@ -7,12 +7,14 @@ import result_processor
 import feat_detector
 import opencv_webcam_multithread
 import cv2
+import time
+import gc
+import bottleneck
+gc.enable()
 
-# testmode
-test_mode = True
 # check if running on an RPi by trying to import the RPi.GPIO library. If this fails, we are usually not on an RPi.
 # ID of the device to read.
-device_id = 6
+device_id = 7
 
 video_src = 0  # index of the video source
 
@@ -144,9 +146,10 @@ def main():
     # read_counter = 0
     while True:
         ocr_and_speak()
+        # read_counter += 1
+        # print(read_counter, time.process_time(), gc.get_count(), gc.get_stats(), gc.get_debug())
 
-    # read_counter += 1
-    # print(read_counter)
+
 
 
 if __name__ == "__main__":

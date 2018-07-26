@@ -127,8 +127,124 @@ NONAME thermo-hygro
     :param img:
     :return:
     """
-    ocr_rois = [img]
+
+    temp = img[12:157, 34:270].copy()
+    temp_decimal = img[45:159, 284:363].copy()
+    humidity = img[189:312, 107:307].copy()
+
+    dry = img[281:310, 0:53].copy()
+    wet = img[286:311, 68:124].copy()
+    min_1 = img[89:121, 373:437].copy()
+    min_2 = img[278:307, 333:390].copy()
+    max_1 = img[119:155, 372:438].copy()
+    max_2 = img[279:306, 388:444].copy()
+
+    # cv2.imshow("temp", temp)
+    # cv2.imshow("temp_deci", temp_decimal)
+    cv2.imshow("humidity", humidity)
+
+    border_size = 10
+
+    temp_pts1 = np.float32([[40, 3], [235, 5], [20, 135], [230, 136]])
+    temp_pts2 = np.float32([[0, 0], [235, 0], [0, 145], [235, 145]])
+    temp_m = cv2.getPerspectiveTransform(temp_pts1, temp_pts2)
+    temp_dst = cv2.warpPerspective(temp, temp_m, (235, 145))
+
+    temp_bordered = cv2.copyMakeBorder(temp_dst, top=border_size, bottom=border_size, left=border_size,
+                                       right=border_size,
+                                       borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
+    # cv2.imshow("bordered warp temp", temp_bordered)
+
+    temp_decimal_pts1 = np.float32([[11, 4], [77, 2], [5, 95], [75, 100]])
+    temp_decimal_pts2 = np.float32([[0, 0], [78, 0], [0, 112], [78, 112]])
+    temp_decimal__m = cv2.getPerspectiveTransform(temp_decimal_pts1, temp_decimal_pts2)
+    temp_decimal_dst = cv2.warpPerspective(temp_decimal, temp_decimal__m, (78, 112))
+
+    temp_decimal_bordered = cv2.copyMakeBorder(temp_decimal_dst, top=border_size, bottom=border_size,
+                                               left=border_size,
+                                               right=border_size,
+                                               borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
+    # cv2.imshow("bordered warp temp_decimal", temp_decimal_bordered)
+
+    humidity_pts1 = np.float32([[34, 1], [195, 1], [22, 109], [189, 110]])
+    humidity_pts2 = np.float32([[0, 0], [200, 0], [0, 123], [200, 123]])
+    humidity__m = cv2.getPerspectiveTransform(humidity_pts1, humidity_pts2)
+    humidity_dst = cv2.warpPerspective(humidity, humidity__m, (200, 123))
+
+    humidity_bordered = cv2.copyMakeBorder(humidity_dst, top=border_size, bottom=border_size,
+                                           left=border_size,
+                                           right=border_size,
+                                           borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
+    # cv2.imshow("bordered warp humidity", humidity_bordered)
+
+    ocr_rois = [temp_bordered, temp_decimal_bordered, humidity_bordered]
+    feat_detect_rois = [dry, wet, min_1, max_1, min_2, max_2]
+    return [ocr_rois, feat_detect_rois]
+
+
+def roi_device_7(display):
+    """
+CASIO calculator MS-20UC
+    :param img:
+    :return:
+    """
+    # cv2.equalizeHist(display, display)
+    border_size = 10
+    white = [255, 255, 255]
+    display_pts1 = np.float32([[36, 58], [569, 58], [31, 175], [558, 179]])
+    display_pts2 = np.float32([[0, 0], [570, 0], [0, 180], [570, 180]])
+    display__m = cv2.getPerspectiveTransform(display_pts1, display_pts2)
+    display_dst = cv2.warpPerspective(display, display__m, (570, 180))
+
+    display_bordered = cv2.copyMakeBorder(display_dst, top=border_size, bottom=border_size,
+                                          left=border_size,
+                                          right=border_size,
+                                          borderType=cv2.BORDER_CONSTANT, value=white)
+    cv2.imshow("bordered warp display", display_bordered)
+    cv2.imshow("display", display)
+
+    digits_10_13 = display_bordered[0:200, 0:149]
+    digits_10_13_bordered = cv2.copyMakeBorder(digits_10_13, top=0, bottom=0, left=0, right=border_size,
+                                               borderType=cv2.BORDER_CONSTANT, value=white)
+
+    digits_7_9 = display_bordered[0:200, 155:297]
+    digits_7_9_bordered = cv2.copyMakeBorder(digits_7_9, top=0, bottom=0, left=border_size, right=border_size,
+                                             borderType=cv2.BORDER_CONSTANT, value=white)
+
+    digits_3_6 = display_bordered[0:200, 302:443]
+    digits_3_6_bordered = cv2.copyMakeBorder(digits_3_6, top=0, bottom=0, left=border_size, right=border_size,
+                                             borderType=cv2.BORDER_CONSTANT, value=white)
+    digits_1_3 = display_bordered[0:200, 445:590]
+    digits_1_3_bordered = cv2.copyMakeBorder(digits_1_3, top=0, bottom=0, left=border_size, right=0,
+                                             borderType=cv2.BORDER_CONSTANT, value=white)
+
+    ret, digits_10_13_bordered = cv2.threshold(digits_10_13_bordered.copy(), 50, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+    ret, digits_7_9_bordered = cv2.threshold(digits_7_9_bordered.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    ret, digits_3_6_bordered= cv2.threshold(digits_3_6_bordered.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    ret, digits_1_3_bordered = cv2.threshold(digits_1_3_bordered.copy(),70, 255, cv2.THRESH_BINARY)
+    im_floodfill = digits_1_3_bordered.copy()
+
+    # Mask used to flood filling.
+    # Notice the size needs to be 2 pixels than the image.
+    h, w = digits_1_3_bordered.shape[:2]
+    mask = np.zeros((h + 2, w + 2), np.uint8)
+
+    # Floodfill from point (0, 0)
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+
+
+
+    cv2.imshow("1-3", digits_1_3_bordered)
+    cv2.imshow("4-6", digits_3_6_bordered)
+    cv2.imshow("7-9", digits_7_9_bordered)
+    #
+    cv2.imshow("10-13", digits_10_13_bordered)
+    #
+    # cv2.imshow("eq", display)
+
+    ocr_rois = [digits_1_3_bordered, digits_3_6_bordered, digits_7_9_bordered, digits_10_13_bordered]
     feat_detect_rois = []
+    cv2.waitKey(1)
     return [ocr_rois, feat_detect_rois]
 
 

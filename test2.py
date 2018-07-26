@@ -71,7 +71,7 @@ cap = cv2.VideoCapture(0)
 
 while True:
     # Capture frame-by-frame
-    ret, frame = cap.read(
+    ret, frame = cap.read()
     print(ret)
     frame = frame[120:430, 20:600]
     frame = cv2.rotate(frame,cv2.ROTATE_180)

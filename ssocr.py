@@ -117,9 +117,25 @@ NONAME thermo-hygor
     device_ssocr_args = [
         "-D",
         "-d", "-1",
-        "-i", "2",
-        "-n", "3"
+        "-i", "5",
+        "-n", "10",
+    ]
 
+    return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
+
+
+def ssocr_device_7(rois):
+    """
+CASIO calculator MS20UC
+    :param rois:
+    :return: call of call_ssocr with the ssocr arguments matching the device
+    """
+    device_ssocr_args = [
+        "-D",
+        "-d", "-1",
+        "-i", "3",
+        "-n", "5",
+        "-r", "20",
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]

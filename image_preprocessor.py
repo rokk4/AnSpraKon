@@ -202,8 +202,8 @@ NONAME thermo-hygro
 
     flip_180 = cv2.rotate(img.copy(), cv2.ROTATE_180)
     gray = cv2.cvtColor(flip_180[124:447, 49:495].copy(), cv2.COLOR_BGR2GRAY)
-    bi_filter = cv2.bilateralFilter(gray.copy(), 11, 17, 17)
-    ret, thresh1 = cv2.threshold(bi_filter.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    # bi_filter = cv2.bilateralFilter(gray.copy(), 11, 17, 17)
+    ret, thresh1 = cv2.threshold(gray.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
 
     im_floodfill = thresh1.copy()
 
@@ -218,5 +218,21 @@ NONAME thermo-hygro
     kernel = np.ones((1, 2), np.uint8)
     closing = cv2.morphologyEx(im_floodfill, cv2.MORPH_ERODE, kernel)
     closing2 = cv2.morphologyEx(closing, cv2.MORPH_CLOSE, kernel)
+    cv2.imshow("closing2",closing2)
+    cv2.waitKey(1)
 
     return closing2
+
+
+# Device ID 7
+def image_device_7(img):
+    """
+CASIO calculator MS-20UC
+    :param img: the image to process
+    :return: the processed img
+    """
+
+    flip_180 = cv2.rotate(img, cv2.ROTATE_180)
+    gray = cv2.cvtColor(flip_180[41:245, 13:607], cv2.COLOR_BGR2GRAY)
+
+    return gray.copy()
