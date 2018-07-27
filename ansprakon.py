@@ -23,6 +23,10 @@ import opencv_webcam_multithread
 import call_nanotts
 import cv2
 import argparse
+import gc
+import sdnotify
+
+gc.set_threshold(300, 5, 5)
 
 license_info = """
     AnSpraKon  Copyright (C) 2018  Matthias Axel Kröll
@@ -36,23 +40,41 @@ print(license_info)
 
 class Ansprakon:
     def __init__(self, args):
-        self.device_id = args.device
-        self.nanotts_options = ["-v", args.language,
-                                "--speed", args.speed,
-                                "--pitch", args.pitch,
-                                "--volume", args.volume]
-        self.speak_on_button = args.button
-        self.cam = opencv_webcam_multithread.WebcamVideoStream(src=0).start()
-        self.grabbed_image = None
-        self.preprocessed_image = None
-        self.rois_cut = None
-        self.rois_processed = None
-        self.results_processed = None
-        self.result_buffer = []
+        self._device_id = args.device
+        self._sdnotify = sdnotify.SystemdNotifier()
+        self._nanotts_options = ["-v", args.language,
+                                 "--speed", args.speed,
+                                 "--pitch", args.pitch,
+                                 "--volume", args.volume]
+        self._speak_on_button = args.button
+        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=0).start()
+        self._grabbed_image = None
+        self._preprocessed_image = None
+        self._rois_cut = None
+        self._rois_processed = None
+        self._results_processed = None
+        self._result_buffer = []
+        self._on_pi = args.rpi
+        self._gpio_pin = args.gpiopin
+        if self._on_pi:
+            # noinspection PyPep8Naming
+            import RPi.GPIO as gpio
+            gpio.setmode(gpio.BOARD)
+            gpio.setwarnings(False)
+            gpio.setup(self._gpio_pin, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+            gpio.add_event_detect(self._gpio_pin, gpio.RISING, callback=self.gpio_callback())
+        self._sdnotify.notify("READY=1")
+
+    @property
+    def sdnotify(self):
+        return self._sdnotify
+
+    def gpio_callback(self):
+        self.speak_result()
 
     def get_frame(self):
         try:
-            self.grabbed_image = self.cam.read()
+            self._grabbed_image = self._cam.read()
         except cv2.error as e:
             print(e)
             self.get_frame()
@@ -63,7 +85,7 @@ class Ansprakon:
         :param self: image to process as cv2 MAT format
         :return: processed image
         """
-        self.preprocessed_image = getattr(image_preprocessor, "image_device_" + self.device_id)(self.grabbed_image)
+        self._preprocessed_image = getattr(image_preprocessor, "image_device_" + self._device_id)(self._grabbed_image)
 
     def cut_rois(self):
         """
@@ -71,15 +93,15 @@ class Ansprakon:
         :param self:
         :return: list of list [[ocr_rois],[feat_rois]]
         """
-        self.rois_cut = getattr(roi_cutter, "roi_device_" + self.device_id)(self.preprocessed_image)
+        self._rois_cut = getattr(roi_cutter, "roi_device_" + self._device_id)(self._preprocessed_image)
 
     def run_ssocr(self):
         """
     Sets the ssocr flags matching to the given device id
         :param self:
         """
-        self.rois_processed = getattr(ssocr, "ssocr_device_" + self.device_id)(self.rois_cut)
-        self.rois_cut[0] = self.rois_processed[0]
+        self._rois_processed = getattr(ssocr, "ssocr_device_" + self._device_id)(self._rois_cut)
+        self._rois_cut[0] = self._rois_processed[0]
 
     def detect_feat(self):
         """
@@ -87,7 +109,7 @@ class Ansprakon:
         :param self:
         :return:
         """
-        self.rois_processed = getattr(feat_detector, "feat_detect_device_" + self.device_id)(self.rois_cut)
+        self._rois_processed = getattr(feat_detector, "feat_detect_device_" + self._device_id)(self._rois_cut)
 
     def process_result(self):
         """
@@ -95,20 +117,25 @@ class Ansprakon:
         :param self:
         :return:
         """
-        self.results_processed = getattr(result_processor,
-                                         "process_results_device_" + self.device_id)(self.rois_processed)
+        self._results_processed = getattr(result_processor,
+                                          "process_results_device_" + self._device_id)(self._rois_processed)
 
-        self.result_buffer.append(self.results_processed)
+        self._result_buffer.append(self._results_processed)
 
-    def speak(self):
-        if self.device_id in self.speak_on_change_devices and self.results_processed not in self.result_buffer[:-3]:
-            self.result_buffer.append(self.results_processed)
+    def speak_result(self):
+        pass
+
+    def scrub_result_buffer(self):
+        if len(self._result_buffer) > 30:
+            self._result_buffer = self._result_buffer[:-15]
 
 
 def main():
     parser = argparse.ArgumentParser(description="read 7-segment displays and read out the result")
     parser.add_argument("device", help="enter the ID of the device to use")
     parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
+    parser.add_argument("-r", "--rpi", help="run on rpi", action="store_true")
+    parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=13, type=int)
     parser.add_argument("-s", "--speed", help="set speed of the voice", default=1.5, type=float, metavar="<0.2-5.0>")
     parser.add_argument("-p", "--pitch", help="set the pitch of the voice", default=0.8, type=float,
                         metavar="<0.5-2.0>")
@@ -124,6 +151,7 @@ def main():
     args = parser.parse_args()
 
     ansprakon = Ansprakon(args)
+
     while True:
         ansprakon.get_frame()
         ansprakon.preprocess_image()
@@ -131,6 +159,8 @@ def main():
         ansprakon.run_ssocr()
         ansprakon.detect_feat()
         ansprakon.process_result()
+        ansprakon.speak_result()
+        ansprakon.sdnotify.notify("WATCHDOG=1")
 
 
 if __name__ == "__main__":

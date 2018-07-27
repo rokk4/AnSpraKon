@@ -6,11 +6,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6de713-a8bd-4c6b-9f28-e216e054b276" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/call_nanotts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdnotify.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/r0x.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/r0x.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ansprakon.py" beforeDir="false" afterPath="$PROJECT_DIR$/ansprakon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nanotts-001.wav" beforeDir="false" afterPath="$PROJECT_DIR$/nanotts-001.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opencv_webcam_multithread.py" beforeDir="false" afterPath="$PROJECT_DIR$/opencv_webcam_multithread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_processor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testbild.png" beforeDir="false" afterPath="$PROJECT_DIR$/testbild.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,7 +34,7 @@
     <SUITE FILE_PATH="coverage/ansprakon_v2$call_nanotts.coverage" NAME="call_nanotts Coverage Results" MODIFIED="1532650531063" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ansprakon_v2$select_roi_gui.coverage" NAME="select_roi_gui Coverage Results" MODIFIED="1532636624893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ansprakon_v2$transform_test.coverage" NAME="transform_test Coverage Results" MODIFIED="1532370124799" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ansprakon_v2$ansprakon.coverage" NAME="ansprakon Coverage Results" MODIFIED="1532666951351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ansprakon_v2$ansprakon.coverage" NAME="ansprakon Coverage Results" MODIFIED="1532722426521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -54,10 +55,22 @@
       <file leaf-file-name="ansprakon.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ansprakon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="91" column="107" lean-forward="true" selection-start-line="91" selection-start-column="107" selection-end-line="91" selection-end-column="107" />
+            <state relative-caret-position="180">
+              <caret line="128" column="27" lean-forward="true" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
               <folding>
-                <element signature="e#762#787#0" expanded="true" />
+                <element signature="e#784#809#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sdnotify.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sdnotify.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="56" column="97" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="97" />
+              <folding>
+                <element signature="e#1097#1110#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -66,8 +79,8 @@
       <file leaf-file-name="call_nanotts.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/call_nanotts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="198">
+              <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -89,15 +102,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
               <caret line="8" column="37" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="videotest2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/videotest2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -144,8 +148,8 @@
       <file leaf-file-name="opencv_webcam_multithread.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/opencv_webcam_multithread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+            <state relative-caret-position="18">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -187,6 +191,8 @@
       <find>speak_text</find>
       <find>f</find>
       <find>flood</find>
+      <find>grabbed_image</find>
+      <find>preprocessed_image</find>
     </findStrings>
     <replaceStrings>
       <replace>approx</replace>
@@ -203,6 +209,8 @@
       <replace>self.device_id</replace>
       <replace>3_6</replace>
       <replace>humidity</replace>
+      <replace>_grabbed_image</replace>
+      <replace>_preprocessed_image</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -239,6 +247,7 @@
         <option value="$PROJECT_DIR$/opencv_webcam_multithread.py" />
         <option value="$PROJECT_DIR$/call_nanotts.py" />
         <option value="$PROJECT_DIR$/result_processor.py" />
+        <option value="$PROJECT_DIR$/sdnotify.py" />
         <option value="$PROJECT_DIR$/ansprakon.py" />
       </list>
     </option>
@@ -254,7 +263,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="-22" />
-    <option name="width" value="1920" />
+    <option name="width" value="960" />
     <option name="height" value="1102" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -358,7 +367,7 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="ADDITIONAL_ARGS" value="" />
     </configuration>
-    <configuration name="ansprakon" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ansprakon" type="PythonConfigurationType" factoryName="Python">
       <module name="ansprakon-v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -561,7 +570,6 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ansprakon" />
         <item itemvalue="Python.call_nanotts" />
         <item itemvalue="Python.videotest" />
         <item itemvalue="Python.videotest2" />
@@ -583,7 +591,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-22" width="1920" height="1102" extended-state="0" />
+    <frame x="0" y="-22" width="960" height="1102" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -591,8 +599,8 @@
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.33065328" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49895832" weight="0.43417084" />
-      <window_info anchor="bottom" x="640" y="0" width="640" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" weight="0.38190955" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.43417084" />
+      <window_info anchor="bottom" x="960" y="0" width="960" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" weight="0.38190955" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.42135417" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3296875" />
@@ -600,7 +608,7 @@
       <window_info anchor="right" id="SciView" order="5" weight="0.3296875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.40301508" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.40301508" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -646,28 +654,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ansprakon.py</url>
-          <line>81</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ansprakon.py</url>
-          <line>83</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ansprakon.py</url>
-          <line>91</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ansprakon.py</url>
-          <line>92</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -679,17 +665,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/picospeaker.py" />
     <entry file="file://$PROJECT_DIR$/ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
@@ -701,7 +676,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#762#787#0" expanded="true" />
+            <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -727,7 +702,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#762#787#0" expanded="true" />
+            <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -753,7 +728,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#762#787#0" expanded="true" />
+            <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -780,7 +755,7 @@
         <state relative-caret-position="306">
           <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
           <folding>
-            <element signature="e#762#787#0" expanded="true" />
+            <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -806,7 +781,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#762#787#0" expanded="true" />
+            <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -816,7 +791,7 @@
         <state relative-caret-position="18">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
           <folding>
-            <element signature="e#762#787#0" expanded="true" />
+            <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -958,20 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/opencv_webcam_multithread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/call_nanotts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/call_ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1010,12 +971,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/call_nanotts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/opencv_webcam_multithread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.fr-RPzlpq/bb4242-sdnotify-d349a64/sdnotify/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sdnotify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="56" column="97" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="97" />
+          <folding>
+            <element signature="e#1097#1110#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ansprakon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="91" column="107" lean-forward="true" selection-start-line="91" selection-start-column="107" selection-end-line="91" selection-end-column="107" />
+        <state relative-caret-position="180">
+          <caret line="128" column="27" lean-forward="true" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
           <folding>
-            <element signature="e#762#787#0" expanded="true" />
+            <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>

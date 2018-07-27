@@ -81,8 +81,8 @@ NONAME indoor/outdoor thermometer
         print(regex_indoor_temp_result)
         print(regex_outdoor_temp_result)
 
-        # rois_processed[0][0] = regex_indoor_temp_result[:-1] + "." + regex_indoor_temp_result[-1:] + "°C"
-        # rois_processed[0][1] = regex_outdoor_temp_result[:-1] + "." + regex_outdoor_temp_result[-1:] + "°C"
+        # _rois_processed[0][0] = regex_indoor_temp_result[:-1] + "." + regex_indoor_temp_result[-1:] + "°C"
+        # _rois_processed[0][1] = regex_outdoor_temp_result[:-1] + "." + regex_outdoor_temp_result[-1:] + "°C"
         rois_processed[0][0] = regex_indoor_temp_result + " °C"
         rois_processed[0][1] = regex_outdoor_temp_result + " °C"
     else:
@@ -112,7 +112,7 @@ GREEN alarmclock
     :param rois_processed:
     :return:
     """
-    # for ocr_results in rois_processed[0]:
+    # for ocr_results in _rois_processed[0]:
     #     print(filter(ocr_results.isdigit, ocr_results)[0])
 
     return rois_processed
