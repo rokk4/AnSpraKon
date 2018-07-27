@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from threading import Thread, Lock
 import cv2
 
@@ -39,4 +37,3 @@ class WebcamVideoStream:
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.stream.release()
-

@@ -1,158 +1,137 @@
 # coding=utf-8
-import subprocess
+# AnSpraKon, reads 7-Segment-Displays and reads the result out loud.
+# Copyright (C) 2018  Matthias Axel Kröll ansprakon@makroell.de
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>
 import image_preprocessor
 import ssocr
 import roi_cutter
 import result_processor
 import feat_detector
 import opencv_webcam_multithread
+import call_nanotts
 import cv2
-import time
-import gc
-import bottleneck
-gc.enable()
+import argparse
 
-# check if running on an RPi by trying to import the RPi.GPIO library. If this fails, we are usually not on an RPi.
-# ID of the device to read.
-device_id = 7
-
-video_src = 0  # index of the video source
-
-# NanoTTS Options
-lang = "de-DE"
-volume = 0
-rate = 0  # speed of the reading
-pitch = 0
-
-# create cam stream object
-cam = opencv_webcam_multithread.WebcamVideoStream(src=video_src)
-
-
-def grab_image():
+license_info = """
+    AnSpraKon  Copyright (C) 2018  Matthias Axel Kröll
+    This program comes with ABSOLUTELY NO WARRANTY; 
+    for details use optional argument `--show-w'.
+    This is free software, and you are welcome to redistribute it under certain conditions; 
+    for details use optional argument `--show-c' .
     """
-Creates new cv VideoCapture object. Reads a frame and releases the VideoCapture Device.
-    :return: The frame which was read as cv2 MAT format.
-    """
-    img = None
-    try:
-        img = cam.read()
-    except cv2.error as e:
-        print(e)
-        grab_image()
-    return img
+print(license_info)
 
 
-def preprocess_image(img):
-    """
-Processes an Image with the methods defined for the device in image_preprocessor.py
-    :param img: image to process as cv2 MAT format
-    :return: processed image
-    """
-    return getattr(image_preprocessor, "image_device_" + str(device_id))(img)
+class Ansprakon:
+    def __init__(self, args):
+        self.device_id = args.device
+        self.nanotts_options = ["-v", args.language,
+                                "--speed", args.speed,
+                                "--pitch", args.pitch,
+                                "--volume", args.volume]
+        self.speak_on_button = args.button
+        self.cam = opencv_webcam_multithread.WebcamVideoStream(src=0).start()
+        self.grabbed_image = None
+        self.preprocessed_image = None
+        self.rois_cut = None
+        self.rois_processed = None
+        self.results_processed = None
+        self.result_buffer = []
 
-
-def cut_roi(img):
-    """
-Cuts out Rois and returns ocr-rois and feat-rois as
-    :param img:
-    :return: list of list [[ocr_rois],[feat_rois]]
-    """
-    return getattr(roi_cutter, "roi_device_" + str(device_id))(img)
-
-
-def detect_feat(rois):
-    """
-Detect feat in the
-    :param rois:
-    :return:
-    """
-    return getattr(feat_detector, "feat_detect_device_" + str(device_id))(rois)
-
-
-def run_ssocr(rois):
-    """
-Sets the ssocr flags matching to the given device id
-    :param rois:
-    """
-    return getattr(ssocr, "ssocr_device_" + str(device_id))(rois)
-
-
-def process_result(ocr_results):
-    """
-
-    :param ocr_results:
-    :return:
-    """
-    return getattr(result_processor, "process_results_device_" + str(device_id))(ocr_results)
-
-
-def speak_ocr_results(speak_text="Ansprakon bereit."):
-    """
-Calls nanoTTS in an subprocess. nanoTTS parses text to pico.
--l de-DE flag sets the language to german.
-Volume & Speed & Pitch control with flags is possible, see man nanoTTS
-    :param speak_text: this is the String from the ocr
-    """
-    global speak
-    if speak:
+    def get_frame(self):
         try:
-            subprocess.call(["nanotts-git", "-v", lang, speak_text], stdout=subprocess.PIPE)
-        except subprocess.CalledProcessError as e:
-            print("Error code {} while speaking, output: {}".format(e.returncode, e.output))
-    else:
-        print("Not Speaking")
-        pass
+            self.grabbed_image = self.cam.read()
+        except cv2.error as e:
+            print(e)
+            self.get_frame()
 
+    def preprocess_image(self):
+        """
+    Processes an Image with the methods defined for the device in image_preprocessor.py
+        :param self: image to process as cv2 MAT format
+        :return: processed image
+        """
+        self.preprocessed_image = getattr(image_preprocessor, "image_device_" + self.device_id)(self.grabbed_image)
 
-# boolean to hold the speaking again flag
-speak = True
-# variable to store last ocr string
-text = ""
+    def cut_rois(self):
+        """
+    Cuts out Rois and returns ocr-rois and feat-rois as
+        :param self:
+        :return: list of list [[ocr_rois],[feat_rois]]
+        """
+        self.rois_cut = getattr(roi_cutter, "roi_device_" + self.device_id)(self.preprocessed_image)
 
+    def run_ssocr(self):
+        """
+    Sets the ssocr flags matching to the given device id
+        :param self:
+        """
+        self.rois_processed = getattr(ssocr, "ssocr_device_" + self.device_id)(self.rois_cut)
+        self.rois_cut[0] = self.rois_processed[0]
 
-def ocr_and_speak():
-    """
-Read ssocr call into "new_text" and determine if the same text was read as in the last iteration.
-Also speak the last text again  if "speak_again = True" was set.
-    """
-    global new_text
-    new_text = process_result(
-        run_ssocr(
-            detect_feat(
-                cut_roi(
-                    preprocess_image(
-                        grab_image()
-                    )
-                )
-            )
-        )
-    )
+    def detect_feat(self):
+        """
+    Detect feat in the
+        :param self:
+        :return:
+        """
+        self.rois_processed = getattr(feat_detector, "feat_detect_device_" + self.device_id)(self.rois_cut)
 
-    # flat_list = [item for sublist in new_text for item in sublist]
-    # for text in flat_list:
-    #     speak_ocr_results(text)
+    def process_result(self):
+        """
+    
+        :param self:
+        :return:
+        """
+        self.results_processed = getattr(result_processor,
+                                         "process_results_device_" + self.device_id)(self.rois_processed)
 
-    # print(flat_list)
+        self.result_buffer.append(self.results_processed)
 
-
-# Say "Ansprakon bereit" 1x time, to get audio feedback that the pi booted and AnSpraKon is running.
-# speak_ocr_results()
+    def speak(self):
+        if self.device_id in self.speak_on_change_devices and self.results_processed not in self.result_buffer[:-3]:
+            self.result_buffer.append(self.results_processed)
 
 
 def main():
-    """
+    parser = argparse.ArgumentParser(description="read 7-segment displays and read out the result")
+    parser.add_argument("device", help="enter the ID of the device to use")
+    parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
+    parser.add_argument("-s", "--speed", help="set speed of the voice", default=1.5, type=float, metavar="<0.2-5.0>")
+    parser.add_argument("-p", "--pitch", help="set the pitch of the voice", default=0.8, type=float,
+                        metavar="<0.5-2.0>")
+    parser.add_argument("-v", "--volume",
+                        help="set the volume of the voice", default=1, type=float, metavar="<0.0-5.0>")
+    parser.add_argument("-l", "--language", help="set the language of the voice", default="de-DE",
+                        choices=["en-US", "en-GB", "de-DE", "es-ES", "fr-FR", "it-IT"])
+    parser.add_argument("--version", action="version", version="%(AnSpraKon)s 2.0")
+    parser.add_argument("--show-w", help="Show warranty details of the GPL", action="store_true")
+    parser.add_argument("--show-c", help="Show redistribution conditions of the GPL", action="store_true")
 
-    """
-    # read_counter = 0
+    parser.parse_args()
+    args = parser.parse_args()
+
+    ansprakon = Ansprakon(args)
     while True:
-        ocr_and_speak()
-        # read_counter += 1
-        # print(read_counter, time.process_time(), gc.get_count(), gc.get_stats(), gc.get_debug())
-
-
+        ansprakon.get_frame()
+        ansprakon.preprocess_image()
+        ansprakon.cut_rois()
+        ansprakon.run_ssocr()
+        ansprakon.detect_feat()
+        ansprakon.process_result()
 
 
 if __name__ == "__main__":
-    cam.start()
     main()
-    cam.stop()
