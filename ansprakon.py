@@ -25,6 +25,7 @@ import cv2
 import argparse
 import gc
 import sdnotify
+import collections
 
 gc.set_threshold(300, 5, 5)
 
@@ -47,13 +48,13 @@ class Ansprakon:
                                  "--pitch", args.pitch,
                                  "--volume", args.volume]
         self._speak_on_button = args.button
-        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=0).start()
+        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=2).start()
         self._grabbed_image = None
         self._preprocessed_image = None
         self._rois_cut = None
         self._rois_processed = None
         self._results_processed = None
-        self._result_buffer = []
+        self._result_buffer = [[], []]
         self._on_pi = args.rpi
         self._gpio_pin = args.gpiopin
         if self._on_pi:
@@ -120,14 +121,17 @@ class Ansprakon:
         self._results_processed = getattr(result_processor,
                                           "process_results_device_" + self._device_id)(self._rois_processed)
 
-        self._result_buffer.append(self._results_processed)
 
     def speak_result(self):
-        pass
+            print(self._result_buffer)
+            print(self._results_processed)
+            print(self._results_processed not in self._result_buffer)
 
-    def scrub_result_buffer(self):
-        if len(self._result_buffer) > 30:
-            self._result_buffer = self._result_buffer[:-15]
+            if self._results_processed not in self._result_buffer:
+                call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
+                self._result_buffer.append(self._results_processed)
+                if len(self._result_buffer) > 7:
+                    self._result_buffer = self._result_buffer[-4:]
 
 
 def main():
@@ -136,11 +140,9 @@ def main():
     parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
     parser.add_argument("-r", "--rpi", help="run on rpi", action="store_true")
     parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=13, type=int)
-    parser.add_argument("-s", "--speed", help="set speed of the voice", default=1.5, type=float, metavar="<0.2-5.0>")
-    parser.add_argument("-p", "--pitch", help="set the pitch of the voice", default=0.8, type=float,
-                        metavar="<0.5-2.0>")
-    parser.add_argument("-v", "--volume",
-                        help="set the volume of the voice", default=1, type=float, metavar="<0.0-5.0>")
+    parser.add_argument("-s", "--speed", help="set speed of the voice", default="1.5", metavar="<0.2-5.0>")
+    parser.add_argument("-p", "--pitch", help="set the pitch of the voice", default="0.8", metavar="<0.5-2.0>")
+    parser.add_argument("-v", "--volume", help="set the volume of the voice", default="1", metavar="<0.0-5.0>")
     parser.add_argument("-l", "--language", help="set the language of the voice", default="de-DE",
                         choices=["en-US", "en-GB", "de-DE", "es-ES", "fr-FR", "it-IT"])
     parser.add_argument("--version", action="version", version="%(AnSpraKon)s 2.0")

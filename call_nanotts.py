@@ -10,8 +10,9 @@ Volume & Speed & Pitch control with flags is possible, see man nanoTTS
     :param nanotts_flags:
     :param text: this is the String to speak
     """
-    nanotts_flags = ["nanotts-git", "-w", '"' + text + '"'] + nanotts_options
-
+    nanotts_flags = ["nanotts-git"] + nanotts_options + ['"' + text + '"']
+    print(nanotts_flags)
+    print(nanotts_options)
     try:
         subprocess.call(nanotts_flags, stdout=subprocess.PIPE)
     except subprocess.CalledProcessError as e:

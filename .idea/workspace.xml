@@ -6,10 +6,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6de713-a8bd-4c6b-9f28-e216e054b276" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/speaker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ansprakon-v2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ansprakon-v2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ansprakon" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ansprakon.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nanotts-001.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansprakon.py" beforeDir="false" afterPath="$PROJECT_DIR$/ansprakon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/call_nanotts.py" beforeDir="false" afterPath="$PROJECT_DIR$/call_nanotts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testbild.png" beforeDir="false" afterPath="$PROJECT_DIR$/testbild.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,7 +35,7 @@
     <SUITE FILE_PATH="coverage/ansprakon_v2$call_nanotts.coverage" NAME="call_nanotts Coverage Results" MODIFIED="1532650531063" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ansprakon_v2$select_roi_gui.coverage" NAME="select_roi_gui Coverage Results" MODIFIED="1532636624893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ansprakon_v2$transform_test.coverage" NAME="transform_test Coverage Results" MODIFIED="1532370124799" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ansprakon_v2$ansprakon.coverage" NAME="ansprakon Coverage Results" MODIFIED="1532722426521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ansprakon_v2$ansprakon.coverage" NAME="ansprakon Coverage Results" MODIFIED="1532733990564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -49,10 +53,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ansprakon.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ansprakon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ansprakon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
+            <state relative-caret-position="2322">
               <caret line="129" column="12" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
               <folding>
                 <element signature="e#784#809#0" expanded="true" />
@@ -61,74 +65,53 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="testbild.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testbild.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file leaf-file-name="transform_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/transform_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="sdnotify.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sdnotify.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
+            <state relative-caret-position="972">
               <caret line="56" column="97" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="97" />
-              <folding>
-                <element signature="e#1097#1110#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="call_nanotts.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/call_nanotts.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-            </state>
-          </provider>
+      <file leaf-file-name="device_1_basetech_term_test.png" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/device_1_basetech_term_test.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file leaf-file-name="videotest.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/videotest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="call_ssocr.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/call_ssocr.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="8" column="37" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="roi_cutter.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/roi_cutter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1807">
-              <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="266" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="image_preprocessor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="218" column="69" lean-forward="true" selection-start-line="217" selection-start-column="4" selection-end-line="218" selection-end-column="69" />
-              <folding>
-                <element signature="e#15#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+      <file leaf-file-name="casio_calculator_test.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/casio_calculator_test.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file leaf-file-name="result_processor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/result_processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="127" selection-start-line="127" selection-end-line="127" />
+            <state relative-caret-position="94">
+              <caret line="154" column="37" selection-start-line="154" selection-start-column="37" selection-end-line="154" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="speaker.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/speaker.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -136,17 +119,17 @@
       <file leaf-file-name="ssocr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ssocr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
+            <state relative-caret-position="72">
+              <caret line="4" selection-start-line="4" selection-end-line="21" selection-end-column="74" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="opencv_webcam_multithread.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/opencv_webcam_multithread.py">
+      <file leaf-file-name="call_nanotts.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/call_nanotts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="216">
+              <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -190,6 +173,7 @@
       <find>flood</find>
       <find>grabbed_image</find>
       <find>preprocessed_image</find>
+      <find>rois_proccessed</find>
     </findStrings>
     <replaceStrings>
       <replace>approx</replace>
@@ -208,6 +192,7 @@
       <replace>humidity</replace>
       <replace>_grabbed_image</replace>
       <replace>_preprocessed_image</replace>
+      <replace>rois_processed</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -242,9 +227,10 @@
         <option value="$PROJECT_DIR$/videotest2.py" />
         <option value="$PROJECT_DIR$/videotest.py" />
         <option value="$PROJECT_DIR$/opencv_webcam_multithread.py" />
+        <option value="$PROJECT_DIR$/sdnotify.py" />
+        <option value="$PROJECT_DIR$/speaker.py" />
         <option value="$PROJECT_DIR$/call_nanotts.py" />
         <option value="$PROJECT_DIR$/result_processor.py" />
-        <option value="$PROJECT_DIR$/sdnotify.py" />
         <option value="$PROJECT_DIR$/ansprakon.py" />
       </list>
     </option>
@@ -260,7 +246,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="-22" />
-    <option name="width" value="1920" />
+    <option name="width" value="960" />
     <option name="height" value="1102" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -269,6 +255,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -276,20 +263,10 @@
               <item name="ansprakon-v2" type="b2602c69:ProjectViewProjectNode" />
               <item name="ansprakon-v2" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="ansprakon-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansprakon-v2-dev" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ansprakon-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansprakon-v2-dev" type="462c0819:PsiDirectoryNode" />
-              <item name="text-detection-opencv" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -588,7 +565,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-22" width="1920" height="1102" extended-state="0" />
+    <frame x="0" y="-22" width="960" height="1102" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -596,51 +573,51 @@
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.33065328" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49895832" weight="0.43417084" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.29849246" />
       <window_info anchor="bottom" x="960" y="0" width="960" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" weight="0.38190955" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.42135417" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.37916666" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3296875" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3286432" />
       <window_info anchor="right" id="SciView" order="5" weight="0.3296875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.40301508" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="12" weight="0.36582914" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32964823" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="12" weight="0.36582914" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286432" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15364583" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.3316583" />
       <window_info anchor="bottom" id="Inspection Results" order="14" visible="true" weight="0.32964823" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.33065328" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286432" />
       <window_info anchor="right" id="Database" order="3" weight="0.3296875" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39899498" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5005208" side_tool="true" weight="0.43718594" />
       <window_info anchor="right" id="SciView" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" x="955" y="-25" width="960" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" weight="0.38190955" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="12" weight="0.36582914" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.33065328" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -658,43 +635,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="23" />
+      <option name="time" value="24" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ssocr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="38" column="47" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ansprakon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#784#809#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ssocr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ansprakon.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -715,9 +659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -734,9 +675,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -761,9 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,9 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testaa.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/cam_stream_object.py" />
     <entry file="file://$PROJECT_DIR$/../ansprakon-v2-dev/clirate.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -852,20 +784,7 @@
     <entry file="file://$PROJECT_DIR$/ade_scale_test.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/transform_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" selection-start-line="4" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mouse_and_match.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="66" column="3" selection-start-line="66" selection-start-column="3" selection-end-line="66" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/mouse_and_match.py" />
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1224">
@@ -890,9 +809,6 @@
     <entry file="file://$PROJECT_DIR$/beurer_scale_test.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/device_1_basetech_term_test.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/basetech_term_test.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -910,9 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testbild.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/videotest2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -924,9 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -940,76 +850,90 @@
     <entry file="file://$PROJECT_DIR$/image_preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
-          <caret line="218" column="69" lean-forward="true" selection-start-line="217" selection-start-column="4" selection-end-line="218" selection-end-column="69" />
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
+          <caret line="218" column="69" selection-start-line="217" selection-start-column="4" selection-end-line="218" selection-end-column="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/roi_cutter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1807">
-          <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="266" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ssocr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/result_processor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/call_nanotts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+          <caret line="265" column="29" selection-start-line="265" selection-start-column="29" selection-end-line="266" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/opencv_webcam_multithread.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.fr-RPzlpq/bb4242-sdnotify-d349a64/sdnotify/__init__.py">
+    <entry file="file://$USER_HOME$/.fr-RPzlpq/bb4242-sdnotify-d349a64/sdnotify/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/profile" />
+    <entry file="file://$PROJECT_DIR$/testaa.png" />
+    <entry file="file://$PROJECT_DIR$/casio_calculator_test.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/casio_calculator_warped_borderedtest.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="72">
+          <caret line="4" selection-start-line="4" selection-end-line="21" selection-end-column="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sdnotify.py">
+    <entry file="file://$PROJECT_DIR$/testbild.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/speaker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="56" column="97" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="97" />
-          <folding>
-            <element signature="e#1097#1110#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="72">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/call_nanotts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_processor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="154" column="37" selection-start-line="154" selection-start-column="37" selection-end-line="154" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ansprakon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
+        <state relative-caret-position="2322">
           <caret line="129" column="12" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
           <folding>
             <element signature="e#784#809#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transform_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sdnotify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="972">
+          <caret line="56" column="97" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/device_1_basetech_term_test.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
 </project>

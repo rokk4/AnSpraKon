@@ -120,25 +120,41 @@ GREEN alarmclock
 
 def process_results_device_6(rois_processed):
     """
-GREEN alarmclock
+NONAME thermo-hygro meter
     :param rois_processed:
     :return:
     """
 
-    rois_processed[0][0] = "Temperatur " + rois_processed[0][0].rstrip() + "." + rois_processed[0][1].rstrip() + " °C"
-    rois_processed[0][1] = "Luftfeuchtigkeit " + rois_processed[0][2].rstrip() + " %"
-    del rois_processed[0][2]
+    rois_processed[0][0] = "Temperatur " + rois_processed[0][0].rstrip() + "." + rois_processed[0][1].rstrip() + "°C."
+    rois_processed[0][1] = "Luftfeuchtigkeit " + rois_processed[0][2].rstrip() + "%."
 
-    rois_processed[1][0] = "Trocken" if rois_processed[1][0] else None
-    rois_processed[1][1] = "Feucht" if rois_processed[1][1] else None
-    rois_processed[1][2] = "Minimal" if rois_processed[1][2] else None
-    rois_processed[1][3] = "Maximal" if rois_processed[1][3] else None
-    rois_processed[1][4] = "Minimal" if rois_processed[1][4] else None
-    rois_processed[1][5] = "Maximal" if rois_processed[1][5] else None
+    if rois_processed[1][2]:
+        rois_processed[0][0] = "Minimal " + rois_processed[0][0]
 
-    print(rois_processed)
+    if rois_processed[1][3]:
+        rois_processed[0][0] = "Maximal " + rois_processed[0][0]
 
-    return rois_processed
+    if rois_processed[1][4]:
+        rois_processed[0][1] = "Minimal " + rois_processed[0][1]
+
+    if rois_processed[1][5]:
+        rois_processed[0][1] = "Maximal " + rois_processed[0][1]
+
+    results_proccessed = rois_processed[0][0] + " " + rois_processed[0][1]
+
+    if rois_processed[1][0] and not (rois_processed[1][2]
+                                     or rois_processed[1][3]
+                                     or rois_processed[1][4]
+                                     or rois_processed[1][5]):
+        results_proccessed = "Trocken. " + results_proccessed
+
+    if rois_processed[1][1] and not (rois_processed[1][2]
+                                     or rois_processed[1][3]
+                                     or rois_processed[1][4]
+                                     or rois_processed[1][5]):
+        results_proccessed = "Feucht. " + results_proccessed
+
+    return results_proccessed
 
 
 def process_results_device_7(rois_processed):
