@@ -120,7 +120,7 @@ class Ansprakon:
         """
         self._results_processed = getattr(result_processor,
                                           "process_results_device_" + self._device_id)(self._rois_processed)
-        print(self._results_processed.encode).encode('utf-8').rstrip()
+        print(self._results_processed)
 
     def speak_result(self):
         if not self._speak_on_button:
