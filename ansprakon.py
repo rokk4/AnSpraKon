@@ -34,7 +34,7 @@ license_info = """
     for details use optional argument `--show-w'.
     This is free software, and you are welcome to redistribute it under certain conditions; 
     for details use optional argument `--show-c' .
-    """.encode('utf-8').strip()
+    """.encode('utf-8').rstrip()
 print(license_info)
 
 
@@ -120,7 +120,7 @@ class Ansprakon:
         """
         self._results_processed = getattr(result_processor,
                                           "process_results_device_" + self._device_id)(self._rois_processed)
-        print(self._results_processed)
+        print(self._results_processed.encode).encode('utf-8').rstrip()
 
     def speak_result(self):
         if not self._speak_on_button:
