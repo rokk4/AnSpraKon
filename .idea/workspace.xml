@@ -5,12 +5,7 @@
     <option name="CUSTOM_SCOPE_NAME" value="Open Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac6de713-a8bd-4c6b-9f28-e216e054b276" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/pi_gpio_button_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ansprakon.py" beforeDir="false" afterPath="$PROJECT_DIR$/ansprakon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ansprakon.service" beforeDir="false" afterPath="$PROJECT_DIR$/ansprakon.service" afterDir="false" />
-    </list>
+    <list default="true" id="ac6de713-a8bd-4c6b-9f28-e216e054b276" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -258,7 +253,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="-22" />
-    <option name="width" value="640" />
+    <option name="width" value="960" />
     <option name="height" value="1102" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -578,7 +573,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-22" width="640" height="1102" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5005208" side_tool="true" weight="0.43718594" />
@@ -586,8 +580,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.33065328" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.29849246" />
-      <window_info anchor="bottom" x="960" y="0" width="960" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" weight="0.38190955" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.56875" />
+      <window_info active="true" anchor="bottom" x="640" y="0" width="640" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" visible="true" weight="0.38190955" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.56875" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3296875" />
       <window_info anchor="right" id="SciView" order="5" weight="0.3296875" />
