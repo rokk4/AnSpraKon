@@ -34,7 +34,7 @@ license_info = """
     for details use optional argument `--show-w'.
     This is free software, and you are welcome to redistribute it under certain conditions; 
     for details use optional argument `--show-c' .
-    """
+    """.encode('utf-8').strip()
 print(license_info)
 
 
@@ -124,7 +124,7 @@ class Ansprakon:
 
     def speak_result(self):
         if not self._speak_on_button:
-            if self._results_processed not in self._result_buffer:
+            if self._results_processed not in self._result_buffer and len(self._result_buffer) >= 3:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                 self._result_buffer.append(self._results_processed)
                 if len(self._result_buffer) > 7:

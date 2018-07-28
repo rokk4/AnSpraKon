@@ -6,12 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac6de713-a8bd-4c6b-9f28-e216e054b276" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/ansprakon.service" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ansprakon.py" beforeDir="false" afterPath="$PROJECT_DIR$/ansprakon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nanotts-001.wav" beforeDir="false" afterPath="$PROJECT_DIR$/nanotts-001.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roi_cutter.py" beforeDir="false" afterPath="$PROJECT_DIR$/roi_cutter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testbild.png" beforeDir="false" afterPath="$PROJECT_DIR$/testbild.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,11 +47,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ansprakon.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ansprakon.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ansprakon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1448">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="270">
+              <caret line="36" column="7" lean-forward="true" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
               <folding>
                 <element signature="e#784#809#0" expanded="true" />
               </folding>
@@ -72,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="call_ssocr.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="call_ssocr.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/call_ssocr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="8" column="37" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="37" />
+            <state relative-caret-position="36">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -84,7 +80,7 @@
       <file leaf-file-name="roi_cutter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/roi_cutter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1376">
+            <state relative-caret-position="730">
               <caret line="166" column="6" selection-start-line="166" selection-start-column="6" selection-end-line="166" selection-end-column="6" />
             </state>
           </provider>
@@ -224,7 +220,6 @@
         <option value="$PROJECT_DIR$/mouse_and_match.py" />
         <option value="$PROJECT_DIR$/preprocess_tools.py" />
         <option value="$PROJECT_DIR$/test2.py" />
-        <option value="$PROJECT_DIR$/call_ssocr.py" />
         <option value="$PROJECT_DIR$/select_roi_gui.py" />
         <option value="$PROJECT_DIR$/feat_detector.py" />
         <option value="$PROJECT_DIR$/ssocr.py" />
@@ -237,8 +232,9 @@
         <option value="$PROJECT_DIR$/call_nanotts.py" />
         <option value="$PROJECT_DIR$/result_processor.py" />
         <option value="$PROJECT_DIR$/roi_cutter.py" />
-        <option value="$PROJECT_DIR$/ansprakon.py" />
         <option value="$PROJECT_DIR$/ansprakon.service" />
+        <option value="$PROJECT_DIR$/call_ssocr.py" />
+        <option value="$PROJECT_DIR$/ansprakon.py" />
       </list>
     </option>
   </component>
@@ -253,7 +249,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="-22" />
-    <option name="width" value="1920" />
+    <option name="width" value="960" />
     <option name="height" value="1102" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -581,8 +577,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.33065328" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.29849246" />
-      <window_info anchor="bottom" x="955" y="-25" width="960" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" weight="0.38190955" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.37916666" />
+      <window_info anchor="bottom" x="960" y="0" width="960" height="1080" id="Terminal" order="9" sideWeight="0.49947917" type="WINDOWED" weight="0.38190955" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.37916666" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3296875" />
       <window_info anchor="right" id="SciView" order="5" weight="0.3296875" />
@@ -909,20 +905,10 @@
     <entry file="file://$PROJECT_DIR$/device_1_basetech_term_test.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/roi_cutter.py">
+    <entry file="file://$PROJECT_DIR$/call_ssocr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1376">
-          <caret line="166" column="6" selection-start-line="166" selection-start-column="6" selection-end-line="166" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ansprakon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1448">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#784#809#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="36">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -933,10 +919,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/call_ssocr.py">
+    <entry file="file://$PROJECT_DIR$/roi_cutter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="37" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="37" />
+        <state relative-caret-position="730">
+          <caret line="166" column="6" selection-start-line="166" selection-start-column="6" selection-end-line="166" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ansprakon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="36" column="7" lean-forward="true" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+          <folding>
+            <element signature="e#784#809#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
