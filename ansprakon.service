@@ -6,9 +6,9 @@ After=syslog.target
 Type=notify
 NotifyAccess=all
 WorkingDirectory=/tmp/
-ExecStart=/usr/bin/java -server -jar myserver.jar
-# WatchdogSec=30
-# Restart=always
+ExecStart=/usr/bin/python /home/alarm/ansprakon 6 -b
+WatchdogSec=30
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
