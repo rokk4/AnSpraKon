@@ -218,8 +218,8 @@ NONAME thermo-hygro
     kernel = np.ones((1, 2), np.uint8)
     closing = cv2.morphologyEx(im_floodfill, cv2.MORPH_ERODE, kernel)
     closing2 = cv2.morphologyEx(closing, cv2.MORPH_CLOSE, kernel)
-    cv2.imshow("closing2",closing2)
-    cv2.waitKey(1)
+    # cv2.imshow("closing2",closing2)
+    # cv2.waitKey(1)
 
     return closing2
 

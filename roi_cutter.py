@@ -84,15 +84,15 @@ NONAME indoor/outdoor thermometer
     indoor_warped_bordered = cv2.copyMakeBorder(indoor_temp_dst, top=border_size, bottom=border_size, left=border_size,
                                                 right=border_size,
                                                 borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    cv2.imshow("bordered warp indoor", indoor_warped_bordered)
+    #cv2.imshow("bordered warp indoor", indoor_warped_bordered)
 
     outdoor_warped_bordered = cv2.copyMakeBorder(outdoor_temp_dst, top=border_size, bottom=border_size,
                                                  left=border_size,
                                                  right=border_size,
                                                  borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    cv2.imshow("bordered warp outdoor", outdoor_warped_bordered)
+    #cv2.imshow("bordered warp outdoor", outdoor_warped_bordered)
 
-    cv2.waitKey(1)
+    #cv2.waitKey(1)
 
     ocr_rois = [indoor_warped_bordered.copy(), outdoor_warped_bordered.copy()]
     feat_rois = [indoor_indicator, outdoor_indicator, min_indicator, max_indicator]
@@ -234,17 +234,17 @@ CASIO calculator MS-20UC
 
 
 
-    cv2.imshow("1-3", digits_1_3_bordered)
-    cv2.imshow("4-6", digits_3_6_bordered)
-    cv2.imshow("7-9", digits_7_9_bordered)
+    # cv2.imshow("1-3", digits_1_3_bordered)
+    # cv2.imshow("4-6", digits_3_6_bordered)
+    # cv2.imshow("7-9", digits_7_9_bordered)
     #
-    cv2.imshow("10-13", digits_10_13_bordered)
+    # cv2.imshow("10-13", digits_10_13_bordered)
     #
     # cv2.imshow("eq", display)
 
     ocr_rois = [digits_1_3_bordered, digits_3_6_bordered, digits_7_9_bordered, digits_10_13_bordered]
     feat_detect_rois = []
-    cv2.waitKey(1)
+    # v2.waitKey(1)
     return [ocr_rois, feat_detect_rois]
 
 
