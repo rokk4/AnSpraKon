@@ -124,11 +124,13 @@ class Ansprakon:
 
     def speak_result(self):
         if not self._speak_on_button:
-            if self._results_processed not in self._result_buffer and len(self._result_buffer) >= 3:
+            if self._results_processed not in self._result_buffer:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                 self._result_buffer.append(self._results_processed)
                 if len(self._result_buffer) > 7:
                     self._result_buffer = self._result_buffer[-4:]
+        else:
+            print("Did not Speak.")
 
 
 def main():
