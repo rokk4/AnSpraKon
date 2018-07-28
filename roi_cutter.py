@@ -141,7 +141,7 @@ NONAME thermo-hygro
 
     # cv2.imshow("temp", temp)
     # cv2.imshow("temp_deci", temp_decimal)
-    cv2.imshow("humidity", humidity)
+    # cv2.imshow("humidity", humidity)
 
     border_size = 10
 

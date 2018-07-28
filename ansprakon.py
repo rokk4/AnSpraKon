@@ -25,7 +25,6 @@ import cv2
 import argparse
 import gc
 import sdnotify
-import collections
 
 gc.set_threshold(300, 5, 5)
 
@@ -48,7 +47,7 @@ class Ansprakon:
                                  "--pitch", args.pitch,
                                  "--volume", args.volume]
         self._speak_on_button = args.button
-        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=2).start()
+        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=args.cam).start()
         self._grabbed_image = None
         self._preprocessed_image = None
         self._rois_cut = None
@@ -71,7 +70,8 @@ class Ansprakon:
         return self._sdnotify
 
     def gpio_callback(self):
-        self.speak_result()
+        if len(self._result_buffer) > 2:
+            call_nanotts.call_nanotts(self._nanotts_options, self._result_buffer[-1])
 
     def get_frame(self):
         try:
@@ -120,13 +120,10 @@ class Ansprakon:
         """
         self._results_processed = getattr(result_processor,
                                           "process_results_device_" + self._device_id)(self._rois_processed)
-
+        print(self._results_processed)
 
     def speak_result(self):
-            print(self._result_buffer)
-            print(self._results_processed)
-            print(self._results_processed not in self._result_buffer)
-
+        if not self._speak_on_button:
             if self._results_processed not in self._result_buffer:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                 self._result_buffer.append(self._results_processed)
@@ -140,6 +137,7 @@ def main():
     parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
     parser.add_argument("-r", "--rpi", help="run on rpi", action="store_true")
     parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=13, type=int)
+    parser.add_argument("-c", "--cam", help="set the device index of the cam to use", default=0, type=int)
     parser.add_argument("-s", "--speed", help="set speed of the voice", default="1.5", metavar="<0.2-5.0>")
     parser.add_argument("-p", "--pitch", help="set the pitch of the voice", default="0.8", metavar="<0.5-2.0>")
     parser.add_argument("-v", "--volume", help="set the volume of the voice", default="1", metavar="<0.0-5.0>")
@@ -149,7 +147,7 @@ def main():
     parser.add_argument("--show-w", help="Show warranty details of the GPL", action="store_true")
     parser.add_argument("--show-c", help="Show redistribution conditions of the GPL", action="store_true")
 
-    parser.parse_args()
+    #parser.parse_args()
     args = parser.parse_args()
 
     ansprakon = Ansprakon(args)

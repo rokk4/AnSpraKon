@@ -1,0 +1,14 @@
+[Unit]
+Description=AnSpraKon systemd service
+After=syslog.target
+
+[Service]
+Type=notify
+NotifyAccess=all
+WorkingDirectory=/tmp/
+ExecStart=/usr/bin/java -server -jar myserver.jar
+# WatchdogSec=30
+# Restart=always
+
+[Install]
+WantedBy=multi-user.target
