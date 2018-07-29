@@ -14,16 +14,16 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
-import image_preprocessor
-import ssocr
-import roi_cutter
-import result_processor
-import feat_detector
-import opencv_webcam_multithread
+import argparse
 import call_nanotts
 import cv2
-import argparse
+import feat_detector
+import image_preprocessor
+import opencv_webcam_multithread
+import result_processor
+import roi_cutter
 import sdnotify
+import ssocr
 
 
 class Ansprakon:
@@ -61,7 +61,7 @@ class Ansprakon:
         # setup systemd communication
         self._sdnotify = sdnotify.SystemdNotifier()
         self._sdnotify.notify("READY=1")
-        call_nanotts.call_nanotts(self._nanotts_options, "Ansprakon bereit.")
+        call_nanotts.call_nanotts(self._nanotts_options)
 
     @property
     def sdnotify(self):
@@ -107,9 +107,10 @@ Calls ssocr with the options matching the device, specified in ssocr.py and stor
 
     def detect_feat(self):
         """
-Detect features of the device as specified in feat_detector.py
+Detect features of the device as specified in feat_detector.py, if the device has features
         """
-        self._rois_processed = getattr(feat_detector, "feat_detect_device_" + self._device_id)(self._rois_cut)
+        if len(self._rois_cut[1]) > 1:
+            self._rois_processed = getattr(feat_detector, "feat_detect_device_" + self._device_id)(self._rois_cut)
 
     def process_result(self):
         """

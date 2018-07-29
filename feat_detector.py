@@ -2,86 +2,88 @@
 import cv2
 
 
-def feat_detect_device_0(rois):
+def feat_detect_device_0(feat_rois):
     """
     Dummy Device
-    :param rois:
+    :param feat_rois:
     :return:
     """
     counter = 0
-    for _ in rois[1]:
-        rois[1][counter] = True
+    for _ in feat_rois[1]:
+        feat_rois[1][counter] = True
         counter += 1
-    return rois
+    return feat_rois
 
 
-def feat_detect_device_1(rois):
+def feat_detect_device_1(feat_rois):
     """
 BASETECH thermometer
-    :param rois:
+    :param feat_rois:
     :return:
     """
-    return rois
+    return feat_rois
 
 
-def feat_detect_device_2(rois):
+def feat_detect_device_2(feat_rois):
     """
 ADE humanscale
-    :param rois:
+    :param feat_rois:
     :return:
     """
-    return rois
+    return feat_rois
 
 
-def feat_detect_device_3(rois):
+def feat_detect_device_3(feat_rois):
     """
 beurer humanscale
-    :param rois:
+    :param feat_rois:
     :return:
     """
-    return rois
+    return feat_rois
 
 
-def feat_detect_device_4(rois):
+def feat_detect_device_4(feat_rois):
     """
 NONAME indoor/outdoor thermometer
-    :param rois:
+    :param feat_rois:
     :return:
     """
+    # check if mean is not white to detemine if feature is present
+    for i in range(len(feat_rois[1])):
+        feat_rois[1][i] = True if cv2.mean(feat_rois[1][i])[0] <= 250 else False
 
-    for i in range(len(rois[1])):
-        rois[1][i] = True if cv2.mean(rois[1][i])[0] <= 250 else False
-
-    # print(rois[1])
-    return rois
+    # print(feat_rois[1])
+    return feat_rois
 
 
-def feat_detect_device_5(rois):
+def feat_detect_device_5(feat_rois):
     """
 GREEN alarm/radio
-    :param rois:
+    :param feat_rois:
     :return:
     """
-    return rois
+    return feat_rois
 
 
-def feat_detect_device_6(rois):
+def feat_detect_device_6(feat_rois):
     """
 NONAME thermo-hygro
-    :param rois:
+    :param feat_rois:
     :return:
     """
-    for i in range(len(rois[1])):
-        rois[1][i] = True if cv2.mean(rois[1][i])[0] <= 250 else False
+    # check if mean is not white to detemine if feature is present
+    for i in range(len(feat_rois[1])):
+        feat_rois[1][i] = True if cv2.mean(feat_rois[1][i])[0] <= 250 else False
 
-    # print(rois[1])
-    return rois
+    # print(feat_rois[1])
+    return feat_rois
 
-def feat_detect_device_7(rois):
+
+def feat_detect_device_7(feat_rois):
     """
 GREEN alarm/radio
-    :param rois:
+    :param feat_rois:
     :return:
     """
 
-    return rois
+    return feat_rois

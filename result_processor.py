@@ -123,7 +123,7 @@ def process_results_device_6(rois_processed):
     """
 NONAME thermo-hygro meter
     :param rois_processed:
-    :return:
+    :return string of the text to speak
     """
 
     rois_processed[0][0] = "Temperatur " + rois_processed[0][0].rstrip() + "." + rois_processed[0][1].rstrip() + "°C."
@@ -141,21 +141,21 @@ NONAME thermo-hygro meter
     if rois_processed[1][5]:
         rois_processed[0][1] = "Maximal " + rois_processed[0][1]
 
-    results_proccessed = rois_processed[0][0] + " " + rois_processed[0][1]
+    results_processed = rois_processed[0][0] + " " + rois_processed[0][1]
 
     if rois_processed[1][0] and not (rois_processed[1][2]
                                      or rois_processed[1][3]
                                      or rois_processed[1][4]
                                      or rois_processed[1][5]):
-        results_proccessed = "Trocken. " + results_proccessed
+        results_processed = "Trocken. " + results_processed
 
     if rois_processed[1][1] and not (rois_processed[1][2]
                                      or rois_processed[1][3]
                                      or rois_processed[1][4]
                                      or rois_processed[1][5]):
-        results_proccessed = "Feucht. " + results_proccessed
+        results_processed = "Feucht. " + results_processed
 
-    return results_proccessed
+    return results_processed
 
 
 def process_results_device_7(rois_processed):

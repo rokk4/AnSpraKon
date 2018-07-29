@@ -12,7 +12,7 @@ class WebcamVideoStream:
 
     def start(self):
         if self.started:
-            print("already started!!")
+            print("Started already!")
             return None
         self.started = True
         self.thread.start()
