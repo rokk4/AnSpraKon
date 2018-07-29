@@ -87,7 +87,7 @@ Grabs an image from the cam thread, tries recursively on failing, to workaround 
 
     def preprocess_image(self):
         """
-    Processes an Image with the methods defined for the device in image_preprocessor.py
+Processes an Image with the methods defined for the device in image_preprocessor.py
         """
         self._preprocessed_image = getattr(image_preprocessor, "image_device_" + self._device_id)(self._grabbed_image)
 
@@ -157,7 +157,7 @@ def main():
     parser.add_argument("-v", "--volume", help="set the volume of the voice", default="1", metavar="<0.0-5.0>")
     parser.add_argument("-l", "--language", help="set the language of the voice", default="de-DE",
                         choices=["en-US", "en-GB", "de-DE", "es-ES", "fr-FR", "it-IT"])
-    parser.add_argument("--version", action="version", version="%(AnSpraKon)s 2.0")
+    parser.add_argument("--version", action="version", version="%(AnSpraKon)s 2.0 ")
     parser.add_argument("--show-w", help="Show warranty details of the GPL", action="store_true")
     parser.add_argument("--show-c", help="Show redistribution conditions of the GPL", action="store_true")
 
