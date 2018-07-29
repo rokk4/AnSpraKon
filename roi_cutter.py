@@ -85,15 +85,15 @@ NONAME indoor/outdoor thermometer
     indoor_warped_bordered = cv2.copyMakeBorder(indoor_temp_dst, top=border_size, bottom=border_size, left=border_size,
                                                 right=border_size,
                                                 borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    #cv2.imshow("bordered warp indoor", indoor_warped_bordered)
+    # cv2.imshow("bordered warp indoor", indoor_warped_bordered)
 
     outdoor_warped_bordered = cv2.copyMakeBorder(outdoor_temp_dst, top=border_size, bottom=border_size,
                                                  left=border_size,
                                                  right=border_size,
                                                  borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    #cv2.imshow("bordered warp outdoor", outdoor_warped_bordered)
+    # cv2.imshow("bordered warp outdoor", outdoor_warped_bordered)
 
-    #cv2.waitKey(1)
+    # cv2.waitKey(1)
 
     ocr_rois = [indoor_warped_bordered.copy(), outdoor_warped_bordered.copy()]
     feat_rois = [indoor_indicator, outdoor_indicator, min_indicator, max_indicator]
@@ -129,37 +129,45 @@ NONAME thermo-hygro
     :return:
     """
 
-    temp = img[12:157, 34:270].copy()
-    temp_decimal = img[45:159, 284:363].copy()
+    temp = img[3:155, 35:280].copy()
+    temp_decimal = img[33:151, 281:377].copy()
     humidity = img[189:312, 107:307].copy()
 
-    dry = img[281:310, 0:53].copy()
-    wet = img[286:311, 68:124].copy()
+    dry = img[276:305, 2:56].copy()
+    wet = img[80:112, 374:440].copy()
     min_1 = img[89:121, 373:437].copy()
-    min_2 = img[278:307, 333:390].copy()
-    max_1 = img[119:155, 372:438].copy()
-    max_2 = img[279:306, 388:444].copy()
-
+    min_2 = img[269:300, 337:396].copy()
+    max_1 = img[114:143, 376:439].copy()
+    max_2 = img[271:296, 394:446].copy()
+    #cv2.imshow("uncut",img)
     # cv2.imshow("temp", temp)
     # cv2.imshow("temp_deci", temp_decimal)
     # cv2.imshow("humidity", humidity)
-
+    # cv2.imshow("1",min_1)
+    # cv2.imshow("2",max_1)
+    # cv2.imshow("3",min_2)
+    # cv2.imshow("4",max_2)
+    # cv2.waitKey(1)
     border_size = 10
+    temp_height, temp_width = temp.shape
 
-    temp_pts1 = np.float32([[40, 3], [235, 5], [20, 135], [230, 136]])
-    temp_pts2 = np.float32([[0, 0], [235, 0], [0, 145], [235, 145]])
+    temp_pts1 = np.float32([[33, 8], [239, 6], [24, 141], [228, 140]])
+    temp_pts2 = np.float32([[0, 0], [temp_width, 0], [0, temp_height], [temp_width, temp_height]])
     temp_m = cv2.getPerspectiveTransform(temp_pts1, temp_pts2)
-    temp_dst = cv2.warpPerspective(temp, temp_m, (235, 145))
+    temp_dst = cv2.warpPerspective(temp, temp_m, (temp_width, temp_height))
 
     temp_bordered = cv2.copyMakeBorder(temp_dst, top=border_size, bottom=border_size, left=border_size,
                                        right=border_size,
                                        borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
     # cv2.imshow("bordered warp temp", temp_bordered)
 
-    temp_decimal_pts1 = np.float32([[11, 4], [77, 2], [5, 95], [75, 100]])
-    temp_decimal_pts2 = np.float32([[0, 0], [78, 0], [0, 112], [78, 112]])
+    temp_decimal_height, temp_decimal_width = temp_decimal.shape
+    temp_decimal_pts1 = np.float32([[14, 7], [81, 5], [10, 110], [77, 106]])
+    temp_decimal_pts2 = np.float32([[0, 0], [temp_decimal_width, 0],
+                                    [0, temp_decimal_height], [temp_decimal_width, temp_decimal_height]])
+
     temp_decimal__m = cv2.getPerspectiveTransform(temp_decimal_pts1, temp_decimal_pts2)
-    temp_decimal_dst = cv2.warpPerspective(temp_decimal, temp_decimal__m, (78, 112))
+    temp_decimal_dst = cv2.warpPerspective(temp_decimal, temp_decimal__m, (temp_decimal_width, temp_decimal_height))
 
     temp_decimal_bordered = cv2.copyMakeBorder(temp_decimal_dst, top=border_size, bottom=border_size,
                                                left=border_size,
@@ -202,8 +210,8 @@ CASIO calculator MS-20UC
                                           left=border_size,
                                           right=border_size,
                                           borderType=cv2.BORDER_CONSTANT, value=white)
-    cv2.imshow("bordered warp display", display_bordered)
-    cv2.imshow("display", display)
+    # cv2.imshow("bordered warp display", display_bordered)
+    # cv2.imshow("display", display)
 
     digits_10_13 = display_bordered[0:200, 0:149]
     digits_10_13_bordered = cv2.copyMakeBorder(digits_10_13, top=0, bottom=0, left=0, right=border_size,
@@ -222,8 +230,8 @@ CASIO calculator MS-20UC
 
     ret, digits_10_13_bordered = cv2.threshold(digits_10_13_bordered.copy(), 50, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
     ret, digits_7_9_bordered = cv2.threshold(digits_7_9_bordered.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
-    ret, digits_3_6_bordered= cv2.threshold(digits_3_6_bordered.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
-    ret, digits_1_3_bordered = cv2.threshold(digits_1_3_bordered.copy(),70, 255, cv2.THRESH_BINARY)
+    ret, digits_3_6_bordered = cv2.threshold(digits_3_6_bordered.copy(), 90, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    ret, digits_1_3_bordered = cv2.threshold(digits_1_3_bordered.copy(), 70, 255, cv2.THRESH_BINARY)
     im_floodfill = digits_1_3_bordered.copy()
 
     # Mask used to flood filling.
@@ -233,8 +241,6 @@ CASIO calculator MS-20UC
 
     # Floodfill from point (0, 0)
     cv2.floodFill(im_floodfill, mask, (0, 0), 255)
-
-
 
     # cv2.imshow("1-3", digits_1_3_bordered)
     # cv2.imshow("4-6", digits_3_6_bordered)
@@ -246,7 +252,7 @@ CASIO calculator MS-20UC
 
     ocr_rois = [digits_1_3_bordered, digits_3_6_bordered, digits_7_9_bordered, digits_10_13_bordered]
     feat_detect_rois = []
-    # v2.waitKey(1)
+    # cv2.waitKey(1)
     return [ocr_rois, feat_detect_rois]
 
 

@@ -24,18 +24,19 @@ import result_processor
 import roi_cutter
 import sdnotify
 import ssocr
+import sys
 
 
 class Ansprakon:
     def __init__(self, args):
         # cam setup
         self._cam_index = args.cam
-        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=self._cam_index.start())
+        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=self._cam_index).start()
         self._device_id = args.device
         self._speak_on_button = args.button
 
         # flags for nanoTTS
-        self._nanotts_options = ["--language", args.language,
+        self._nanotts_options = ["-v", args.language,
                                  "--speed", args.speed,
                                  "--pitch", args.pitch,
                                  "--volume", args.volume]
@@ -77,7 +78,7 @@ Callback for the GPIO-Event detection thread, calls nanoTTS if results exist.
 
     def get_frame(self):
         """
-Grabs an image from the cam thread, tries recursively on failing, to workaround cam issues.
+Grabs an image from the cam thread, retries recursively on failing, to workaround cam issues.
         """
         try:
             self._grabbed_image = self._cam.read()
@@ -87,7 +88,7 @@ Grabs an image from the cam thread, tries recursively on failing, to workaround 
 
     def preprocess_image(self):
         """
-Processes an Image with the methods defined for the device in image_preprocessor.py
+Processes an Image with the methods defined for the device in image_preprocessor.py.
         """
         self._preprocessed_image = getattr(image_preprocessor, "image_device_" + self._device_id)(self._grabbed_image)
 
@@ -100,21 +101,21 @@ Stores rois in _rois_processed as list of lists [[ocr-rois], [feat-rois]].
 
     def run_ssocr(self):
         """
-Calls ssocr with the options matching the device, specified in ssocr.py and stores the result in _rois_processed[0]
+Calls ssocr with the options matching the device, specified in ssocr.py and stores the result in _rois_processed[0].
         """
         self._rois_processed = getattr(ssocr, "ssocr_device_" + self._device_id)(self._rois_cut)
         self._rois_cut[0] = self._rois_processed[0]
 
     def detect_feat(self):
         """
-Detect features of the device as specified in feat_detector.py, if the device has features
+Detect features of the device as specified in feat_detector.py, if the device has features.
         """
         if len(self._rois_cut[1]) > 1:
             self._rois_processed = getattr(feat_detector, "feat_detect_device_" + self._device_id)(self._rois_cut)
 
     def process_result(self):
         """
-Processes the results of ssocr.py and feat_detector.py as specified in result_processor.py
+Processes the results of ssocr.py and feat_detector.py as specified in result_processor.py.
         """
         self._results_processed = getattr(result_processor,
                                           "process_results_device_" + self._device_id)(self._rois_processed)
@@ -123,10 +124,13 @@ Processes the results of ssocr.py and feat_detector.py as specified in result_pr
         # scrub result buffer if needed
         if len(self._result_buffer) > 7:
             self._result_buffer = self._result_buffer[-4:]
-        # print(self._results_processed)
-        self.sdnotify.notify(self._results_processed)
+
+        print(self._results_processed)
 
     def speak_result(self):
+        """
+Speaks the result with call_nanotts if speakeing is not by button and the result was not spoken max 3 read before.
+        """
         if not self._speak_on_button:
             if self._results_processed not in self._result_buffer[-3:-1]:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
@@ -137,6 +141,9 @@ Processes the results of ssocr.py and feat_detector.py as specified in result_pr
 
 
 def main():
+    """
+Setup argument parser and then run the processing loop.
+    """
     license_info = """
         AnSpraKon  Copyright (C) 2018  Matthias Axel Kröll
         This program comes with ABSOLUTELY NO WARRANTY; 
@@ -166,14 +173,17 @@ def main():
     ansprakon = Ansprakon(args)
 
     while True:
-        ansprakon.get_frame()
-        ansprakon.preprocess_image()
-        ansprakon.cut_rois()
-        ansprakon.run_ssocr()
-        ansprakon.detect_feat()
-        ansprakon.process_result()
-        ansprakon.speak_result()
-        ansprakon.sdnotify.notify("WATCHDOG=1")
+        try:
+            ansprakon.get_frame()
+            ansprakon.preprocess_image()
+            ansprakon.cut_rois()
+            ansprakon.run_ssocr()
+            ansprakon.detect_feat()
+            ansprakon.process_result()
+            ansprakon.speak_result()
+            ansprakon.sdnotify.notify("WATCHDOG=1")
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
 
 
 if __name__ == "__main__":
