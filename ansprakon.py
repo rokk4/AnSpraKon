@@ -62,14 +62,14 @@ class Ansprakon:
             gpio.setmode(gpio.BOARD)
             gpio.setwarnings(False)
             gpio.setup(self._gpio_pin, gpio.IN, pull_up_down=gpio.PUD_DOWN)
-            gpio.add_event_detect(self._gpio_pin, gpio.RISING, callback=self.gpio_callback())
+            gpio.add_event_detect(self._gpio_pin, gpio.RISING, callback=self.gpio_callback)
         self._sdnotify.notify("READY=1")
 
     @property
     def sdnotify(self):
         return self._sdnotify
 
-    def gpio_callback(self):
+    def gpio_callback(self, channel):
         if len(self._result_buffer) > 2:
             call_nanotts.call_nanotts(self._nanotts_options, self._result_buffer[-1])
 
