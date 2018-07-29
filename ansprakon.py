@@ -23,56 +23,62 @@ import opencv_webcam_multithread
 import call_nanotts
 import cv2
 import argparse
-import gc
 import sdnotify
-
-gc.set_threshold(300, 5, 5)
-
-license_info = """
-    AnSpraKon  Copyright (C) 2018  Matthias Axel Kröll
-    This program comes with ABSOLUTELY NO WARRANTY; 
-    for details use optional argument `--show-w'.
-    This is free software, and you are welcome to redistribute it under certain conditions; 
-    for details use optional argument `--show-c' .
-    """
-print(license_info)
 
 
 class Ansprakon:
     def __init__(self, args):
+        # cam setup
+        self._cam_index = args.cam
+        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=self._cam_index.start())
         self._device_id = args.device
-        self._sdnotify = sdnotify.SystemdNotifier()
-        self._nanotts_options = ["-v", args.language,
+        self._speak_on_button = args.button
+
+        # flags for nanoTTS
+        self._nanotts_options = ["--language", args.language,
                                  "--speed", args.speed,
                                  "--pitch", args.pitch,
                                  "--volume", args.volume]
-        self._speak_on_button = args.button
-        self._cam = opencv_webcam_multithread.WebcamVideoStream(src=args.cam).start()
+        # rpi GPIO setup
+        self._on_pi = args.rpi
+        if self._on_pi:
+            # noinspection PyPep8Naming
+            import RPi.GPIO as gpio
+            self._gpio_pin = args.gpiopin
+            gpio.setmode(gpio.BOARD)
+            gpio.setwarnings(False)
+            gpio.setup(self._gpio_pin, gpio.IN, pull_up_down=gpio.PUD_UP)
+            gpio.add_event_detect(self._gpio_pin, gpio.FALLING, callback=self.gpio_callback)
+
+        # storage for processing steps
         self._grabbed_image = None
         self._preprocessed_image = None
         self._rois_cut = None
         self._rois_processed = None
         self._results_processed = None
         self._result_buffer = [[], []]
-        self._on_pi = args.rpi
-        self._gpio_pin = args.gpiopin
-        if self._on_pi:
-            # noinspection PyPep8Naming
-            import RPi.GPIO as gpio
-            gpio.setmode(gpio.BOARD)
-            gpio.setwarnings(False)
-            gpio.setup(self._gpio_pin, gpio.IN, pull_up_down=gpio.PUD_UP)
-            gpio.add_event_detect(self._gpio_pin, gpio.FALLING, callback=self.gpio_callback)
+
+        # setup systemd communication
+        self._sdnotify = sdnotify.SystemdNotifier()
         self._sdnotify.notify("READY=1")
+        call_nanotts.call_nanotts(self._nanotts_options, "Ansprakon bereit.")
 
     @property
     def sdnotify(self):
         return self._sdnotify
 
-    def gpio_callback(self, channel): 
-        call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
+    def gpio_callback(self, channel):
+        """
+Callback for the GPIO-Event detection thread, calls nanoTTS if results exist.
+        :param channel:
+        """
+        if self._results_processed is not None:
+            call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
 
     def get_frame(self):
+        """
+Grabs an image from the cam thread, tries recursively on failing, to workaround cam issues.
+        """
         try:
             self._grabbed_image = self._cam.read()
         except cv2.error as e:
@@ -82,48 +88,43 @@ class Ansprakon:
     def preprocess_image(self):
         """
     Processes an Image with the methods defined for the device in image_preprocessor.py
-        :param self: image to process as cv2 MAT format
-        :return: processed image
         """
         self._preprocessed_image = getattr(image_preprocessor, "image_device_" + self._device_id)(self._grabbed_image)
 
     def cut_rois(self):
         """
-    Cuts out Rois and returns ocr-rois and feat-rois as
-        :param self:
-        :return: list of list [[ocr_rois],[feat_rois]]
+Cuts out Rois and perform additional processing as specified in roi_cutter.py.
+Stores rois in _rois_processed as list of lists [[ocr-rois], [feat-rois]].
         """
         self._rois_cut = getattr(roi_cutter, "roi_device_" + self._device_id)(self._preprocessed_image)
 
     def run_ssocr(self):
         """
-    Sets the ssocr flags matching to the given device id
-        :param self:
+Calls ssocr with the options matching the device, specified in ssocr.py and stores the result in _rois_processed[0]
         """
         self._rois_processed = getattr(ssocr, "ssocr_device_" + self._device_id)(self._rois_cut)
         self._rois_cut[0] = self._rois_processed[0]
 
     def detect_feat(self):
         """
-    Detect feat in the
-        :param self:
-        :return:
+Detect features of the device as specified in feat_detector.py
         """
         self._rois_processed = getattr(feat_detector, "feat_detect_device_" + self._device_id)(self._rois_cut)
 
     def process_result(self):
         """
-    
-        :param self:
-        :return:
+Processes the results of ssocr.py and feat_detector.py as specified in result_processor.py
         """
         self._results_processed = getattr(result_processor,
                                           "process_results_device_" + self._device_id)(self._rois_processed)
+
         self._result_buffer.append(self._results_processed)
+        # scrub result buffer if needed
         if len(self._result_buffer) > 7:
             self._result_buffer = self._result_buffer[-4:]
         # print(self._results_processed)
         self.sdnotify.notify(self._results_processed)
+
     def speak_result(self):
         if not self._speak_on_button:
             if self._results_processed not in self._result_buffer[-3:-1]:
@@ -131,10 +132,19 @@ class Ansprakon:
                 self.sdnotify.notify("Spoke: " + self._results_processed)
 
         else:
-            print("Did not Speak.") 
+            print("Did not Speak.")
 
 
 def main():
+    license_info = """
+        AnSpraKon  Copyright (C) 2018  Matthias Axel Kröll
+        This program comes with ABSOLUTELY NO WARRANTY; 
+        for details use optional argument `--show-w'.
+        This is free software, and you are welcome to redistribute it under certain conditions; 
+        for details use optional argument `--show-c' .
+        """
+    print(license_info)
+
     parser = argparse.ArgumentParser(description="read 7-segment displays and read out the result")
     parser.add_argument("device", help="enter the ID of the device to use")
     parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
@@ -150,7 +160,6 @@ def main():
     parser.add_argument("--show-w", help="Show warranty details of the GPL", action="store_true")
     parser.add_argument("--show-c", help="Show redistribution conditions of the GPL", action="store_true")
 
-    # parser.parse_args()
     args = parser.parse_args()
 
     ansprakon = Ansprakon(args)
