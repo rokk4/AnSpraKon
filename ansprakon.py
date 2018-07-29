@@ -139,7 +139,7 @@ def main():
     parser.add_argument("device", help="enter the ID of the device to use")
     parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
     parser.add_argument("-r", "--rpi", help="run on rpi", action="store_true")
-    parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=13, type=int)
+    parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=11, type=int)
     parser.add_argument("-c", "--cam", help="set the device index of the cam to use", default=0, type=int)
     parser.add_argument("-s", "--speed", help="set speed of the voice", default="1.5", metavar="<0.2-5.0>")
     parser.add_argument("-p", "--pitch", help="set the pitch of the voice", default="0.8", metavar="<0.5-2.0>")
