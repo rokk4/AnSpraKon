@@ -129,9 +129,11 @@ class Ansprakon:
         if not self._speak_on_button:
             if self._results_processed not in self._result_buffer[-3:-1]:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
+                self.sdnotify(self._results_processed)
 
         else:
             print("Did not Speak.")
+            self.sdnotify("Did not Speak.")
 
 
 def main():
@@ -150,7 +152,7 @@ def main():
     parser.add_argument("--show-w", help="Show warranty details of the GPL", action="store_true")
     parser.add_argument("--show-c", help="Show redistribution conditions of the GPL", action="store_true")
 
-    #parser.parse_args()
+    # parser.parse_args()
     args = parser.parse_args()
 
     ansprakon = Ansprakon(args)
