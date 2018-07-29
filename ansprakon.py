@@ -34,7 +34,7 @@ license_info = """
     for details use optional argument `--show-w'.
     This is free software, and you are welcome to redistribute it under certain conditions; 
     for details use optional argument `--show-c' .
-    """.encode('utf-8').rstrip()
+    """
 print(license_info)
 
 
@@ -61,17 +61,16 @@ class Ansprakon:
             import RPi.GPIO as gpio
             gpio.setmode(gpio.BOARD)
             gpio.setwarnings(False)
-            gpio.setup(self._gpio_pin, gpio.IN, pull_up_down=gpio.PUD_DOWN)
-            gpio.add_event_detect(self._gpio_pin, gpio.RISING, callback=self.gpio_callback)
+            gpio.setup(self._gpio_pin, gpio.IN, pull_up_down=gpio.PUD_UP)
+            gpio.add_event_detect(self._gpio_pin, gpio.FALLING, callback=self.gpio_callback)
         self._sdnotify.notify("READY=1")
 
     @property
     def sdnotify(self):
         return self._sdnotify
 
-    def gpio_callback(self, channel):
-        if len(self._result_buffer) > 2:
-            call_nanotts.call_nanotts(self._nanotts_options, self._result_buffer[-1])
+    def gpio_callback(self, channel): 
+        call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
 
     def get_frame(self):
         try:
@@ -123,17 +122,16 @@ class Ansprakon:
         self._result_buffer.append(self._results_processed)
         if len(self._result_buffer) > 7:
             self._result_buffer = self._result_buffer[-4:]
-        print(self._results_processed)
-
+        # print(self._results_processed)
+        self.sdnotify.notify(self._results_processed)
     def speak_result(self):
         if not self._speak_on_button:
             if self._results_processed not in self._result_buffer[-3:-1]:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
-                self.sdnotify(self._results_processed)
+                self.sdnotify.notify("Spoke: " + self._results_processed)
 
         else:
-            print("Did not Speak.")
-            self.sdnotify("Did not Speak.")
+            print("Did not Speak.") 
 
 
 def main():
@@ -143,7 +141,7 @@ def main():
     parser.add_argument("-r", "--rpi", help="run on rpi", action="store_true")
     parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=11, type=int)
     parser.add_argument("-c", "--cam", help="set the device index of the cam to use", default=0, type=int)
-    parser.add_argument("-s", "--speed", help="set speed of the voice", default="1.5", metavar="<0.2-5.0>")
+    parser.add_argument("-s", "--speed", help="set speed of the voice", default="1.4", metavar="<0.2-5.0>")
     parser.add_argument("-p", "--pitch", help="set the pitch of the voice", default="0.8", metavar="<0.5-2.0>")
     parser.add_argument("-v", "--volume", help="set the volume of the voice", default="1", metavar="<0.0-5.0>")
     parser.add_argument("-l", "--language", help="set the language of the voice", default="de-DE",

@@ -115,10 +115,10 @@ NONAME thermo-hygor
     :return: call of call_ssocr with the ssocr arguments matching the device
     """
     device_ssocr_args = [
-        "-D",
         "-d", "-1",
         "-i", "5",
         "-n", "10",
+        "-C"
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
