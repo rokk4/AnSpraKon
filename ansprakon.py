@@ -136,16 +136,15 @@ Or if it is final result device, speake the result if it was read at least 5 tim
         """
         # for speak on change devices
         if not self._speak_on_button and not self._final_result and self._results_processed is not None:
-            if self._results_processed not in self._result_buffer[-3:-1]:
+            if self._results_processed not in self._result_buffer[-3:-1]\
+                    and self._results_processed != self._results_processed:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
+                self._last_spoken = self._results_processed
                 self.sdnotify.notify("Spoke: " + self._results_processed)
 
         # for final result devices
-        print("speak", self._final_result, self._result_buffer)
         if self._final_result and not self._speak_on_button and self._results_processed is not None:
-            print(len(self._result_buffer) >= 8)
             if len(self._result_buffer) >= 8:
-                print(self._result_buffer[0:-1].count(self._results_processed))
                 if self._result_buffer[0:-1].count(self._results_processed) >= 6 \
                         and self._results_processed != self._last_spoken:
                     call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
@@ -190,17 +189,17 @@ Setup argument parser and then run the processing loop.
     ansprakon = Ansprakon(args)
 
     while True:
-        # try:
-        ansprakon.get_frame()
-        ansprakon.preprocess_image()
-        ansprakon.cut_rois()
-        ansprakon.run_ssocr()
-        ansprakon.detect_feat()
-        ansprakon.process_result()
-        ansprakon.speak_result()
-        ansprakon.sdnotify.notify("WATCHDOG=1")
-        # except:
-        #     print("Unexpected error:", sys.exc_info()[0])
+        try:
+            ansprakon.get_frame()
+            ansprakon.preprocess_image()
+            ansprakon.cut_rois()
+            ansprakon.run_ssocr()
+            ansprakon.detect_feat()
+            ansprakon.process_result()
+            ansprakon.speak_result()
+            ansprakon.sdnotify.notify("WATCHDOG=1")
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
 
 
 if __name__ == "__main__":
