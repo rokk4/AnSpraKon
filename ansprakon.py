@@ -137,7 +137,7 @@ Or if it is final result device, speake the result if it was read at least 5 tim
         """
         # for speak on change devices
         if not self._speak_on_button and not self._final_result and self._results_processed is not None:
-            if self._results_processed not in self._result_buffer[-3:-1]\
+            if self._results_processed not in self._result_buffer[-3:-1] \
                     and self._results_processed != self._last_spoken:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                 self._last_spoken = self._results_processed

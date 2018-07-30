@@ -131,12 +131,26 @@ ADE-Germany Human Scale
     # Floodfill from point (0, 0)
     cv2.floodFill(im_floodfill, mask, (0, 0), 255)
 
-    preprocessed_image = im_floodfill[85:400, 61:527].copy()
+    floodfilled = im_floodfill[72:414, 83:439].copy()
 
-    cv2.imshow("preprocessed", preprocessed_image)
-    cv2.waitKey(1)
+    floodfilled_height, floodfilled_width = floodfilled.shape
+    pts1 = np.float32([[28, 12], [339, 9], [25, 325], [348, 317]])
+    pts2 = np.float32(
+        [[0, 0], [floodfilled_width, 0], [0, floodfilled_height], [floodfilled_width, floodfilled_height]])
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    preprocessed_image = cv2.warpPerspective(floodfilled, m, (floodfilled_width, floodfilled_height))
 
-    return preprocessed_image
+    border_size = 10
+    bordered = cv2.copyMakeBorder(preprocessed_image, top=border_size, bottom=border_size,
+                                  left=border_size,
+                                  right=border_size,
+                                  borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
+
+    # cv2.imshow("uncropped", im_floodfill)
+    # cv2.imshow("preprocessed", bordered)
+    # cv2.waitKey(1)
+
+    return bordered
 
 
 # Device ID 3
