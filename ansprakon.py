@@ -58,7 +58,7 @@ class Ansprakon:
         self._rois_cut = None
         self._rois_processed = None
         self._results_processed = None
-        self._result_buffer = [[], []]
+        self._result_buffer = []
         self._last_spoken = None
 
         # setup systemd communication
@@ -75,8 +75,8 @@ class Ansprakon:
 Callback for the GPIO-Event detection thread, calls nanoTTS if results exist.
         :param channel:
         """
-        if self._results_processed is not None:
-            call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
+        if len(self._result_buffer) >= 1:
+            call_nanotts.call_nanotts(self._nanotts_options, self._result_buffer[-1])
 
     def get_frame(self):
         """
@@ -137,7 +137,7 @@ Or if it is final result device, speake the result if it was read at least 5 tim
         # for speak on change devices
         if not self._speak_on_button and not self._final_result and self._results_processed is not None:
             if self._results_processed not in self._result_buffer[-3:-1]\
-                    and self._results_processed != self._results_processed:
+                    and self._results_processed != self._last_spoken:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                 self._last_spoken = self._results_processed
                 self.sdnotify.notify("Spoke: " + self._results_processed)
@@ -196,7 +196,7 @@ Setup argument parser and then run the processing loop.
             ansprakon.run_ssocr()
             ansprakon.detect_feat()
             ansprakon.process_result()
-            ansprakon.speak_result()
+            #ansprakon.speak_result()
             ansprakon.sdnotify.notify("WATCHDOG=1")
         except:
             print("Unexpected error:", sys.exc_info()[0])

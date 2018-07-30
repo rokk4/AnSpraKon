@@ -83,10 +83,11 @@ NONAME indoor/outdoor thermometer
     :param rois_processed:
     :return:
     """
-    temp_result_pattern = re.compile("\d?\d?\.?\d")
+    temp_result_pattern = re.compile("\d?\d\d")
 
     indoor_temp_result = temp_result_pattern.search(rois_processed[0][0].rstrip())
     outdoor_temp_result = temp_result_pattern.search(rois_processed[0][1].rstrip())
+    print(rois_processed[0][0], rois_processed[0][1])
 
     if indoor_temp_result is not None and outdoor_temp_result is not None:
         regex_indoor_temp_result = temp_result_pattern.search(rois_processed[0][0]).group(0)
@@ -94,29 +95,29 @@ NONAME indoor/outdoor thermometer
         print(regex_indoor_temp_result)
         print(regex_outdoor_temp_result)
 
-        # _rois_processed[0][0] = regex_indoor_temp_result[:-1] + "." + regex_indoor_temp_result[-1:] + "°C"
-        # _rois_processed[0][1] = regex_outdoor_temp_result[:-1] + "." + regex_outdoor_temp_result[-1:] + "°C"
-        rois_processed[0][0] = regex_indoor_temp_result + " °C"
-        rois_processed[0][1] = regex_outdoor_temp_result + " °C"
+        rois_processed[0][0] = regex_indoor_temp_result[:-1] + "." + regex_indoor_temp_result[-1] + "°C"
+        rois_processed[0][1] = regex_outdoor_temp_result[:-1] + "." + regex_outdoor_temp_result[-1] + "°C"
+
     else:
+        results_processed = None
+        return results_processed
         print("Dropping bad result.")
-        print(rois_processed[0][0])
-        print(rois_processed[0][1])
 
     if rois_processed[1][0] and rois_processed[1][1] and not rois_processed[1][2] and not rois_processed[1][3]:
-        rois_processed[0][0] += " Innentemperatur"
-        rois_processed[0][1] += " Außentemperatur"
+        rois_processed[0][0] += " Innentemperatur."
+        rois_processed[0][1] += " Außentemperatur."
 
     if rois_processed[1][0] and not rois_processed[1][1] and rois_processed[1][2] and rois_processed[1][3]:
-        rois_processed[0][0] += " Maximal Innentemperatur"
-        rois_processed[0][1] += " Minimal Innentemperatur"
+        rois_processed[0][0] += " Maximal Innentemperatur."
+        rois_processed[0][1] += " Minimal Innentemperatur."
 
     if not rois_processed[1][0] and rois_processed[1][1] and rois_processed[1][2] and rois_processed[1][3]:
-        rois_processed[0][0] += " Maximal Außentemperatur"
-        rois_processed[0][1] += " Minimal Außentemperatur"
+        rois_processed[0][0] += " Maximal Außentemperatur."
+        rois_processed[0][1] += " Minimal Außentemperatur."
 
-    print(rois_processed[0])
-    return rois_processed
+    results_processed = rois_processed[0][0] + " " + rois_processed[0][1]
+
+    return results_processed
 
 
 def process_results_device_5(rois_processed):

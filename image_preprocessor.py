@@ -198,7 +198,7 @@ NONAME indoor/outdoor thermometer
     """
 
     frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresh1 = cv2.threshold(frame, 65, 255, cv2.THRESH_BINARY)
+    ret, thresh1 = cv2.threshold(frame, 60, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
     flip_180 = cv2.rotate(thresh1, cv2.ROTATE_180)
     im_floodfill = flip_180.copy()
 

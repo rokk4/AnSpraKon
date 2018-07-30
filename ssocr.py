@@ -81,10 +81,10 @@ NONAME indoor/outdoor thermometer
     :return: call of call_ssocr with the ssocr arguments matching the device
     """
     device_ssocr_args = [
-        "-D",
         "-d", "-1",
         "-i", "1",
-        "-n", "2"
+        "-n", "2",
+        "-C"
 
     ]
 
