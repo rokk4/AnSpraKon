@@ -5,7 +5,7 @@ import cv2
 
 if __name__ == '__main__':
     # Read image
-    im = cv2.imread("ade_scale_test_cropped.png")
+    im = cv2.imread("radio_alarm_test_sleep_dot.png")
 
     # Select ROI
     # noinspection PyArgumentList
