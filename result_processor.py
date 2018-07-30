@@ -17,16 +17,16 @@ BASETECH Thermometer
     :param rois_processed:
     :return:
     """
-    temp_result_pattern = re.compile("\d\d?\.\d")
+    temp_result_pattern = re.compile("\d?\d?\d")
     regex_result = temp_result_pattern.search(rois_processed[0][0].rstrip())
+    results_processed = None
     if regex_result is not None:
-        rois_processed[0][0] = temp_result_pattern.search(rois_processed[0][0]).group(0) + "°C"
+        results_processed = temp_result_pattern.search(rois_processed[0][0]).group(0)
+        results_processed = "Temperatur " + results_processed[:-1] + "." + results_processed[-1] + "°C"
     else:
         print("Dropping bad result.")
-        print(rois_processed[0][0])
-        del rois_processed[0][0]
 
-    return rois_processed
+    return results_processed
 
 
 def process_results_device_2(rois_processed):

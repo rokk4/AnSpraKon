@@ -29,11 +29,10 @@ BASETech Room temperatur sensor
     :return: call of call_ssocr with the ssocr arguments matching the device
     """
     device_ssocr_args = [
-        "-D",
         "-d", "-1",
-        "-i", "5",
-        "-n", "20"
-              "-r", "5"
+        "-i", "3",
+        "-n", "10",
+        "-C"
 
     ]
 
@@ -50,7 +49,7 @@ ADE-Germany Humanscale
         "-D",
         "-d", "-1",
         "-i", "10"
-              "-n", "70",
+        "-n", "70",
         "-r", "4"
     ]
 

@@ -64,7 +64,7 @@ class Ansprakon:
         # setup systemd communication
         self._sdnotify = sdnotify.SystemdNotifier()
         self._sdnotify.notify("READY=1")
-      #  call_nanotts.call_nanotts(self._nanotts_options)
+        call_nanotts.call_nanotts(self._nanotts_options)
 
     @property
     def sdnotify(self):
@@ -75,8 +75,9 @@ class Ansprakon:
 Callback for the GPIO-Event detection thread, calls nanoTTS if results exist.
         :param channel:
         """
-        if len(self._result_buffer) >= 1:
-            call_nanotts.call_nanotts(self._nanotts_options, self._result_buffer[-1])
+        if len(self._result_buffer) >= 2:
+            call_nanotts.call_nanotts(self._nanotts_options, max(set(self._result_buffer),
+                                                                 key=self._result_buffer.count))
 
     def get_frame(self):
         """
@@ -189,17 +190,17 @@ Setup argument parser and then run the processing loop.
     ansprakon = Ansprakon(args)
 
     while True:
-        try:
-            ansprakon.get_frame()
-            ansprakon.preprocess_image()
-            ansprakon.cut_rois()
-            ansprakon.run_ssocr()
-            ansprakon.detect_feat()
-            ansprakon.process_result()
-            #ansprakon.speak_result()
-            ansprakon.sdnotify.notify("WATCHDOG=1")
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
+        # try:
+        ansprakon.get_frame()
+        ansprakon.preprocess_image()
+        ansprakon.cut_rois()
+        ansprakon.run_ssocr()
+        ansprakon.detect_feat()
+        ansprakon.process_result()
+        ansprakon.speak_result()
+        ansprakon.sdnotify.notify("WATCHDOG=1")
+        # except:
+        #     print("Unexpected error:", sys.exc_info()[0])
 
 
 if __name__ == "__main__":

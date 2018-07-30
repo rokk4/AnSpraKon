@@ -1,6 +1,8 @@
 # coding=utf-8
 import cv2
 import numpy as np
+
+
 # import preprocess_tools
 
 
@@ -28,7 +30,7 @@ The BASE-TECH Thermometer
     :return: the preprocessed img
     """
     # crop, rotate and convert to Greyscale
-    frame = cv2.rotate(img[52:314, 144:534].copy, cv2.ROTATE_180)
+    frame = cv2.rotate(img[52:314, 144:534], cv2.ROTATE_180)
     gray = cv2.cvtColor(frame.copy(), cv2.COLOR_BGR2GRAY)
 
     # compute median
@@ -70,7 +72,7 @@ The BASE-TECH Thermometer
     #                            cv2.THRESH_BINARY, 11, 2)
 
     # Copy the thresholded image.
-    ret, thresh1 = cv2.threshold(gray.copy(), 80, 255, cv2.THRESH_BINARY)
+    ret, thresh1 = cv2.threshold(gray.copy(), 70, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
     im_floodfill = thresh1.copy()
 
     # Mask used to flood filling.
@@ -87,14 +89,27 @@ The BASE-TECH Thermometer
     # # Combine the two images to get the foreground.
     # im_out = thresh1 | im_floodfill_inv
 
+    floodfilled_height, floodfilled_width = im_floodfill.shape
+    pts1 = np.float32([[14, 6], [350, 14], [10, 240], [350, 240]])
+    pts2 = np.float32(
+        [[0, 0], [floodfilled_width, 0], [0, floodfilled_height], [floodfilled_width, floodfilled_height]])
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    dst = cv2.warpPerspective(im_floodfill, m, (floodfilled_width, floodfilled_height))
+
+    border_size = 10
+    bordered = cv2.copyMakeBorder(dst, top=border_size, bottom=border_size,
+                                  left=border_size,
+                                  right=border_size,
+                                  borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
+
     # Display images.
     # cv2.imshow("Thresholded Image", thresh1)
-    cv2.imshow("Floodfilled Image", im_floodfill)
+    # cv2.imshow("Floodfilled Image", im_floodfill)
     # cv2.imshow("Inverted Floodfilled Image", im_floodfill_inv)
-    # cv2.imshow("Foreground", im_out)
-    cv2.waitKey(1)
+    # cv2.imshow("Foreground", bordered)
+    # cv2.waitKey(1)
 
-    return im_floodfill
+    return bordered
 
 
 # Device ID 2
@@ -148,34 +163,34 @@ BEURER Human Scale
 
     floodfilled_height, floodfilled_width = im_floodfill.shape
     pts1 = np.float32([[58, 24], [588, 33], [22, 264], [550, 273]])
-    pts2 = np.float32([[0, 0], [floodfilled_width, 0], [0, floodfilled_height], [floodfilled_width, floodfilled_height]])
+    pts2 = np.float32(
+        [[0, 0], [floodfilled_width, 0], [0, floodfilled_height], [floodfilled_width, floodfilled_height]])
     m = cv2.getPerspectiveTransform(pts1, pts2)
     dst = cv2.warpPerspective(im_floodfill, m, (floodfilled_width, floodfilled_height))
 
     border_size = 10
     bordered = cv2.copyMakeBorder(dst, top=border_size, bottom=border_size,
-                                           left=border_size,
-                                           right=border_size,
-                                           borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
+                                  left=border_size,
+                                  right=border_size,
+                                  borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
 
-    #find all your connected components (white blobs in your image)
+    # find all your connected components (white blobs in your image)
     nb_components, output, stats, centroids = cv2.connectedComponentsWithStats(bordered, connectivity=8)
-    #connectedComponentswithStats yields every seperated component with information on each of them, such as size
-    #the following part is just taking out the background which is also considered a component, but most of the time we don't want that.
-    sizes = stats[0:, -1]; nb_components = nb_components
+    # connectedComponentswithStats yields every seperated component with information on each of them, such as size
+    # the following part is just taking out the background which is also considered a component, but most of the time we don't want that.
+    sizes = stats[0:, -1];
+    nb_components = nb_components
 
     # minimum size of particles we want to keep (number of pixels)
-    #here, it's a fixed value, but you can set it as you want, eg the mean of the sizes or whatever
+    # here, it's a fixed value, but you can set it as you want, eg the mean of the sizes or whatever
     min_size = 200
 
-    #your answer image
+    # your answer image
     img2 = np.zeros((output.shape))
-    #for every component in the image, you keep it only if it's above min_size
+    # for every component in the image, you keep it only if it's above min_size
     for i in range(0, nb_components):
         if sizes[i] >= min_size:
             img2[output == i + 1] = 255
-
-
 
     # nb_components2, output2, stats2, centroids2 = cv2.connectedComponentsWithStats(img2, connectivity=8)
     # sizes2 = stats2[0:, -1]; nb_components2 = nb_components2
