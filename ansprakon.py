@@ -59,6 +59,7 @@ class Ansprakon:
         self._rois_processed = None
         self._results_processed = None
         self._result_buffer = [[], []]
+        self._last_spoken = None
 
         # setup systemd communication
         self._sdnotify = sdnotify.SystemdNotifier()
@@ -120,11 +121,11 @@ Processes the results of ssocr.py and feat_detector.py as specified in result_pr
         """
         self._results_processed = getattr(result_processor,
                                           "process_results_device_" + self._device_id)(self._rois_processed)
-
-        self._result_buffer.append(self._results_processed)
+        if self._results_processed is not None:
+            self._result_buffer.append(self._results_processed)
         # scrub result buffer if needed
         if len(self._result_buffer) > 30:
-            self._result_buffer = self._result_buffer[-10:]
+            self._result_buffer = self._result_buffer[-15:]
 
         print(self._results_processed)
 
@@ -140,10 +141,16 @@ Or if it is final result device, speake the result if it was read at least 5 tim
                 self.sdnotify.notify("Spoke: " + self._results_processed)
 
         # for final result devices
+        print("speak", self._final_result, self._result_buffer)
         if self._final_result and not self._speak_on_button and self._results_processed is not None:
-            if self._result_buffer[-20].count(self._results_processed) >= 5:
-                call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
-                self.sdnotify.notify("Spoke: " + self._results_processed)
+            print(len(self._result_buffer) >= 8)
+            if len(self._result_buffer) >= 8:
+                print(self._result_buffer[0:-1].count(self._results_processed))
+                if self._result_buffer[0:-1].count(self._results_processed) >= 6 \
+                        and self._results_processed != self._last_spoken:
+                    call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
+                    self._last_spoken = self._results_processed
+                    self.sdnotify.notify("Spoke: " + self._results_processed)
 
         else:
             print("Did not Speak.")
