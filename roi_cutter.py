@@ -131,7 +131,7 @@ NONAME thermo-hygro
 
     temp = img[3:155, 35:280].copy()
     temp_decimal = img[33:151, 281:377].copy()
-    humidity = img[189:312, 107:307].copy()
+    humidity = img[175:303, 111:312].copy()
 
     dry = img[276:305, 2:56].copy()
     wet = img[80:112, 374:440].copy()
@@ -139,10 +139,10 @@ NONAME thermo-hygro
     min_2 = img[269:300, 337:396].copy()
     max_1 = img[114:143, 376:439].copy()
     max_2 = img[271:296, 394:446].copy()
-    #cv2.imshow("uncut",img)
+    cv2.imshow("uncut",img)
     # cv2.imshow("temp", temp)
     # cv2.imshow("temp_deci", temp_decimal)
-    # cv2.imshow("humidity", humidity)
+    cv2.imshow("humidity", humidity)
     # cv2.imshow("1",min_1)
     # cv2.imshow("2",max_1)
     # cv2.imshow("3",min_2)
@@ -159,7 +159,7 @@ NONAME thermo-hygro
     temp_bordered = cv2.copyMakeBorder(temp_dst, top=border_size, bottom=border_size, left=border_size,
                                        right=border_size,
                                        borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    # cv2.imshow("bordered warp temp", temp_bordered)
+    cv2.imshow("bordered warp temp", temp_bordered)
 
     temp_decimal_height, temp_decimal_width = temp_decimal.shape
     temp_decimal_pts1 = np.float32([[14, 7], [81, 5], [10, 110], [77, 106]])
@@ -173,19 +173,21 @@ NONAME thermo-hygro
                                                left=border_size,
                                                right=border_size,
                                                borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    # cv2.imshow("bordered warp temp_decimal", temp_decimal_bordered)
+    cv2.imshow("bordered warp temp_decimal", temp_decimal_bordered)
 
-    humidity_pts1 = np.float32([[34, 1], [195, 1], [22, 109], [189, 110]])
-    humidity_pts2 = np.float32([[0, 0], [200, 0], [0, 123], [200, 123]])
+    humidity_height, humidity_width = humidity.shape
+
+    humidity_pts1 = np.float32([[27, 6], [186, 8], [14, 116], [182, 117]])
+    humidity_pts2 = np.float32([[0, 0], [humidity_width, 0], [0, humidity_height], [humidity_width, humidity_height]])
     humidity__m = cv2.getPerspectiveTransform(humidity_pts1, humidity_pts2)
-    humidity_dst = cv2.warpPerspective(humidity, humidity__m, (200, 123))
+    humidity_dst = cv2.warpPerspective(humidity, humidity__m, (humidity_width, humidity_height))
 
     humidity_bordered = cv2.copyMakeBorder(humidity_dst, top=border_size, bottom=border_size,
                                            left=border_size,
                                            right=border_size,
                                            borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    # cv2.imshow("bordered warp humidity", humidity_bordered)
-    # cv2.waitKey(1)
+    cv2.imshow("bordered warp humidity", humidity_bordered)
+    cv2.waitKey(1)
 
     ocr_rois = [temp_bordered, temp_decimal_bordered, humidity_bordered]
     feat_detect_rois = [dry, wet, min_1, max_1, min_2, max_2]

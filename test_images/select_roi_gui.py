@@ -5,7 +5,7 @@ import cv2
 
 if __name__ == '__main__':
     # Read image
-    im = cv2.imread("noname_thermo-hygro_cropped_test_max.png")
+    im = cv2.imread("noname_thermo-hygro_cropped_test.png")
 
     # Select ROI
     # noinspection PyArgumentList
