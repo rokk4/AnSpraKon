@@ -49,7 +49,7 @@ class Ansprakon:
             gpio.setmode(gpio.BOARD)
             gpio.setwarnings(False)
             gpio.setup(self._gpio_pin, gpio.IN, pull_up_down=gpio.PUD_UP)
-            gpio.add_event_detect(self._gpio_pin, gpio.FALLING, callback=self.gpio_callback)
+            gpio.add_event_detect(self._gpio_pin, gpio.FALLING, callback=self.gpio_callback, bouncetime=200)
 
         # storage for processing steps
         self._grabbed_image = None
