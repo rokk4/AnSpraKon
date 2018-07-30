@@ -33,6 +33,7 @@ class Ansprakon:
         self._cam_index = args.cam
         self._cam = opencv_webcam_multithread.WebcamVideoStream(src=self._cam_index).start()
         self._device_id = args.device
+        self._final_result = args.final
         self._speak_on_button = args.button
 
         # flags for nanoTTS
@@ -62,7 +63,7 @@ class Ansprakon:
         # setup systemd communication
         self._sdnotify = sdnotify.SystemdNotifier()
         self._sdnotify.notify("READY=1")
-        call_nanotts.call_nanotts(self._nanotts_options)
+      #  call_nanotts.call_nanotts(self._nanotts_options)
 
     @property
     def sdnotify(self):
@@ -122,17 +123,25 @@ Processes the results of ssocr.py and feat_detector.py as specified in result_pr
 
         self._result_buffer.append(self._results_processed)
         # scrub result buffer if needed
-        if len(self._result_buffer) > 7:
-            self._result_buffer = self._result_buffer[-4:]
+        if len(self._result_buffer) > 30:
+            self._result_buffer = self._result_buffer[-10:]
 
         print(self._results_processed)
 
     def speak_result(self):
         """
 Speaks the result with call_nanotts if speakeing is not by button and the result was not spoken max 3 read before.
+Or if it is final result device, speake the result if it was read at least 5 times before.
         """
-        if not self._speak_on_button:
+        # for speak on change devices
+        if not self._speak_on_button and not self._final_result and self._results_processed is not None:
             if self._results_processed not in self._result_buffer[-3:-1]:
+                call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
+                self.sdnotify.notify("Spoke: " + self._results_processed)
+
+        # for final result devices
+        if self._final_result and not self._speak_on_button and self._results_processed is not None:
+            if self._result_buffer[-20].count(self._results_processed) >= 5:
                 call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                 self.sdnotify.notify("Spoke: " + self._results_processed)
 
@@ -156,6 +165,7 @@ Setup argument parser and then run the processing loop.
     parser = argparse.ArgumentParser(description="read 7-segment displays and read out the result")
     parser.add_argument("device", help="enter the ID of the device to use")
     parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
+    parser.add_argument("-f", "--final", help="device which displays a final result", action="store_true")
     parser.add_argument("-r", "--rpi", help="run on rpi", action="store_true")
     parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=11, type=int)
     parser.add_argument("-c", "--cam", help="set the device index of the cam to use", default=0, type=int)
@@ -173,17 +183,17 @@ Setup argument parser and then run the processing loop.
     ansprakon = Ansprakon(args)
 
     while True:
-        try:
-            ansprakon.get_frame()
-            ansprakon.preprocess_image()
-            ansprakon.cut_rois()
-            ansprakon.run_ssocr()
-            ansprakon.detect_feat()
-            ansprakon.process_result()
-            #ansprakon.speak_result()
-            ansprakon.sdnotify.notify("WATCHDOG=1")
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
+        # try:
+        ansprakon.get_frame()
+        ansprakon.preprocess_image()
+        ansprakon.cut_rois()
+        ansprakon.run_ssocr()
+        ansprakon.detect_feat()
+        ansprakon.process_result()
+        ansprakon.speak_result()
+        ansprakon.sdnotify.notify("WATCHDOG=1")
+        # except:
+        #     print("Unexpected error:", sys.exc_info()[0])
 
 
 if __name__ == "__main__":

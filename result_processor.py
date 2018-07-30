@@ -53,16 +53,28 @@ Beurer humanscale
     :param rois_processed:
     :return:
     """
-    weight_result_pattern = re.compile("\d\d?\d?\.\d")
-    regex_result = weight_result_pattern.search(rois_processed[0][0].rstrip())
-    if regex_result is not None:
-        rois_processed[0][0] = weight_result_pattern.search(rois_processed[0][0]).group(0) + " " + "Kilogramm"
+    weight_result_pattern = re.compile("\d\d\d")
+    results_processed = rois_processed[0][0].rstrip()
+    regex_result = weight_result_pattern.search(results_processed)
+    if regex_result is None:
+        results_processed = None
     else:
-        print("Dropping bad result.")
-        print(rois_processed[0][0])
-        del rois_processed[0][0]
+        results_processed = regex_result.group(0)
 
-    return rois_processed
+    if results_processed == "1" \
+            or results_processed == "11" \
+            or results_processed == "111" \
+            or results_processed == "1111" \
+            or results_processed == "118" \
+            or results_processed == "18" \
+            or results_processed == "181":
+        results_processed = None
+
+    if results_processed is not None:
+        if len(results_processed) >= 2:
+            results_processed = results_processed[:-1] + "." + results_processed[-1] + " Kilogramm."
+
+    return results_processed
 
 
 def process_results_device_4(rois_processed):

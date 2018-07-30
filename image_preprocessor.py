@@ -116,21 +116,27 @@ ADE-Germany Human Scale
     # Floodfill from point (0, 0)
     cv2.floodFill(im_floodfill, mask, (0, 0), 255)
 
-    return im_floodfill[85:400, 61:527].copy()
+    preprocessed_image = im_floodfill[85:400, 61:527].copy()
+
+    cv2.imshow("preprocessed", preprocessed_image)
+    cv2.waitKey(1)
+
+    return preprocessed_image
 
 
 # Device ID 3
 def image_device_3(img):
     """
-ADE-Germany Human Scale
+BEURER Human Scale
     :param img:
     """
 
     frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresh1 = cv2.threshold(frame, 70, 255, cv2.THRESH_BINARY_INV)
-    flip_180 = cv2.rotate(thresh1.copy(), cv2.ROTATE_180)
-    im_floodfill = flip_180.copy()
+    flip_180 = cv2.rotate(frame.copy(), cv2.ROTATE_180)
+    ret, thresh1 = cv2.threshold(flip_180[162:449, 20:629], 120, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
 
+    im_floodfill = thresh1.copy()
+    cv2.imshow("flipped", thresh1)
     # Mask used to flood filling.
     # Notice the size needs to be 2 pixels than the image.
     h, w = thresh1.shape[:2]
@@ -139,14 +145,50 @@ ADE-Germany Human Scale
     # Floodfill from point (0, 0)
     cv2.floodFill(im_floodfill, mask, (0, 0), 255)
     cv2.imshow("flood", im_floodfill)
-    pts1 = np.float32([[80, 165], [610, 173], [20, 420], [580, 440]])
-    pts2 = np.float32([[0, 0], [640, 0], [0, 480], [640, 480]])
-    m = cv2.getPerspectiveTransform(pts1, pts2)
-    dst = cv2.warpPerspective(im_floodfill, m, (640, 480))
-    cv2.imshow("trans", dst)
-    cv2.waitKey(1)
 
-    return dst.copy()
+    floodfilled_height, floodfilled_width = im_floodfill.shape
+    pts1 = np.float32([[58, 24], [588, 33], [22, 264], [550, 273]])
+    pts2 = np.float32([[0, 0], [floodfilled_width, 0], [0, floodfilled_height], [floodfilled_width, floodfilled_height]])
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    dst = cv2.warpPerspective(im_floodfill, m, (floodfilled_width, floodfilled_height))
+
+    border_size = 10
+    bordered = cv2.copyMakeBorder(dst, top=border_size, bottom=border_size,
+                                           left=border_size,
+                                           right=border_size,
+                                           borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
+
+    #find all your connected components (white blobs in your image)
+    nb_components, output, stats, centroids = cv2.connectedComponentsWithStats(bordered, connectivity=8)
+    #connectedComponentswithStats yields every seperated component with information on each of them, such as size
+    #the following part is just taking out the background which is also considered a component, but most of the time we don't want that.
+    sizes = stats[0:, -1]; nb_components = nb_components
+
+    # minimum size of particles we want to keep (number of pixels)
+    #here, it's a fixed value, but you can set it as you want, eg the mean of the sizes or whatever
+    min_size = 200
+
+    #your answer image
+    img2 = np.zeros((output.shape))
+    #for every component in the image, you keep it only if it's above min_size
+    for i in range(0, nb_components):
+        if sizes[i] >= min_size:
+            img2[output == i + 1] = 255
+
+
+
+    # nb_components2, output2, stats2, centroids2 = cv2.connectedComponentsWithStats(img2, connectivity=8)
+    # sizes2 = stats2[0:, -1]; nb_components2 = nb_components2
+    # min_size = 100
+    # img3 = np.zeros((output2.shape))
+    #
+    # for i in range(0, nb_components2):
+    #     if sizes2[i] >= min_size:
+    #         img3[output2 == i + 1] = 255
+
+    cv2.imshow("trans", img2)
+    cv2.waitKey(1)
+    return bordered.copy()
 
 
 def image_device_4(img):
