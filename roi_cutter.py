@@ -138,7 +138,7 @@ NONAME thermo-hygro
     min_2 = img[269:300, 337:396].copy()
     max_1 = img[114:143, 376:439].copy()
     max_2 = img[271:296, 394:446].copy()
-    cv2.imshow("uncut",img)
+    cv2.imshow("uncut", img)
     # cv2.imshow("temp", temp)
     # cv2.imshow("temp_deci", temp_decimal)
     cv2.imshow("humidity", humidity)
@@ -254,6 +254,53 @@ CASIO calculator MS-20UC
     ocr_rois = [digits_1_3_bordered, digits_3_6_bordered, digits_7_9_bordered, digits_10_13_bordered]
     feat_detect_rois = []
     # cv2.waitKey(1)
+    return [ocr_rois, feat_detect_rois]
+
+
+def roi_device_8(imgs):
+    """
+IDR radio alarmclock
+    :param imgs:
+    :return:
+    """
+    img = imgs[0]
+
+    digit_1_2 = img[2:127, 70:295].copy()
+    digit_3_4 = img[3:135, 320:552].copy()
+
+
+
+    cv2.imshow("dig 1_2", digit_1_2)
+    cv2.imshow("dig_3_4", digit_3_4)
+    cv2.waitKey(1)
+
+
+
+    ocr_rois = [digit_1_2, digit_3_4]
+
+    dot_digit_3_4 = digit_3_4[100:127, 103:132].copy()
+
+    double_dot_upper = img[18:44, 301:332].copy()
+    double_dot_lower = img[77:104, 295:321].copy()
+
+    sleep_dot = img[89:116, 565:592].copy()
+
+    alarm_1_buzz = img[50:73, 36:65].copy()
+    alarm_1_music = img[51:79, 565:590].copy()
+    alarm_2_buzz = img[12:44, 557:589].copy()
+    alarm_2_music = img[86:112, 33:62].copy()
+
+    feat_bin = [alarm_1_buzz, alarm_1_music,
+                alarm_2_buzz, alarm_2_music,
+                dot_digit_3_4,
+                double_dot_upper, double_dot_lower,
+                sleep_dot]
+
+    double_dot_gray = [imgs[1], imgs[2]]
+
+    # imgs[1] ist the double dot in gray
+    feat_detect_rois = [feat_bin, double_dot_gray]
+
     return [ocr_rois, feat_detect_rois]
 
 

@@ -183,6 +183,17 @@ CASIO calculator MS-20UC
     print(rois_processed)
     return rois_processed
 
+def process_results_device_8(rois_processed):
+    """
+IDR radio alarm
+    :param rois_processed:
+    :return:
+    """
+    print(rois_processed)
+    results_processed = None
+
+    return results_processed
+
 
 def process_results_device_10(rois_processed):
     """

@@ -87,3 +87,15 @@ GREEN alarm/radio
     """
 
     return feat_rois
+
+
+def feat_detect_device_8(feat_rois):
+    """
+IDR alarm/radio
+    :param feat_rois:
+    :return:
+    """
+    for i in range(len(feat_rois[1][0])):
+        feat_rois[1][0][i] = True if cv2.mean(feat_rois[1][0][i])[0] <= 240 else False
+
+    return feat_rois

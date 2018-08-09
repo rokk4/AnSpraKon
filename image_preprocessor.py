@@ -102,12 +102,12 @@ The BASE-TECH Thermometer
                                   right=border_size,
                                   borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
 
-    # Display images.
-    # cv2.imshow("Thresholded Image", thresh1)
-    # cv2.imshow("Floodfilled Image", im_floodfill)
+    # Display images
+    cv2.imshow("Thresholded Image", thresh1)
+    cv2.imshow("Floodfilled Image", im_floodfill)
     # cv2.imshow("Inverted Floodfilled Image", im_floodfill_inv)
-    # cv2.imshow("Foreground", bordered)
-    # cv2.waitKey(1)
+    cv2.imshow("Foreground", bordered)
+    cv2.waitKey(1)
 
     return bordered
 
@@ -162,18 +162,18 @@ BEURER Human Scale
 
     frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     flip_180 = cv2.rotate(frame.copy(), cv2.ROTATE_180)
-    ret, thresh1 = cv2.threshold(flip_180[162:449, 20:629], 120, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+    ret, thresh1 = cv2.threshold(flip_180[162:449, 20:629], 80, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
 
     im_floodfill = thresh1.copy()
-    cv2.imshow("flipped", thresh1)
+    # cv2.imshow("flipped", thresh1)
     # Mask used to flood filling.
     # Notice the size needs to be 2 pixels than the image.
     h, w = thresh1.shape[:2]
     mask = np.zeros((h + 2, w + 2), np.uint8)
 
     # Floodfill from point (0, 0)
-    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
-    cv2.imshow("flood", im_floodfill)
+    # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+    # cv2.imshow("flood", im_floodfill)
 
     floodfilled_height, floodfilled_width = im_floodfill.shape
     pts1 = np.float32([[58, 24], [588, 33], [22, 264], [550, 273]])
@@ -215,7 +215,7 @@ BEURER Human Scale
     #     if sizes2[i] >= min_size:
     #         img3[output2 == i + 1] = 255
 
-    cv2.imshow("trans", img2)
+    cv2.imshow("trans", bordered)
     cv2.waitKey(1)
     return bordered.copy()
 
@@ -307,3 +307,46 @@ CASIO calculator MS-20UC
     gray = cv2.cvtColor(flip_180[41:245, 13:607], cv2.COLOR_BGR2GRAY)
 
     return gray.copy()
+
+
+# Device ID 8
+def image_device_8(img):
+    """
+IDF radio-alarm
+    :param img: the image to process
+    :return: the processed img
+    """
+    gray = cv2.cvtColor(img[249:390, 24:616].copy(), cv2.COLOR_BGR2GRAY)
+    ret, thresh1 = cv2.threshold(gray.copy(), 90, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+    im_floodfill = thresh1.copy()
+
+    # Mask used to flood filling.
+    # Notice the size needs to be 2 pixels than the image.
+    h, w = thresh1.shape[:2]
+    mask = np.zeros((h + 2, w + 2), np.uint8)
+
+    # Floodfill from point (0, 0)
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+    # find all your connected components (white blobs in your image)
+    nb_components, output, stats, centroids = cv2.connectedComponentsWithStats(im_floodfill, connectivity=8)
+    # connectedComponentswithStats yields every seperated component with information on each of them, such as size
+    # the following part is just taking out the background which is also considered a component, but most of the time
+    #  we don't want that.
+    sizes = stats[0:, -1];
+    nb_components = nb_components
+
+    # minimum size of particles we want to keep (number of pixels)
+    # here, it's a fixed value, but you can set it as you want, eg the mean of the sizes or whatever
+    min_size = 300
+
+    # your answer image
+    processed_image = np.zeros(output.shape)
+    # for every component in the image, you keep it only if it's above min_size
+    for i in range(0, nb_components):
+        if sizes[i] >= min_size:
+            processed_image[output == i + 1] = 255
+    double_dot_upper_gray = gray[20:44, 302:332].copy()
+    double_dot_lower_gray = gray[78:104, 293:321].copy()
+
+
+    return [processed_image, double_dot_upper_gray, double_dot_lower_gray]

@@ -64,7 +64,7 @@ class Ansprakon:
         # setup systemd communication
         self._sdnotify = sdnotify.SystemdNotifier()
         self._sdnotify.notify("READY=1")
-        call_nanotts.call_nanotts(self._nanotts_options)
+      #  call_nanotts.call_nanotts(self._nanotts_options)
 
     @property
     def sdnotify(self):
