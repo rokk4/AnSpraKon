@@ -99,3 +99,13 @@ IDR alarm/radio
         feat_rois[1][0][i] = True if cv2.mean(feat_rois[1][0][i])[0] <= 240 else False
 
     return feat_rois
+
+
+def feat_detect_device_9(feat_rois):
+    """
+Schneider Microwave
+    :param feat_rois:
+    :return:
+    """
+
+    return feat_rois

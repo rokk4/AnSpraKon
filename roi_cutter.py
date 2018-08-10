@@ -304,6 +304,18 @@ IDR radio alarmclock
     return [ocr_rois, feat_detect_rois]
 
 
+
+
+def roi_device_9(img):
+    """
+
+    :param img:
+    :return:
+    """
+    ocr_rois = [img]
+    feat_detect_rois = []
+    return [ocr_rois, feat_detect_rois]
+
 def roi_device_10(img):
     """
 BEKO Dishwasher

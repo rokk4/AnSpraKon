@@ -348,5 +348,20 @@ IDF radio-alarm
     double_dot_upper_gray = gray[20:44, 302:332].copy()
     double_dot_lower_gray = gray[78:104, 293:321].copy()
 
-
     return [processed_image, double_dot_upper_gray, double_dot_lower_gray]
+
+
+# Device ID 0
+def image_device_9(img):
+    """
+Schneider Mikrowelle
+    :param img: the image to process
+    :return: the processed img
+    """
+    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray_image, (5, 5), 0)
+    blur2 = cv2.medianBlur(blur, 5)
+    ret, th1 = cv2.threshold(blur2, 115, 255, cv2.THRESH_BINARY_INV)
+    rotated_180 = cv2.rotate(th1, cv2.ROTATE_180)
+    img = rotated_180
+    return img

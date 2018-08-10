@@ -194,6 +194,15 @@ IDR radio alarm
 
     return results_processed
 
+def process_results_device_9(rois_processed):
+    """
+SCHNEIDER Microwave
+    :param rois_processed:
+    :return:
+    """
+    return rois_processed
+
+
 
 def process_results_device_10(rois_processed):
     """
