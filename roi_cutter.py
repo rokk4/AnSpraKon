@@ -268,13 +268,9 @@ IDR radio alarmclock
     digit_1_2 = img[2:127, 70:295].copy()
     digit_3_4 = img[3:135, 320:552].copy()
 
-
-
     cv2.imshow("dig 1_2", digit_1_2)
     cv2.imshow("dig_3_4", digit_3_4)
     cv2.waitKey(1)
-
-
 
     ocr_rois = [digit_1_2, digit_3_4]
 
@@ -304,8 +300,6 @@ IDR radio alarmclock
     return [ocr_rois, feat_detect_rois]
 
 
-
-
 def roi_device_9(img):
     """
 
@@ -323,8 +317,6 @@ def roi_device_9(img):
     return [ocr_rois, feat_detect_rois]
 
 
-
-
 def roi_device_10(img):
     """
 
@@ -333,15 +325,13 @@ def roi_device_10(img):
     """
     digit_1_2 = img[2:151, 5:171].copy()
     digit_decimal = img[80:151, 182:227].copy()
-    cv2.imshow("decimal", digit_decimal)
-    cv2.imshow("digits", digit_1_2)
-    cv2.waitKey(1)
+    # cv2.imshow("decimal", digit_decimal)
+    # cv2.imshow("digits", digit_1_2)
+    # cv2.waitKey(1)
 
     ocr_rois = [digit_1_2, digit_decimal]
     feat_detect_rois = []
     return [ocr_rois, feat_detect_rois]
-
-
 
 
 def roi_device_11(img):
