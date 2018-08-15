@@ -35,6 +35,7 @@ class Ansprakon:
         self._device_id = args.device
         self._final_result = args.final
         self._speak_on_button = args.button
+        self._mute = args.mute
 
         # flags for nanoTTS
         self._nanotts_options = ["-v", args.language,
@@ -64,7 +65,8 @@ class Ansprakon:
         # setup systemd communication
         self._sdnotify = sdnotify.SystemdNotifier()
         self._sdnotify.notify("READY=1")
-      #  call_nanotts.call_nanotts(self._nanotts_options)
+        if not self._mute:
+            call_nanotts.call_nanotts(self._nanotts_options)
 
     @property
     def sdnotify(self):
@@ -135,7 +137,13 @@ Processes the results of ssocr.py and feat_detector.py as specified in result_pr
 Speaks the result with call_nanotts if speakeing is not by button and the result was not spoken max 3 read before.
 Or if it is final result device, speake the result if it was read at least 5 times before.
         """
+
+        # don't speak if muted via flag
+        if self._mute:
+            return print("Muted.")
+
         # for speak on change devices
+
         if not self._speak_on_button and not self._final_result and self._results_processed is not None:
             if self._results_processed not in self._result_buffer[-3:-1] \
                     and self._results_processed != self._last_spoken:
@@ -172,6 +180,7 @@ Setup argument parser and then run the processing loop.
     parser = argparse.ArgumentParser(description="read 7-segment displays and read out the result")
     parser.add_argument("device", help="enter the ID of the device to use")
     parser.add_argument("-b", "--button", help="speak on button press", action="store_true")
+    parser.add_argument("-m", "--mute", help="don't speak", action="store_true")
     parser.add_argument("-f", "--final", help="device which displays a final result", action="store_true")
     parser.add_argument("-r", "--rpi", help="run on rpi", action="store_true")
     parser.add_argument("-g", "--gpiopin", help="set the GPIO pin", default=11, type=int)

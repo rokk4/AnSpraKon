@@ -108,4 +108,9 @@ Schneider Microwave
     :return:
     """
 
+    # check if mean is not white to detemine if feature is present
+    for i in range(len(feat_rois[1])):
+        feat_rois[1][i] = True if cv2.mean(feat_rois[1][i])[0] <= 240 else False
+
+    print(feat_rois[1])
     return feat_rois

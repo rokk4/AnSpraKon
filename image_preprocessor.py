@@ -358,10 +358,43 @@ Schneider Mikrowelle
     :param img: the image to process
     :return: the processed img
     """
-    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray_image, (5, 5), 0)
-    blur2 = cv2.medianBlur(blur, 5)
-    ret, th1 = cv2.threshold(blur2, 115, 255, cv2.THRESH_BINARY_INV)
-    rotated_180 = cv2.rotate(th1, cv2.ROTATE_180)
-    img = rotated_180
-    return img
+    flipped = cv2.rotate(img, cv2.ROTATE_180)
+    gray = cv2.cvtColor(flipped.copy(), cv2.COLOR_BGR2GRAY)
+    ret, thresh1 = cv2.threshold(gray[109:287, 19:626].copy(), 127, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+
+    # Mask used to flood filling.
+    # Notice the size needs to be 2 pixels than the image.
+    h, w = thresh1.shape[:2]
+    mask = np.zeros((h + 2, w + 2), np.uint8)
+
+    # Floodfill from point (0, 0)
+    im_floodfill = thresh1.copy()
+    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+
+    shape_height, shape_width = im_floodfill.shape
+    shape_pts1 = np.float32([[39, 14], [591, 15], [10, 173], [570, 171]])
+    shape_pts2 = np.float32([[0, 0], [shape_width, 0], [0, shape_height], [shape_width, shape_height]])
+    shape_m = cv2.getPerspectiveTransform(shape_pts1, shape_pts2)
+    shape_dst = cv2.warpPerspective(im_floodfill, shape_m, (shape_width, shape_height))
+
+    border_size = 10
+    white = [255, 255, 255]
+    shape_bordered = cv2.copyMakeBorder(shape_dst, top=border_size, bottom=border_size, left=border_size,
+                                        right=border_size,
+                                        borderType=cv2.BORDER_CONSTANT, value=white)
+
+    return shape_bordered
+
+
+# Device ID 10
+def image_device_10(img):
+    """
+TECHNO-ONE Thermometer
+    :param img: the image to process
+    :return: the processed img
+    """
+    flipped = cv2.rotate(img, cv2.ROTATE_180)
+    gray = cv2.cvtColor(flipped[24:175, 198:425].copy(), cv2.COLOR_BGR2GRAY)
+    ret, thresh1 = cv2.threshold(gray, 127, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+
+    return thresh1

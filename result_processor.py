@@ -183,6 +183,7 @@ CASIO calculator MS-20UC
     print(rois_processed)
     return rois_processed
 
+
 def process_results_device_8(rois_processed):
     """
 IDR radio alarm
@@ -194,17 +195,44 @@ IDR radio alarm
 
     return results_processed
 
+
 def process_results_device_9(rois_processed):
+    # TODO: Process results
     """
 SCHNEIDER Microwave
     :param rois_processed:
     :return:
     """
-    return rois_processed
+    results_processed = None
 
+    for result in rois_processed[0]:
+        print(result)
+
+    return results_processed
 
 
 def process_results_device_10(rois_processed):
+    results_processed = None
+    temp_result_pattern = re.compile("\d?\d")
+    temp_deci_result_pattern = re.compile("\d")
+
+    temp_result = temp_result_pattern.search(rois_processed[0][0].rstrip())
+    temp_deci_result = temp_deci_result_pattern.search(rois_processed[0][1].rstrip())
+
+    if temp_result is not None:
+        rois_processed[0][0] = temp_result.group(0)
+        results_processed = "Temperatur " + rois_processed[0][0]
+        if temp_deci_result is not None:
+            rois_processed[0][1] = temp_deci_result.group(0)
+            results_processed += "." + rois_processed[0][1]
+
+    if results_processed is not None:
+        results_processed += "°C."
+
+    return results_processed
+
+
+def process_results_device_11(rois_processed):
     """
 
     :param rois_processed:
