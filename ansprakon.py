@@ -91,6 +91,10 @@ Grabs an image from the cam thread, retries recursively on failing, to workaroun
             print(e)
             self.get_frame()
 
+    # getattr() is used with the modules of the processing steps, this allows for modularization and avoids cluttering
+    # This way allows having all device in one branch, instead of branching for every device and it allows device
+    #  selection via flag
+
     def preprocess_image(self):
         """
 Processes an Image with the methods defined for the device in image_preprocessor.py.
@@ -140,10 +144,9 @@ Or if it is final result device, speake the result if it was read at least 5 tim
 
         # don't speak if muted via flag
         if self._mute:
-            return print("Muted.")
+            return print("Muted.", self._results_processed)
 
         # for speak on change devices
-
         if not self._speak_on_button and not self._final_result and self._results_processed is not None:
             if self._results_processed not in self._result_buffer[-3:-1] \
                     and self._results_processed != self._last_spoken:

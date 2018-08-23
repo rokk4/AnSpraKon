@@ -1,7 +1,22 @@
+# coding=utf-8
+# This file is part of AnSpraKon.
+#
+# AnSpraKon is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# AnSpraKon is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with AnSpraKon.  If not, see <http://www.gnu.org/licenses/>.
 import cv2
 import numpy as np
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 
 def print_mouse_coords(event, x, y, flags, param):
@@ -21,15 +36,13 @@ while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
     flipped = cv2.rotate(frame, cv2.ROTATE_180)
-    gray = cv2.cvtColor(flipped[24:175, 198:425].copy(), cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(flipped.copy(), cv2.COLOR_BGR2GRAY)
 
-    ret, thresh1 = cv2.threshold(gray, 127, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    ret, thresh1 = cv2.threshold(gray, 70, 255, cv2.AGAST_FEATURE_DETECTOR_THRESHOLD)
 
-    digit_1_2 = thresh1[2:151, 5:171].copy()
-    digit_decimal = thresh1[80:151, 182:227].copy()
-    cv2.imshow("1", thresh1)
-    cv2.imshow("digits", digit_1_2)
-    cv2.imshow("decimal", digit_decimal)
+
+    cv2.imshow("1", gray)
+
 
     cv2.waitKey(1)
 
