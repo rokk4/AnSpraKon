@@ -246,7 +246,64 @@ def process_results_device_10(rois_processed):
     return results_processed
 
 
+def process_results_device_9(rois_processed):
+    # TODO: Process results
+    """
+SCHNEIDER Microwave
+    :param rois_processed:
+    :return:
+    """
+    results_processed = None
+
+    for result in rois_processed[0]:
+        print(result)
+
+    return results_processed
+
+
 def process_results_device_11(rois_processed):
+    # TODO: Process results
+    """
+SEVERIN Microwave
+    :param rois_processed:
+    :return:
+    """
+    results_processed = None
+    digits_1_2 = rois_processed[0][0].rstrip()
+    digits_3_4 = rois_processed[0][1].rstrip()
+    double_dot_upper = rois_processed[1][0]
+    double_dot_lower = rois_processed[1][1]
+
+
+
+    if digits_1_2 + digits_3_4 == "def1":
+        return "Entfrosten Programm 1"
+
+    if digits_1_2 + digits_3_4 == "def2":
+        return "Entfrosten Programm 2"
+
+    if digits_1_2 + digits_3_4 == "p100":
+        return "Programm 100"
+
+    if digits_1_2 == "p":
+        return "Programm " + digits_3_4
+
+    if digits_1_2 == "a" or digits_1_2 == "c":
+        regex = re.compile('[\W_]+', re.UNICODE)
+        return digits_1_2 + regex.sub("", digits_3_4)
+
+    # if double_dot_upper and double_dot_lower:
+    #     return "Noch " + digits_1_2 + " Minuten und " + digits_3_4 + " Sekunden."
+    #
+    # if not double_dot_upper and not double_dot_lower:
+    #     return digits_1_2 + ":" + digits_3_4 + " Uhr."
+
+    # TODO: How the fuck does the microwave work? How to start a Programm?
+
+    return results_processed
+
+
+def process_results_device_XX(rois_processed):
     """
 
     :param rois_processed:

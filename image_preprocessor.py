@@ -412,3 +412,33 @@ TECHNO-ONE Thermometer
     ret, thresh1 = cv2.threshold(gray, 127, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
 
     return thresh1
+
+
+# Device ID 11
+def image_device_11(img):
+    """
+SEVERIN Microwave
+    :param img: the image to process
+    :return: the processed img
+    """
+    flipped = cv2.rotate(img, cv2.ROTATE_180)
+    gray = cv2.cvtColor(flipped.copy(), cv2.COLOR_BGR2GRAY)
+
+    ret, thresh1 = cv2.threshold(gray[199:393, 28:632].copy(), 175, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+
+    height, width = thresh1.shape
+    pts1 = np.float32([[39, 10], [596, 13], [8, 165], [570, 171]])
+    pts2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    warped = cv2.warpPerspective(thresh1, m, (width, height))
+
+    border_size = 10
+    bordered = cv2.copyMakeBorder(warped,
+                                  top=border_size,
+                                  bottom=border_size,
+                                  left=border_size,
+                                  right=border_size,
+                                  borderType=cv2.BORDER_CONSTANT,
+                                  value=[255, 255, 255])
+
+    return bordered

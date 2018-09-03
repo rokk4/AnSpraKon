@@ -1,20 +1,12 @@
 import numpy as np
 import cv2
 
-cap = cv2.VideoCapture(0)
+vidcap = cv2.VideoCapture("/home/r0x/Development/ansprakon-v2/dev/output.avi")
 
-while(True):
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-
-    # Our operations on the frame come here
-
-
-    # Display the resulting frame
-    cv2.imshow('frame',cv2.rotate(frame,cv2.ROTATE_180))
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# When everything done, release the capture
-cap.release()
-cv2.destroyAllWindows()
+success, image = vidcap.read()
+count = 0
+while success:
+    cv2.imwrite("frame%d.png" % count, image)  # save frame as JPEG file
+    success, image = vidcap.read()
+    print('Read a new frame: ', success)
+    count += 1

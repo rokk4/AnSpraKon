@@ -202,17 +202,17 @@ Setup argument parser and then run the processing loop.
     ansprakon = Ansprakon(args)
 
     while True:
-        try:
-            ansprakon.get_frame()
-            ansprakon.preprocess_image()
-            ansprakon.cut_rois()
-            ansprakon.run_ssocr()
-            ansprakon.detect_feat()
-            ansprakon.process_result()
-            ansprakon.speak_result()
-            ansprakon.sdnotify.notify("WATCHDOG=1")
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
+        # try:
+        ansprakon.get_frame()
+        ansprakon.preprocess_image()
+        ansprakon.cut_rois()
+        ansprakon.run_ssocr()
+        ansprakon.detect_feat()
+        ansprakon.process_result()
+        ansprakon.speak_result()
+        ansprakon.sdnotify.notify("WATCHDOG=1")
+        # except:
+        #     print("Unexpected error:", sys.exc_info()[0])
 
 
 if __name__ == "__main__":

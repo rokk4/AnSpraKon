@@ -8,7 +8,7 @@ NotifyAccess=all
 WorkingDirectory=/tmp/
 ExecStart=/usr/bin/python /home/alarm/ansprakon 6 -b
 WatchdogSec=30
-Restart=always
+Restart=watchdog
 
 [Install]
 WantedBy=multi-user.target

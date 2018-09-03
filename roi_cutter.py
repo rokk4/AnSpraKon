@@ -333,7 +333,7 @@ def roi_device_9(img):
 
 def roi_device_10(img):
     """
-
+THERMO
     :param img:
     :return:
     """
@@ -349,6 +349,27 @@ def roi_device_10(img):
 
 
 def roi_device_11(img):
+    """
+
+    :param img:
+    :return:
+    """
+    digits_1_2 = img[1:214, 1:279].copy()
+    digits_3_4 = img[1:214, 326:624].copy()
+
+    double_dot_upper = img[47:84, 289:323].copy()
+    double_dot_lower = img[140:167, 294:320].copy()
+
+    ocr_rois = [digits_1_2, digits_3_4]
+    feat_detect_rois = [double_dot_upper, double_dot_lower]
+
+    cv2.imshow("digits_1-2", digits_1_2)
+    cv2.imshow("digits_3-4", digits_3_4)
+    cv2.waitKey(1)
+
+    return [ocr_rois, feat_detect_rois]
+
+def roi_device_XX(img):
     """
 BEKO Dishwasher
     :param img:
