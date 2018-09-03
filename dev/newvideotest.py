@@ -34,14 +34,17 @@ while cap.isOpened():
 
 
 
-        out.write(warped)
+        out.write(frame)
 
 
 
-        cv2.imshow('1', cropped)
+        cv2.imshow('1', frame)
         cv2.imshow('warped', warped)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            cap.release()
+            out.release()
+            cv2.destroyAllWindows()
             break
     else:
         break
