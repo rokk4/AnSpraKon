@@ -369,6 +369,61 @@ def roi_device_11(img):
 
     return [ocr_rois, feat_detect_rois]
 
+
+# Device ID 12
+def roi_device_12(img):
+    """
+Bloodpressure
+    :param img: the image to process
+    :return: the processed img
+    """
+    systolic_digits = img[22:162, 40:327].copy()
+    diastolic_digits = img[162:304, 100:314].copy()
+    heartrate = img[307:354, 225:311].copy()
+
+    kernel_1 = np.ones((5, 5), np.uint8)
+    systolic_digits_dil = cv2.dilate(systolic_digits, kernel_1, iterations=1)
+    diastolic_digits_dil = cv2.dilate(diastolic_digits, kernel_1, iterations=1)
+
+    kernel_2 = np.ones((3, 3), np.uint8)
+    heartrate_dil = cv2.dilate(heartrate, kernel_2, iterations=1)
+
+    border_size = 10
+    systolic_digits_dil_bordered = cv2.copyMakeBorder(systolic_digits_dil,
+                                                      top=border_size,
+                                                      bottom=border_size,
+                                                      left=border_size,
+                                                      right=border_size,
+                                                      borderType=cv2.BORDER_CONSTANT,
+                                                      value=[255, 255, 255])
+
+    diastolic_digits_dil_bordered = cv2.copyMakeBorder(diastolic_digits_dil,
+                                                       top=border_size,
+                                                       bottom=border_size,
+                                                       left=border_size,
+                                                       right=border_size,
+                                                       borderType=cv2.BORDER_CONSTANT,
+                                                       value=[255, 255, 255])
+
+    heartrate_dil_bordered = cv2.copyMakeBorder(heartrate_dil,
+                                                top=border_size,
+                                                bottom=border_size,
+                                                left=border_size,
+                                                right=border_size,
+                                                borderType=cv2.BORDER_CONSTANT,
+                                                value=[255, 255, 255])
+
+    ocr_rois = [systolic_digits_dil_bordered, diastolic_digits_dil_bordered, heartrate_dil_bordered]
+    feat_detect_rois = []
+
+    # cv2.imshow("1", systolic_digits_dil_bordered)
+    # cv2.imshow("2", diastolic_digits_dil_bordered)
+    # cv2.imshow("3", heartrate_dil_bordered)
+    # cv2.waitKey(1)
+
+    return [ocr_rois, feat_detect_rois]
+
+
 def roi_device_XX(img):
     """
 BEKO Dishwasher

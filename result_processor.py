@@ -274,8 +274,6 @@ SEVERIN Microwave
     double_dot_upper = rois_processed[1][0]
     double_dot_lower = rois_processed[1][1]
 
-
-
     if digits_1_2 + digits_3_4 == "def1":
         return "Entfrosten Programm 1"
 
@@ -292,13 +290,32 @@ SEVERIN Microwave
         regex = re.compile('[\W_]+', re.UNICODE)
         return digits_1_2 + regex.sub("", digits_3_4)
 
-    # if double_dot_upper and double_dot_lower:
-    #     return "Noch " + digits_1_2 + " Minuten und " + digits_3_4 + " Sekunden."
+    if double_dot_upper and double_dot_lower:
+        return "Noch " + digits_1_2 + " Minuten und " + digits_3_4 + " Sekunden."
     #
     # if not double_dot_upper and not double_dot_lower:
     #     return digits_1_2 + ":" + digits_3_4 + " Uhr."
 
     # TODO: How the fuck does the microwave work? How to start a Programm?
+
+    return results_processed
+
+
+def process_results_device_12(rois_processed):
+    """
+Bloodpressure
+    :param rois_processed:
+    :return:
+    """
+    results_processed = None
+
+    systolic_digits = re.sub('[^0-9]', '', rois_processed[0][0].rstrip())
+    diastolic_digits = re.sub('[^0-9]', '', rois_processed[0][1].rstrip())
+    heartrate = re.sub('[^0-9]', '', rois_processed[0][2].rstrip())
+
+    if len(diastolic_digits) > 1:
+        results_processed = "Blutdruck " + str(systolic_digits) + " zu " + str(diastolic_digits) + " . " + "Puls: " \
+                        + str(heartrate)
 
     return results_processed
 

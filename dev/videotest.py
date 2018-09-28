@@ -16,15 +16,18 @@
 import cv2
 import numpy as np
 
-cap = cv2.VideoCapture("0")
+cap = cv2.VideoCapture(0)
 
+
+# [21:176, 91:337]
+# [159:315, 101:321]
 
 def print_mouse_coords(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         print("[" + str(x) + ", " + str(y) + "]")
 
     if event == cv2.EVENT_RBUTTONDBLCLK:
-        r = cv2.selectROI(gray[0:480, 59:383])
+        r = cv2.selectROI(bordered)
         print("[" + str(r[1]) + ":" + str(r[1] + r[3]) + ", " + str(r[0]) + ":" + str(r[0] + r[2]) + "]")
 
 
@@ -37,15 +40,15 @@ while True:
     ret, frame = cap.read()
     if ret:
         # frame = cv2.imread("/home/r0x/Development/ansprakon-v2/test_images/medisana_bloodsugar_test.png")
-        flipped = cv2.rotate(frame, cv2.ROTATE_180)
+        flipped = cv2.rotate(frame.copy(), cv2.ROTATE_90_CLOCKWISE)
         gray = cv2.cvtColor(flipped.copy(), cv2.COLOR_BGR2GRAY)
 
-        ret, thresh1 = cv2.threshold(gray[0:480, 59:383].copy(), 100, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+        ret, thresh1 = cv2.threshold(gray[213:564, 59:389], 127, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
 
-        blur = cv2.GaussianBlur(thresh1,(3,3),0)
+        blur = cv2.GaussianBlur(thresh1, (3, 3), 0)
 
         height, width = thresh1.shape
-        pts1 = np.float32([[7, 8], [312, 11], [13, 467], [311, 463]])
+        pts1 = np.float32([[18, 20], [303, 15], [25, 326], [307, 320]])
         pts2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
         m = cv2.getPerspectiveTransform(pts1, pts2)
         warped = cv2.warpPerspective(thresh1, m, (width, height))
@@ -59,9 +62,45 @@ while True:
                                       borderType=cv2.BORDER_CONSTANT,
                                       value=[255, 255, 255])
 
-        cv2.imshow("1", warped)
-        cv2.imshow("2", thresh1)
-        #cv2.imshow("1", bordered)
+        systolic_digits = bordered[22:162, 40:327].copy()
+        diastolic_digits = bordered[162:304, 100:314].copy()
+        heartrate = bordered[307:354, 225:311].copy()
+
+        kernel_1 = np.ones((5, 5), np.uint8)
+        systolic_digits_dil = cv2.dilate(systolic_digits, kernel_1, iterations=1)
+        diastolic_digits_dil = cv2.dilate(diastolic_digits, kernel_1, iterations=1)
+
+        kernel_2 = np.ones((3, 3), np.uint8)
+        heartrate_dil = cv2.dilate(heartrate, kernel_2, iterations=1)
+
+        systolic_digits_dil_bordered = cv2.copyMakeBorder(systolic_digits_dil,
+                                                          top=border_size,
+                                                          bottom=border_size,
+                                                          left=border_size,
+                                                          right=border_size,
+                                                          borderType=cv2.BORDER_CONSTANT,
+                                                          value=[255, 255, 255])
+
+        diastolic_digits_dil_bordered = cv2.copyMakeBorder(diastolic_digits_dil,
+                                                           top=border_size,
+                                                           bottom=border_size,
+                                                           left=border_size,
+                                                           right=border_size,
+                                                           borderType=cv2.BORDER_CONSTANT,
+                                                           value=[255, 255, 255])
+
+        heartrate_dil_bordered = cv2.copyMakeBorder(heartrate_dil,
+                                                    top=border_size,
+                                                    bottom=border_size,
+                                                    left=border_size,
+                                                    right=border_size,
+                                                    borderType=cv2.BORDER_CONSTANT,
+                                                    value=[255, 255, 255])
+
+        cv2.imshow("1", bordered)
+        cv2.imshow("2", systolic_digits_dil_bordered)
+        cv2.imshow("3", diastolic_digits_dil_bordered)
+        cv2.imshow("4", heartrate_dil_bordered)
 
         cv2.waitKey(1)
 

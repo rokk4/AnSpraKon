@@ -143,3 +143,12 @@ SEVERIN Microwave
 
     print(feat_rois[1])
     return feat_rois
+
+
+def feat_detect_device_12(feat_rois):
+    """
+Bloodpressure
+    :param feat_rois:
+    :return:
+    """
+    return feat_rois

@@ -442,3 +442,33 @@ SEVERIN Microwave
                                   value=[255, 255, 255])
 
     return bordered
+
+# Device ID 12
+def image_device_12(img):
+    """
+Bloodpressure
+    :param img: the image to process
+    :return: the processed img
+    """
+    flipped = cv2.rotate(img.copy(), cv2.ROTATE_90_CLOCKWISE)
+    gray = cv2.cvtColor(flipped.copy(), cv2.COLOR_BGR2GRAY)
+
+    ret, thresh1 = cv2.threshold(gray[213:564, 59:389], 127, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+
+    height, width = thresh1.shape
+    pts1 = np.float32([[18, 20], [303, 15], [25, 326], [307, 320]])
+    pts2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    warped = cv2.warpPerspective(thresh1, m, (width, height))
+
+    border_size = 10
+    bordered = cv2.copyMakeBorder(warped,
+                                  top=border_size,
+                                  bottom=border_size,
+                                  left=border_size,
+                                  right=border_size,
+                                  borderType=cv2.BORDER_CONSTANT,
+                                  value=[255, 255, 255])
+
+    return bordered
+
