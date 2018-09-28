@@ -5,3 +5,5 @@ __pycache__/**
 testbild.png
 image-final.img
 image-final.img.gz
+dev/lighting.avi
+dev/output.avi
