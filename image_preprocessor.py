@@ -117,11 +117,11 @@ The BASE-TECH Thermometer
                                   borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
 
     # Display images
-    cv2.imshow("Thresholded Image", thresh1)
-    cv2.imshow("Floodfilled Image", im_floodfill)
+    # cv2.imshow("Thresholded Image", thresh1)
+    # cv2.imshow("Floodfilled Image", im_floodfill)
     # cv2.imshow("Inverted Floodfilled Image", im_floodfill_inv)
-    cv2.imshow("Foreground", bordered)
-    cv2.waitKey(1)
+    # cv2.imshow("Foreground", bordered)
+    # cv2.waitKey(1)
 
     return bordered
 
@@ -229,8 +229,8 @@ BEURER Human Scale
     #     if sizes2[i] >= min_size:
     #         img3[output2 == i + 1] = 255
 
-    cv2.imshow("trans", bordered)
-    cv2.waitKey(1)
+    # cv2.imshow("trans", bordered)
+    # cv2.waitKey(1)
     return bordered.copy()
 
 
@@ -271,8 +271,8 @@ GREEN radio alarm
     ret, thresh1 = cv2.threshold(bi_filter, 120, 255, cv2.THRESH_BINARY_INV)
     blur3 = cv2.medianBlur(thresh1, 5)
     # Display the resulting frame
-    cv2.imshow('frame', blur3)
-    cv2.waitKey(1)
+    # cv2.imshow('frame', blur3)
+    # cv2.waitKey(1)
 
     return blur3.copy()
 
