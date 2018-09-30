@@ -368,9 +368,9 @@ def roi_device_11(img):
     ocr_rois = [digits_1_2, digits_3_4]
     feat_detect_rois = [double_dot_upper, double_dot_lower]
 
-    cv2.imshow("digits_1-2", digits_1_2)
-    cv2.imshow("digits_3-4", digits_3_4)
-    cv2.waitKey(1)
+    # cv2.imshow("digits_1-2", digits_1_2)
+    # cv2.imshow("digits_3-4", digits_3_4)
+    # cv2.waitKey(1)
 
     return [ocr_rois, feat_detect_rois]
 
