@@ -54,6 +54,8 @@ class Ansprakon:
             gpio.add_event_detect(self._gpio_pin, gpio.FALLING, callback=self.gpio_callback, bouncetime=200)
 
         # storage for processing steps
+        self._min_buffer_length = args.buffer[0]
+        self.min_result_count = args.buffer[1]
         self._grabbed_image = None
         self._preprocessed_image = None
         self._rois_cut = None
@@ -138,7 +140,7 @@ Processes the results of ssocr.py and feat_detector.py as specified in result_pr
 
     def speak_result(self):
         """
-Speaks the result with call_nanotts if speakeing is not by button and the result was not spoken max 3 read before.
+Speaks the result with call_nanotts if speaking is not by button and the result was not spoken max 3 read before.
 Or if it is final result device, speake the result if it was read at least 5 times before.
         """
 
@@ -156,8 +158,8 @@ Or if it is final result device, speake the result if it was read at least 5 tim
 
         # for final result devices
         if self._final_result and not self._speak_on_button and self._results_processed is not None:
-            if len(self._result_buffer) >= 8:
-                if self._result_buffer[0:-1].count(self._results_processed) >= 6 \
+            if len(self._result_buffer) >= self._min_buffer_length:
+                if self._result_buffer[0:-1].count(self._results_processed) >= self.min_result_count \
                         and self._results_processed != self._last_spoken:
                     call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                     self._last_spoken = self._results_processed
@@ -191,6 +193,10 @@ Setup argument parser and then run the processing loop.
     parser.add_argument("-v", "--volume", help="set the volume of the voice", default="1", metavar="<0.0-5.0>")
     parser.add_argument("-l", "--language", help="set the language of the voice", default="de-DE",
                         choices=["en-US", "en-GB", "de-DE", "es-ES", "fr-FR", "it-IT"])
+    parser.add_argument("-q", "--buffer",
+                        help="min. bufferlength and min. result count to be the finalresult",
+                        default=[8, 6], type=int, nargs="+")
+
     parser.add_argument("--version", action="version", version="%(AnSpraKon)s 2.0 ")
     parser.add_argument("--show-w", help="Show warranty details of the GPL", action="store_true")
     parser.add_argument("--show-c", help="Show redistribution conditions of the GPL", action="store_true")

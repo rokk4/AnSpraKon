@@ -197,9 +197,9 @@ TECHNO thermometer
     """
     device_ssocr_args = [
         "-d", "-1",
-        "-i", "3",
-        "-n", "5",
-        "-C"
+        "-r", "6"
+        "-C",
+        "-c", "digits"
 
     ]
 

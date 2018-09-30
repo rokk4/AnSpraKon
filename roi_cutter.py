@@ -339,11 +339,16 @@ THERMO
     """
     digit_1_2 = img[2:151, 5:171].copy()
     digit_decimal = img[80:151, 182:227].copy()
-    # cv2.imshow("decimal", digit_decimal)
-    # cv2.imshow("digits", digit_1_2)
-    # cv2.waitKey(1)
 
-    ocr_rois = [digit_1_2, digit_decimal]
+    kernel_1 = np.ones((4, 4), np.uint8)
+    digit_1_2_dilated = cv2.dilate(digit_1_2, kernel_1, iterations=1)
+    kernel_2 = np.ones((3, 3), np.uint8)
+    digit_decimal_dilated = cv2.dilate(digit_decimal, kernel_2, iterations=1)
+    cv2.imshow("decimal", digit_decimal_dilated)
+    cv2.imshow("digits", digit_1_2_dilated)
+    cv2.waitKey(1)
+
+    ocr_rois = [digit_1_2_dilated, digit_decimal_dilated]
     feat_detect_rois = []
     return [ocr_rois, feat_detect_rois]
 
