@@ -163,6 +163,7 @@ IDR alarm-clock    :param rois:
         "-d", "-1",
         "-i", "3",
         "-n", "10",
+        "-c", "digits"
         "-C"
 
     ]
@@ -215,9 +216,9 @@ SEVERIN Microwave
     device_ssocr_args = [
         "-D",
         "-d", "-1",
-        # "-i", "4",
-        # "-n", "10",
-        "-m 4",
+        "-i", "4",
+        "-n", "10",
+        # "-m 4",
         "-C"
 
     ]

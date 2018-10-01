@@ -286,6 +286,8 @@ IDR radio alarmclock
     double_dot_lower = img[1][99:126, 275:307].copy()
     double_dot_upper = img[1][36:68, 284:317].copy()
 
+    decimal_dot = img[1][127:158, 437:479].copy()
+
     left_points = img[0][14:160, 13:74].copy()
     left_points_dilated = cv2.dilate(left_points, kernel_1, iterations=2)
     # left_point_1 = None
@@ -296,12 +298,20 @@ IDR radio alarmclock
     right_points_dilted = cv2.dilate(right_points, kernel_1, iterations=2)
     right_point_1 = right_points_dilted[20:38, 13:36].copy()
     right_point_2 = right_points_dilted[56:74, 21:41].copy()
-    right_point_3 = right_points_dilted[115:90, 46:23].copy()
+    right_point_3 = right_points_dilted[95:112, 25:49].copy()
 
     ocr_rois = [digits_1_2, digits_3_4]
     feat_detect_rois = [double_dot_lower, double_dot_upper,
+                        decimal_dot,
                         left_point_2, left_point_3,
                         right_point_1, right_point_2, right_point_3]
+
+    cv2.imshow("1", digits_1_2)
+    cv2.imshow("2", digits_3_4)
+    # cv2.imshow("3", right_point_3)
+    # cv2.imshow("4", double_dot_upper)
+    # cv2.imshow("5", double_dot_lower)
+    cv2.waitKey(1)
 
     return [ocr_rois, feat_detect_rois]
 
@@ -351,15 +361,17 @@ def roi_device_11(img):
     :param img:
     :return:
     """
-    digits_1_2 = img[1:214, 1:279].copy()
-    digits_3_4 = img[1:214, 326:624].copy()
 
-    double_dot_upper = img[47:84, 289:323].copy()
-    double_dot_lower = img[140:167, 294:320].copy()
+    double_dot_upper = img[45:72, 315:344].copy()
+    double_dot_lower = img[133:164, 317:348].copy()
+
+    digits_1_2 = img[0:200, 0:306].copy()
+    digits_3_4 = img[0:202, 354:639].copy()
 
     ocr_rois = [digits_1_2, digits_3_4]
     feat_detect_rois = [double_dot_upper, double_dot_lower]
 
+    # cv2.imshow("all", img)
     # cv2.imshow("digits_1-2", digits_1_2)
     # cv2.imshow("digits_3-4", digits_3_4)
     # cv2.waitKey(1)
