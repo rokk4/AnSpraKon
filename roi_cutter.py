@@ -271,45 +271,37 @@ CASIO calculator MS-20UC
     return [ocr_rois, feat_detect_rois]
 
 
-def roi_device_8(imgs):
+def roi_device_8(img):
     """
 IDR radio alarmclock
     :param imgs:
     :return:
     """
-    img = imgs[0]
 
-    digit_1_2 = img[2:127, 70:295].copy()
-    digit_3_4 = img[3:135, 320:552].copy()
+    kernel_1 = np.ones((3, 3), np.uint8)
 
-    cv2.imshow("dig 1_2", digit_1_2)
-    cv2.imshow("dig_3_4", digit_3_4)
-    cv2.waitKey(1)
+    digits_1_2 = img[1][0:154, 0:238].copy()
+    digits_3_4 = img[1][1:160, 311:595].copy()
 
-    ocr_rois = [digit_1_2, digit_3_4]
+    double_dot_lower = img[1][99:126, 275:307].copy()
+    double_dot_upper = img[1][36:68, 284:317].copy()
 
-    dot_digit_3_4 = digit_3_4[100:127, 103:132].copy()
+    left_points = img[0][14:160, 13:74].copy()
+    left_points_dilated = cv2.dilate(left_points, kernel_1, iterations=2)
+    # left_point_1 = None
+    left_point_2 = left_points_dilated[62:78, 8:33].copy()
+    left_point_3 = left_points_dilated[97:124, 8:33].copy()
 
-    double_dot_upper = img[18:44, 301:332].copy()
-    double_dot_lower = img[77:104, 295:321].copy()
+    right_points = img[0][20:160, 530:595].copy()
+    right_points_dilted = cv2.dilate(right_points, kernel_1, iterations=2)
+    right_point_1 = right_points_dilted[20:38, 13:36].copy()
+    right_point_2 = right_points_dilted[56:74, 21:41].copy()
+    right_point_3 = right_points_dilted[115:90, 46:23].copy()
 
-    sleep_dot = img[89:116, 565:592].copy()
-
-    alarm_1_buzz = img[50:73, 36:65].copy()
-    alarm_1_music = img[51:79, 565:590].copy()
-    alarm_2_buzz = img[12:44, 557:589].copy()
-    alarm_2_music = img[86:112, 33:62].copy()
-
-    feat_bin = [alarm_1_buzz, alarm_1_music,
-                alarm_2_buzz, alarm_2_music,
-                dot_digit_3_4,
-                double_dot_upper, double_dot_lower,
-                sleep_dot]
-
-    double_dot_gray = [imgs[1], imgs[2]]
-
-    # imgs[1] ist the double dot in gray
-    feat_detect_rois = [feat_bin, double_dot_gray]
+    ocr_rois = [digits_1_2, digits_3_4]
+    feat_detect_rois = [double_dot_lower, double_dot_upper,
+                        left_point_2, left_point_3,
+                        right_point_1, right_point_2, right_point_3]
 
     return [ocr_rois, feat_detect_rois]
 

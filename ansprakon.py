@@ -55,7 +55,7 @@ class Ansprakon:
 
         # storage for processing steps
         self._min_buffer_length = args.buffer[0]
-        self.min_result_count = args.buffer[1]
+        self._min_result_count = args.buffer[1]
         self._grabbed_image = None
         self._preprocessed_image = None
         self._rois_cut = None
@@ -159,7 +159,7 @@ Or if it is final result device, speake the result if it was read at least 5 tim
         # for final result devices
         if self._final_result and not self._speak_on_button and self._results_processed is not None:
             if len(self._result_buffer) >= self._min_buffer_length:
-                if self._result_buffer[0:-1].count(self._results_processed) >= self.min_result_count \
+                if self._result_buffer[0:-1].count(self._results_processed) >= self._min_result_count \
                         and self._results_processed != self._last_spoken:
                     call_nanotts.call_nanotts(self._nanotts_options, self._results_processed)
                     self._last_spoken = self._results_processed
@@ -206,17 +206,17 @@ Setup argument parser and then run the processing loop.
     ansprakon = Ansprakon(args)
 
     while True:
-        try:
-            ansprakon.get_frame()
-            ansprakon.preprocess_image()
-            ansprakon.cut_rois()
-            ansprakon.run_ssocr()
-            ansprakon.detect_feat()
-            ansprakon.process_result()
-            ansprakon.speak_result()
-            ansprakon.sdnotify.notify("WATCHDOG=1")
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
+        # try:
+        ansprakon.get_frame()
+        ansprakon.preprocess_image()
+        ansprakon.cut_rois()
+        ansprakon.run_ssocr()
+        ansprakon.detect_feat()
+        ansprakon.process_result()
+        ansprakon.speak_result()
+        ansprakon.sdnotify.notify("WATCHDOG=1")
+        # except:
+        #     print("Unexpected error:", sys.exc_info()[0])
 
 
 if __name__ == "__main__":

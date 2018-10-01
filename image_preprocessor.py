@@ -330,39 +330,21 @@ IDF radio-alarm
     :param img: the image to process
     :return: the processed img
     """
-    gray = cv2.cvtColor(img[249:390, 24:616].copy(), cv2.COLOR_BGR2GRAY)
-    ret, thresh1 = cv2.threshold(gray.copy(), 90, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
-    im_floodfill = thresh1.copy()
+    gray = cv2.cvtColor(img[241:401, 27:622].copy(), cv2.COLOR_BGR2GRAY)
 
-    # Mask used to flood filling.
-    # Notice the size needs to be 2 pixels than the image.
-    h, w = thresh1.shape[:2]
-    mask = np.zeros((h + 2, w + 2), np.uint8)
+    ret, thresh1 = cv2.threshold(gray, 115, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+    height, width = thresh1.shape
+    pts1 = np.float32([[119, 20], [524, 20], [84, 150], [520, 150]])
+    pts2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    warped = cv2.warpPerspective(thresh1, m, (width, height))
 
-    # Floodfill from point (0, 0)
-    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
-    # find all your connected components (white blobs in your image)
-    nb_components, output, stats, centroids = cv2.connectedComponentsWithStats(im_floodfill, connectivity=8)
-    # connectedComponentswithStats yields every seperated component with information on each of them, such as size
-    # the following part is just taking out the background which is also considered a component, but most of the time
-    #  we don't want that.
-    sizes = stats[0:, -1];
-    nb_components = nb_components
+    kernel_1 = np.ones((3, 3), np.uint8)
+    dilated = cv2.dilate(warped, kernel_1, iterations=1)
 
-    # minimum size of particles we want to keep (number of pixels)
-    # here, it's a fixed value, but you can set it as you want, eg the mean of the sizes or whatever
-    min_size = 300
+    processed = [ thresh1, dilated]
 
-    # your answer image
-    processed_image = np.zeros(output.shape)
-    # for every component in the image, you keep it only if it's above min_size
-    for i in range(0, nb_components):
-        if sizes[i] >= min_size:
-            processed_image[output == i + 1] = 255
-    double_dot_upper_gray = gray[20:44, 302:332].copy()
-    double_dot_lower_gray = gray[78:104, 293:321].copy()
-
-    return [processed_image, double_dot_upper_gray, double_dot_lower_gray]
+    return processed
 
 
 # Device ID 0

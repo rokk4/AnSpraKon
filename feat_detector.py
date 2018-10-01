@@ -109,10 +109,12 @@ IDR alarm/radio
     :param feat_rois:
     :return:
     """
-    for i in range(len(feat_rois[1][0])):
-        feat_rois[1][0][i] = True if cv2.mean(feat_rois[1][0][i])[0] <= 240 else False
+    for i in range(len(feat_rois[1])):
+        feat_rois[1][i] = True if cv2.mean(feat_rois[1][i])[0] <= 240 else False
 
+    print(feat_rois[1])
     return feat_rois
+
 
 
 def feat_detect_device_9(feat_rois):

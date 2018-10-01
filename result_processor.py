@@ -204,7 +204,9 @@ IDR radio alarm
     :param rois_processed:
     :return:
     """
-    print(rois_processed)
+    for result in rois_processed[0]:
+        print(result)
+
     results_processed = None
 
     return results_processed
@@ -245,20 +247,6 @@ def process_results_device_10(rois_processed):
 
     return results_processed
 
-
-def process_results_device_9(rois_processed):
-    # TODO: Process results
-    """
-SCHNEIDER Microwave
-    :param rois_processed:
-    :return:
-    """
-    results_processed = None
-
-    for result in rois_processed[0]:
-        print(result)
-
-    return results_processed
 
 
 def process_results_device_11(rois_processed):
