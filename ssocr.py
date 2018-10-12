@@ -129,9 +129,11 @@ NONAME thermo-hygor
     """
     device_ssocr_args = [
         "-d", "-1",
-        "-i", "5",
-        "-n", "10",
-        "-C"
+        #"-i", "5",
+        #"-n", "10",
+        "-C",
+        "-c", "digits"
+
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]

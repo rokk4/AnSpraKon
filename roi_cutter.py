@@ -213,13 +213,22 @@ NONAME thermo-hygro
                                            borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
     # cv2.imshow("bordered warp humidity", humidity_bordered)
 
+    kernel_1 = np.ones((5, 5), np.uint8)
+    temp_bordered_dilated = cv2.dilate(temp_bordered, kernel_1, iterations=2)
+    humidity_bordered_dilated = cv2.dilate(humidity_bordered, kernel_1, iterations=2)
+
+
+    cv2.imshow("temp dilated", temp_bordered_dilated)
+    cv2.imshow("humidity dilated", humidity_bordered_dilated)
 
 
 
 
-    # cv2.waitKey(1)
 
-    ocr_rois = [temp_bordered, temp_decimal_bordered, humidity_bordered]
+
+    cv2.waitKey(1)
+
+    ocr_rois = [temp_bordered_dilated, temp_decimal_bordered, humidity_bordered_dilated]
     feat_detect_rois = [dry, wet, min_1, max_1, min_2, max_2]
     return [ocr_rois, feat_detect_rois]
 
