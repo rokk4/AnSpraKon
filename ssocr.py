@@ -245,3 +245,20 @@ Bloodpressure
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
+
+def ssocr_device_13(rois):
+    """
+BASETECH piggybank
+    :param rois:
+    :return: call of call_ssocr with the ssocr arguments matching the device
+    """
+    device_ssocr_args = [
+        "-D",
+        "-r", "7",
+        "-d", "-1",
+        "-C",
+        "-c", "digits"
+
+    ]
+
+    return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]

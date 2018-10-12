@@ -116,7 +116,6 @@ IDR alarm/radio
     return feat_rois
 
 
-
 def feat_detect_device_9(feat_rois):
     """
 Schneider Microwave
@@ -153,4 +152,14 @@ Bloodpressure
     :param feat_rois:
     :return:
     """
+    return feat_rois
+
+
+def feat_detect_device_7(feat_rois):
+    """
+BASETECH piggybank
+    :param feat_rois:
+    :return:
+    """
+
     return feat_rois

@@ -308,6 +308,23 @@ Bloodpressure
 
     return results_processed
 
+def process_results_device_13(rois_processed):
+    """
+Dummy Device
+    :param rois_processed:
+    :return:
+    """
+    results_processed = None
+
+    digits = re.sub('[^0-9]', '', rois_processed[0][0].rstrip())
+    temp_result_pattern = re.compile("\d?\d")
+
+
+
+
+
+
+    return results_processed
 
 def process_results_device_XX(rois_processed):
     """

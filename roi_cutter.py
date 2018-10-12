@@ -481,3 +481,14 @@ BEKO Dishwasher
                         traywash]
 
     return [ocr_rois, feat_detect_rois]
+
+
+def roi_device_13(img):
+    """
+BASETECH piggybank
+    :param img:
+    :return:
+    """
+    ocr_rois = [img]
+    feat_detect_rois = []
+    return [ocr_rois, feat_detect_rois]

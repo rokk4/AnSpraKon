@@ -455,3 +455,28 @@ Bloodpressure
 
     return bordered
 
+# Device ID 0
+def image_device_13(img):
+    """
+BASETECH piggybank
+    :param img: the image to process
+    :return: the processed img
+    """
+    gray = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2GRAY)
+
+    height, width = gray.shape
+    pts1 = np.float32([[258, 45], [618, 47], [237, 197], [606, 206]])
+    pts2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
+    m = cv2.getPerspectiveTransform(pts1, pts2)
+    warped = cv2.warpPerspective(gray, m, (width, height))
+    ret, thresh1 = cv2.threshold(warped, 55, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+
+
+
+
+    cv2.imshow("warped", warped)
+    cv2.imshow("thresh", thresh1)
+
+    cv2.waitKey(1)
+
+    return thresh1
