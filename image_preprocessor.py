@@ -391,13 +391,13 @@ TECHNO-ONE Thermometer
     """
     flipped = cv2.rotate(img, cv2.ROTATE_180)
     gray = cv2.cvtColor(flipped[24:175, 198:425].copy(), cv2.COLOR_BGR2GRAY)
-    ret, thresh1 = cv2.threshold(gray, 127, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    ret, thresh1 = cv2.threshold(gray, 100, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
 
     # kernel = np.ones((4, 4), np.uint8)
     # thresh1_dilated = cv2.dilate(thresh1, kernel, iterations=1)
     #
     # cv2.imshow("1",thresh1)
-    # cv2.imshow("2",thresh1_dilated)
+    # # cv2.imshow("2",thresh1_dilated)
     # cv2.waitKey(1)
 
     return thresh1
