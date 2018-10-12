@@ -77,8 +77,9 @@ NONAME indoor/outdoor thermometer
     max_indicator = img[28:72, 24:111].copy()
     min_indicator = img[256:303, 18:101].copy()
 
-    cv2.imshow("indoor_temp", indoor_temp)
-    cv2.imshow("outdoor_temp", outdoor_temp)
+    # cv2.imshow("img", img)
+    # cv2.imshow("indoor_temp", indoor_temp)
+    # cv2.imshow("outdoor_temp", outdoor_temp)
 
     indoor_temp_pts1 = np.float32([[31, 5], [394, 6], [5, 205], [371, 208]])
     indoor_temp_pts2 = np.float32([[0, 0], [400, 0], [0, 212], [400, 212]])
@@ -90,25 +91,37 @@ NONAME indoor/outdoor thermometer
     outdoor_temp__m = cv2.getPerspectiveTransform(outdoor_temp_pts1, outdoor_temp_pts2)
     outdoor_temp_dst = cv2.warpPerspective(outdoor_temp, outdoor_temp__m, (420, 220))
 
-    cv2.imshow("indoor warp", indoor_temp_dst)
-    cv2.imshow("outdoor warp", outdoor_temp_dst)
+    # cv2.imshow("indoor warp", indoor_temp_dst)
+    # cv2.imshow("outdoor warp", outdoor_temp_dst)
 
     border_size = 10
 
     indoor_warped_bordered = cv2.copyMakeBorder(indoor_temp_dst, top=border_size, bottom=border_size, left=border_size,
                                                 right=border_size,
                                                 borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    cv2.imshow("bordered warp indoor", indoor_warped_bordered)
+    # cv2.imshow("bordered warp indoor", indoor_warped_bordered)
 
     outdoor_warped_bordered = cv2.copyMakeBorder(outdoor_temp_dst, top=border_size, bottom=border_size,
                                                  left=border_size,
                                                  right=border_size,
                                                  borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
-    cv2.imshow("bordered warp outdoor", outdoor_warped_bordered)
+    # cv2.imshow("bordered warp outdoor", outdoor_warped_bordered)
 
-    cv2.waitKey(1)
 
-    ocr_rois = [indoor_warped_bordered.copy(), outdoor_warped_bordered.copy()]
+    kernel_2 = np.ones((3, 3), np.uint8)
+    indoor_warped_bordered_dilated = cv2.dilate(indoor_warped_bordered, kernel_2, iterations=1)
+    outdoor_warped_bordered_dilated = cv2.dilate(outdoor_warped_bordered, kernel_2, iterations=1)
+
+    # cv2.imshow("bordered warp indoor dil", indoor_warped_bordered_dilated)
+    # cv2.imshow("bordered warp outdoor dil", outdoor_warped_bordered_dilated)
+
+
+
+
+
+    # cv2.waitKey(1)
+
+    ocr_rois = [indoor_warped_bordered_dilated.copy(), outdoor_warped_bordered_dilated.copy()]
     feat_rois = [indoor_indicator, outdoor_indicator, min_indicator, max_indicator]
 
     return [ocr_rois, feat_rois]
@@ -350,7 +363,7 @@ THERMO
     # cv2.imshow("digits", digit_1_2_dilated)
     # cv2.waitKey(1)
 
-    ocr_rois = [digit_1_2_dilated, digit_decimal_dilated]
+    ocr_rois = [digit_1_2_dilated, digit_decimal]
     feat_detect_rois = []
     return [ocr_rois, feat_detect_rois]
 

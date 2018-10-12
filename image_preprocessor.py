@@ -241,22 +241,22 @@ NONAME indoor/outdoor thermometer
     """
 
     frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresh1 = cv2.threshold(frame, 60, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    ret, thresh1 = cv2.threshold(frame, 145, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
     flip_180 = cv2.rotate(thresh1, cv2.ROTATE_180)
-    im_floodfill = flip_180.copy()
+    # im_floodfill = flip_180.copy()
 
-    # Mask used to flood filling.
-    # Notice the size needs to be 2 pixels than the image.
-    h, w = thresh1.shape[:2]
-    mask = np.zeros((h + 2, w + 2), np.uint8)
+    # # Mask used to flood filling.
+    # # Notice the size needs to be 2 pixels than the image.
+    # h, w = thresh1.shape[:2]
+    # mask = np.zeros((h + 2, w + 2), np.uint8)
 
-    # Floodfill from point (0, 0)
-    cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+    # # Floodfill from point (0, 0)
+    # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
 
     # cv2.imshow("flood", im_floodfill)
     # cv2.waitKey(1)
 
-    return im_floodfill
+    return flip_180
 
 
 def image_device_5(img):
