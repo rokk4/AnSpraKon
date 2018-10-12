@@ -86,7 +86,7 @@ The BASE-TECH Thermometer
     #                            cv2.THRESH_BINARY, 11, 2)
 
     # Copy the thresholded image.
-    ret, thresh1 = cv2.threshold(gray.copy(), 70, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
+    ret, thresh1 = cv2.threshold(gray.copy(), 80, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
     im_floodfill = thresh1.copy()
 
     # Mask used to flood filling.
@@ -116,14 +116,18 @@ The BASE-TECH Thermometer
                                   right=border_size,
                                   borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
 
-    # Display images
-    # cv2.imshow("Thresholded Image", thresh1)
-    # cv2.imshow("Floodfilled Image", im_floodfill)
-    # cv2.imshow("Inverted Floodfilled Image", im_floodfill_inv)
-    # cv2.imshow("Foreground", bordered)
-    # cv2.waitKey(1)
 
-    return bordered
+    kernel_1 = np.ones((4, 4), np.uint8)
+    thresh1_dilated = cv2.dilate(thresh1, kernel_1, iterations=2)
+
+    # Display images
+    cv2.imshow("Thresholded Image", thresh1)
+    cv2.imshow("Thres Dilated", thresh1_dilated)
+    # cv2.imshow("Inverted Floodfilled Image", im_floodfill_inv)
+    cv2.imshow("Foreground", bordered)
+    cv2.waitKey(1)
+
+    return thresh1_dilated
 
 
 # Device ID 2
