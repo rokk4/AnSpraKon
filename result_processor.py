@@ -207,8 +207,22 @@ IDR radio alarm
     for result in rois_processed[0]:
         print(result)
 
-
     results_processed = None
+
+    first_digits = re.sub("[^0-9]", "", str(rois_processed[0][0]).rstrip())
+    second_digits = re.sub("[^0-9]", "", str(rois_processed[0][1]).rstrip())
+
+    if rois_processed[1][0]:
+        results_processed = first_digits + ":" + second_digits + " Uhr"
+
+    if rois_processed[1][3] or rois_processed[1][4]:
+        results_processed = str(results_processed) + " Alarm 1 an."
+
+    if rois_processed[1][5] or rois_processed[1][6]:
+        results_processed = str(results_processed) + " Alarm 2 an."
+
+    if rois_processed[1][2]:
+        results_processed = first_digits + second_digits[0] + "." + second_digits[1] + " Mhz"
 
     return results_processed
 
@@ -247,7 +261,6 @@ def process_results_device_10(rois_processed):
         results_processed += "°C."
 
     return results_processed
-
 
 
 def process_results_device_11(rois_processed):
@@ -304,9 +317,10 @@ Bloodpressure
 
     if len(diastolic_digits) > 1:
         results_processed = "Blutdruck " + str(systolic_digits) + " zu " + str(diastolic_digits) + " . " + "Puls: " \
-                        + str(heartrate)
+                            + str(heartrate)
 
     return results_processed
+
 
 def process_results_device_13(rois_processed):
     """
@@ -319,12 +333,8 @@ Dummy Device
     digits = re.sub('[^0-9]', '', rois_processed[0][0].rstrip())
     temp_result_pattern = re.compile("\d?\d")
 
-
-
-
-
-
     return results_processed
+
 
 def process_results_device_XX(rois_processed):
     """

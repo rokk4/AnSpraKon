@@ -16,6 +16,14 @@
 import cv2
 import numpy as np
 
+def print_mouse_coords(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        print("[" + str(x) + ", " + str(y) + "]")
+
+    if event == cv2.EVENT_RBUTTONDBLCLK:
+        r = cv2.selectROI(warped)
+        print("[" + str(r[1]) + ":" + str(r[1] + r[3]) + ", " + str(r[0]) + ":" + str(r[0] + r[2]) + "]")
+
 
 def roi_device_0(img):
     """
@@ -303,6 +311,10 @@ IDR radio alarmclock
     :param imgs:
     :return:
     """
+    #
+    # cv2.namedWindow("1", cv2.WINDOW_GUI_EXPANDED)
+    #
+    # cv2.setMouseCallback("1", print_mouse_coords)
 
     kernel_1 = np.ones((3, 3), np.uint8)
 
@@ -310,7 +322,7 @@ IDR radio alarmclock
     digits_3_4 = img[1][1:160, 311:595].copy()
 
     double_dot_lower = img[1][99:126, 275:307].copy()
-    double_dot_upper = img[1][36:68, 284:317].copy()
+    double_dot_upper = img[1][10:68, 300:317].copy()
 
     decimal_dot = img[1][127:158, 437:479].copy()
 
@@ -332,12 +344,16 @@ IDR radio alarmclock
                         left_point_2, left_point_3,
                         right_point_1, right_point_2, right_point_3]
 
-    cv2.imshow("1", digits_1_2)
-    cv2.imshow("2", digits_3_4)
+    # cv2.imshow("1", digits_1_2)
+    # cv2.imshow("2", digits_3_4)
     # cv2.imshow("3", right_point_3)
-    # cv2.imshow("4", double_dot_upper)
     # cv2.imshow("5", double_dot_lower)
-    cv2.waitKey(1)
+    # cv2.imshow("6", left_point_2)
+    # cv2.imshow("7", left_point_3)
+    # cv2.imshow("8", right_point_2)
+    # cv2.imshow("9", right_point_1)
+    # cv2.imshow("10", )
+    # cv2.waitKey(1)
 
     return [ocr_rois, feat_detect_rois]
 

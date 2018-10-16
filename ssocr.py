@@ -163,8 +163,9 @@ IDR alarm-clock    :param rois:
     """
     device_ssocr_args = [
         "-d", "-1",
-        "-i", "3",
-        "-n", "10",
+        # "-i", "3",
+        # "-n", "10",
+        "-m", "20",
         "-c", "digits"
         "-C"
 

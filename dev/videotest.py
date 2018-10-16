@@ -27,7 +27,7 @@ def print_mouse_coords(event, x, y, flags, param):
         print("[" + str(x) + ", " + str(y) + "]")
 
     if event == cv2.EVENT_RBUTTONDBLCLK:
-        r = cv2.selectROI(warped)
+        r = cv2.selectROI(img[1])
         print("[" + str(r[1]) + ":" + str(r[1] + r[3]) + ", " + str(r[0]) + ":" + str(r[0] + r[2]) + "]")
 
 

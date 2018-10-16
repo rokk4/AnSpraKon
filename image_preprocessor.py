@@ -116,7 +116,6 @@ The BASE-TECH Thermometer
                                   right=border_size,
                                   borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
 
-
     kernel_1 = np.ones((4, 4), np.uint8)
     thresh1_dilated = cv2.dilate(thresh1, kernel_1, iterations=2)
 
@@ -346,7 +345,7 @@ IDF radio-alarm
     kernel_1 = np.ones((3, 3), np.uint8)
     dilated = cv2.dilate(warped, kernel_1, iterations=1)
 
-    processed = [ thresh1, dilated]
+    processed = [thresh1, dilated]
 
     return processed
 
@@ -426,6 +425,7 @@ SEVERIN Microwave
 
     return warped
 
+
 # Device ID 12
 def image_device_12(img):
     """
@@ -455,6 +455,7 @@ Bloodpressure
 
     return bordered
 
+
 # Device ID 0
 def image_device_13(img):
     """
@@ -470,9 +471,6 @@ BASETECH piggybank
     m = cv2.getPerspectiveTransform(pts1, pts2)
     warped = cv2.warpPerspective(gray, m, (width, height))
     ret, thresh1 = cv2.threshold(warped, 55, 255, cv2.ADAPTIVE_THRESH_MEAN_C)
-
-
-
 
     cv2.imshow("warped", warped)
     cv2.imshow("thresh", thresh1)
