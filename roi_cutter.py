@@ -370,6 +370,13 @@ def roi_device_9(img):
     double_dot_lower = img[125:146, 299:319].copy()
     double_dot_upper = img[46:75, 298:328].copy()
 
+    # cv2.imshow("1", img)
+    # cv2.imshow("2", digit_1_2)
+    # cv2.imshow("3", digit_3_4)
+    # cv2.imshow("4", double_dot_lower)
+    # cv2.imshow("5", double_dot_upper)
+    # cv2.waitKey(1)
+
     ocr_rois = [digit_1_2, digit_3_4]
     feat_detect_rois = [double_dot_lower, double_dot_upper]
     return [ocr_rois, feat_detect_rois]

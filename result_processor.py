@@ -239,6 +239,13 @@ SCHNEIDER Microwave
     for result in rois_processed[0]:
         print(result)
 
+    defrost_pattern = re.compile('^d')
+    power_pattern = re.compile('$p')
+    read_result = rois_processed[0][0].rstrip() + rois_processed[0][1].rstrip()
+
+    print(read_result + "AHOI")
+
+
     return results_processed
 
 

@@ -359,7 +359,7 @@ Schneider Mikrowelle
     """
     flipped = cv2.rotate(img, cv2.ROTATE_180)
     gray = cv2.cvtColor(flipped.copy(), cv2.COLOR_BGR2GRAY)
-    ret, thresh1 = cv2.threshold(gray[109:287, 19:626].copy(), 127, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
+    ret, thresh1 = cv2.threshold(gray[109:287, 19:626].copy(), 80, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C)
 
     # Mask used to flood filling.
     # Notice the size needs to be 2 pixels than the image.
@@ -376,11 +376,18 @@ Schneider Mikrowelle
     shape_m = cv2.getPerspectiveTransform(shape_pts1, shape_pts2)
     shape_dst = cv2.warpPerspective(im_floodfill, shape_m, (shape_width, shape_height))
 
+    kernel = np.ones((4, 4), np.uint8)
+
+    shape_dilated = cv2.dilate(shape_dst, kernel, iterations=1)
+
     border_size = 10
     white = [255, 255, 255]
-    shape_bordered = cv2.copyMakeBorder(shape_dst, top=border_size, bottom=border_size, left=border_size,
+    shape_bordered = cv2.copyMakeBorder(shape_dilated, top=border_size, bottom=border_size, left=border_size,
                                         right=border_size,
                                         borderType=cv2.BORDER_CONSTANT, value=white)
+
+    # cv2.imshow("1", shape_bordered)
+    # cv2.waitKey(1)
 
     return shape_bordered
 

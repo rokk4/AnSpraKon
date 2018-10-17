@@ -181,13 +181,11 @@ Schneider Microwave
     :return: call of call_ssocr with the ssocr arguments matching the device
     """
     device_ssocr_args = [
-        "-D",
         "-d", "-1",
-        "-i", "3",
-        "-n", "10",
+        # "-i", "3",
+        # "-n", "10",
         # "-r", "7"
-        "-C",
-        "remove_isolated"
+        "-C"
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]
