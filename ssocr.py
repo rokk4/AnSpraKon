@@ -78,10 +78,12 @@ Beurer Humanscale
     """
     device_ssocr_args = [
         "-d", "-1",
-        "-i", "3",
-        "-n", "5",
-        "-r", "800",
-        "-C"
+        # "-i", "3",
+        # "-n", "5",
+        # "-r", "800",
+        "-m", "400"
+        "-C",
+        "-c", "digits"
     ]
 
     return [call_ssocr.multicall_ssocr(rois[0], device_ssocr_args), rois[1]]

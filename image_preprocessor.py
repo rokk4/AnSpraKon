@@ -190,7 +190,7 @@ BEURER Human Scale
 
     # Floodfill from point (0, 0)
     # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
-    # cv2.imshow("flood", im_floodfill)
+    cv2.imshow("flood", im_floodfill)
 
     floodfilled_height, floodfilled_width = im_floodfill.shape
     pts1 = np.float32([[58, 24], [588, 33], [22, 264], [550, 273]])
@@ -205,36 +205,13 @@ BEURER Human Scale
                                   right=border_size,
                                   borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
 
-    # find all your connected components (white blobs in your image)
-    nb_components, output, stats, centroids = cv2.connectedComponentsWithStats(bordered, connectivity=8)
-    # connectedComponentswithStats yields every seperated component with information on each of them, such as size
-    # the following part is just taking out the background which is also considered a component, but most of the time we don't want that.
-    sizes = stats[0:, -1];
-    nb_components = nb_components
+    kernel = np.ones((4, 4), np.uint8)
 
-    # minimum size of particles we want to keep (number of pixels)
-    # here, it's a fixed value, but you can set it as you want, eg the mean of the sizes or whatever
-    min_size = 200
+    bordered_dilated = cv2.dilate(bordered, kernel, iterations=1)
 
-    # your answer image
-    img2 = np.zeros((output.shape))
-    # for every component in the image, you keep it only if it's above min_size
-    for i in range(0, nb_components):
-        if sizes[i] >= min_size:
-            img2[output == i + 1] = 255
-
-    # nb_components2, output2, stats2, centroids2 = cv2.connectedComponentsWithStats(img2, connectivity=8)
-    # sizes2 = stats2[0:, -1]; nb_components2 = nb_components2
-    # min_size = 100
-    # img3 = np.zeros((output2.shape))
-    #
-    # for i in range(0, nb_components2):
-    #     if sizes2[i] >= min_size:
-    #         img3[output2 == i + 1] = 255
-
-    # cv2.imshow("trans", bordered)
-    # cv2.waitKey(1)
-    return bordered.copy()
+    cv2.imshow("trans", bordered_dilated)
+    cv2.waitKey(1)
+    return bordered_dilated.copy()
 
 
 def image_device_4(img):

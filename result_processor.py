@@ -70,22 +70,10 @@ Beurer humanscale
     :param rois_processed:
     :return:
     """
-    weight_result_pattern = re.compile("\d\d\d")
-    results_processed = rois_processed[0][0].rstrip()
-    regex_result = weight_result_pattern.search(results_processed)
-    if regex_result is None:
-        results_processed = None
-    else:
-        results_processed = regex_result.group(0)
 
-    if results_processed == "1" \
-            or results_processed == "11" \
-            or results_processed == "111" \
-            or results_processed == "1111" \
-            or results_processed == "118" \
-            or results_processed == "18" \
-            or results_processed == "181":
-        results_processed = None
+    print(rois_processed[0][0].rstrip())
+    results_processed = rois_processed[0][0].rstrip()
+    results_processed = re.sub('[^0-9]', '', results_processed)
 
     if results_processed is not None:
         if len(results_processed) >= 2:
@@ -244,7 +232,6 @@ SCHNEIDER Microwave
     read_result = rois_processed[0][0].rstrip() + rois_processed[0][1].rstrip()
 
     print(read_result + "AHOI")
-
 
     return results_processed
 
