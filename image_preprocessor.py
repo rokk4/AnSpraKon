@@ -190,7 +190,7 @@ BEURER Human Scale
 
     # Floodfill from point (0, 0)
     # cv2.floodFill(im_floodfill, mask, (0, 0), 255)
-    cv2.imshow("flood", im_floodfill)
+    # cv2.imshow("flood", im_floodfill)
 
     floodfilled_height, floodfilled_width = im_floodfill.shape
     pts1 = np.float32([[58, 24], [588, 33], [22, 264], [550, 273]])
@@ -209,8 +209,8 @@ BEURER Human Scale
 
     bordered_dilated = cv2.dilate(bordered, kernel, iterations=1)
 
-    cv2.imshow("trans", bordered_dilated)
-    cv2.waitKey(1)
+    # cv2.imshow("trans", bordered_dilated)
+    # cv2.waitKey(1)
     return bordered_dilated.copy()
 
 
