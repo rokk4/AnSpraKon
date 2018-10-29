@@ -224,14 +224,41 @@ SCHNEIDER Microwave
     """
     results_processed = None
 
-    for result in rois_processed[0]:
-        print(result)
-
-    defrost_pattern = re.compile('^d')
-    power_pattern = re.compile('$p')
+    defrost_pattern = re.compile('^d\d?')
+    power_pattern = re.compile('\d?\d\dp')
     read_result = rois_processed[0][0].rstrip() + rois_processed[0][1].rstrip()
 
-    print(read_result + "AHOI")
+    print(read_result)
+
+    if defrost_pattern.search(read_result):
+        if read_result == "d1":
+            results_processed = "Entfrosten Programm 1."
+            return results_processed
+        if read_result == "d2":
+            results_processed = "Entfrosten Programm 2."
+            return results_processed
+        if read_result == "d3":
+            results_processed = "Entfrosten Programm 3."
+            return results_processed
+
+    if power_pattern.search(read_result):
+        if read_result == "100p":
+            results_processed = "Leistung 100"
+            return results_processed
+        if read_result == "80p":
+            results_processed = "Leistung 80"
+            return results_processed
+        if read_result == "60p":
+            results_processed = "Leistung 60"
+            return results_processed
+        if read_result == "40p":
+            results_processed = "Leistung 40"
+            return results_processed
+        if read_result == "20p":
+            results_processed = "Leistung 20"
+            return results_processed
+
+    results_processed = "Noch " + read_result[:-2] + " Minugit ten und " + read_result[-2:] + " Sekunden."
 
     return results_processed
 

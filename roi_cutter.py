@@ -16,6 +16,7 @@
 import cv2
 import numpy as np
 
+
 def print_mouse_coords(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         print("[" + str(x) + ", " + str(y) + "]")
@@ -115,17 +116,12 @@ NONAME indoor/outdoor thermometer
                                                  borderType=cv2.BORDER_CONSTANT, value=[255, 255, ])
     # cv2.imshow("bordered warp outdoor", outdoor_warped_bordered)
 
-
     kernel_2 = np.ones((3, 3), np.uint8)
     indoor_warped_bordered_dilated = cv2.dilate(indoor_warped_bordered, kernel_2, iterations=1)
     outdoor_warped_bordered_dilated = cv2.dilate(outdoor_warped_bordered, kernel_2, iterations=1)
 
     # cv2.imshow("bordered warp indoor dil", indoor_warped_bordered_dilated)
     # cv2.imshow("bordered warp outdoor dil", outdoor_warped_bordered_dilated)
-
-
-
-
 
     # cv2.waitKey(1)
 
@@ -224,7 +220,6 @@ NONAME thermo-hygro
     kernel_1 = np.ones((5, 5), np.uint8)
     temp_bordered_dilated = cv2.dilate(temp_bordered, kernel_1, iterations=2)
     humidity_bordered_dilated = cv2.dilate(humidity_bordered, kernel_1, iterations=2)
-
 
     # cv2.imshow("temp dilated", temp_bordered_dilated)
     # cv2.imshow("humidity dilated", humidity_bordered_dilated)

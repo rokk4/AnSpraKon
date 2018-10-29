@@ -347,13 +347,13 @@ Schneider Mikrowelle
     im_floodfill = thresh1.copy()
     cv2.floodFill(im_floodfill, mask, (0, 0), 255)
 
-    shape_height, shape_width = im_floodfill.shape
+    shape_height, shape_width = thresh1.shape
     shape_pts1 = np.float32([[39, 14], [591, 15], [10, 173], [570, 171]])
     shape_pts2 = np.float32([[0, 0], [shape_width, 0], [0, shape_height], [shape_width, shape_height]])
     shape_m = cv2.getPerspectiveTransform(shape_pts1, shape_pts2)
-    shape_dst = cv2.warpPerspective(im_floodfill, shape_m, (shape_width, shape_height))
+    shape_dst = cv2.warpPerspective(thresh1, shape_m, (shape_width, shape_height))
 
-    kernel = np.ones((4, 4), np.uint8)
+    kernel = np.ones((5, 5), np.uint8)
 
     shape_dilated = cv2.dilate(shape_dst, kernel, iterations=1)
 
