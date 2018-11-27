@@ -216,7 +216,6 @@ IDR radio alarm
 
 
 def process_results_device_9(rois_processed):
-    # TODO: Process results
     """
 SCHNEIDER Microwave
     :param rois_processed:
@@ -226,11 +225,12 @@ SCHNEIDER Microwave
 
     defrost_pattern = re.compile('^d\d?')
     power_pattern = re.compile('\d?\d\dp')
+    time_pattern = re.compile('\d?\d\d\d')
     read_result = rois_processed[0][0].rstrip() + rois_processed[0][1].rstrip()
 
     print(read_result)
 
-    if defrost_pattern.search(read_result):
+    if defrost_pattern.match(read_result):
         if read_result == "d1":
             results_processed = "Entfrosten Programm 1."
             return results_processed
@@ -241,7 +241,7 @@ SCHNEIDER Microwave
             results_processed = "Entfrosten Programm 3."
             return results_processed
 
-    if power_pattern.search(read_result):
+    if power_pattern.match(read_result):
         if read_result == "100p":
             results_processed = "Leistung 100"
             return results_processed
@@ -258,7 +258,9 @@ SCHNEIDER Microwave
             results_processed = "Leistung 20"
             return results_processed
 
-    results_processed = "Noch " + read_result[:-2] + " Minugit ten und " + read_result[-2:] + " Sekunden."
+    if time_pattern.match(read_result):
+        results_processed = "Noch " + read_result[:-2] + " Minuten und " + read_result[-2:] + " Sekunden."
+        return results_processed
 
     return results_processed
 
@@ -285,7 +287,6 @@ def process_results_device_10(rois_processed):
 
 
 def process_results_device_11(rois_processed):
-    # TODO: Process results
     """
 SEVERIN Microwave
     :param rois_processed:
@@ -318,8 +319,6 @@ SEVERIN Microwave
     #
     # if not double_dot_upper and not double_dot_lower:
     #     return digits_1_2 + ":" + digits_3_4 + " Uhr."
-
-    # TODO: How the fuck does the microwave work? How to start a Programm?
 
     return results_processed
 
