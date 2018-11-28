@@ -14,7 +14,7 @@ The provided ArchARM image is an usable example for the RPi 1 Modell A+.
 # Dependencies
 * Python3
 * OpenCV 3
-* [SSOCR](https://github.com/auerswal/ssocr)
+* ssocr [Official ssocr Website](http://www.unix-ag.uni-kl.de/~auerswal/ssocr/) [Github Mirror](https://github.com/auerswal/ssocr)
 * [nano-tts](https://github.com/gmn/nanotts)
 
 # Usage
