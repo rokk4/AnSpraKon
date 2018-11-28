@@ -5,7 +5,8 @@ AnSpraKon is developed by [AG Koch -Semiconductor Photonics](https://www.uni-mar
 
 
 
-AnSpraKon is thought to be used with SBC's.
+AnSpraKon is thought to be used on SBCs like the RPi. The SBC and camera are attached to the device with an 3D-printed fitting, 
+which were specifically designed for each device.
 
 
 
@@ -14,7 +15,7 @@ The provided ArchARM image is an usable example for the RPi 1 Modell A+.
 # Dependencies
 * Python3
 * OpenCV 3
-* ssocr [Official ssocr Website](http://www.unix-ag.uni-kl.de/~auerswal/ssocr/) [Github Mirror](https://github.com/auerswal/ssocr)
+* ssocr [official ssocr Website](http://www.unix-ag.uni-kl.de/~auerswal/ssocr/) [Github Mirror](https://github.com/auerswal/ssocr)
 * [nano-tts](https://github.com/gmn/nanotts)
 
 # Usage
